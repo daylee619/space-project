@@ -8,13 +8,14 @@ interface IProductItemProps {
     imgHeight?: string,
     menuWidth?: string,
     imgUrl?: string,
-    data?: string[] | undefined
+    data?: string[] | undefined,
+    bottom?: string
 }
 
 const ProductItem = (props: IProductItemProps) => {
 
     // 전달 받는 값 
-    const { imgWidth, imgHeight, menuWidth, imgUrl, data } = props
+    const { imgWidth, imgHeight, menuWidth, imgUrl, data, bottom } = props
 
     const [imgHoverState, setImgHoverState] = useState(false)
     const [menu, setMenu] = useState(false)
@@ -42,7 +43,7 @@ const ProductItem = (props: IProductItemProps) => {
                     alt='alt'
                 />
                 {imgHoverState &&
-                    <Div onMouseLeave={bolHandler} imgWidth={imgWidth} imgHeight={imgHeight}>
+                    <Div onMouseLeave={bolHandler} imgWidth={imgWidth} imgHeight={imgHeight} bottom={bottom}>
                         <MenuIcon onClick={clickHandler} />
                         {menu &&
                             <Menu menuWidth={menuWidth}>
@@ -63,7 +64,8 @@ interface ICssProps {
     onMouseLeave?: () => void,
     imgWidth?: string,
     imgHeight?: string,
-    menuWidth?: string
+    menuWidth?: string,
+    bottom?: string
 }
 
 const Frame = keyframes`
@@ -78,16 +80,17 @@ const Frame = keyframes`
 `
 
 const Img = styled.img`
-    position: absolute;
+    position: relative;
     width: ${(props: ICssProps) => props.imgWidth ? props.imgWidth : '400px'};
     height: ${(props: ICssProps) => props.imgHeight ? props.imgHeight : '700px'};
 `
 
 const Div = styled.div`
-    position: absolute;
+    position: relative;
+    bottom: ${(props: ICssProps) => props.bottom ? props.bottom : '700px'};;
     width: ${(props: ICssProps) => props.imgWidth ? props.imgWidth : '400px'};
     height: ${(props: ICssProps) => props.imgHeight ? props.imgHeight : '700px'};
-    background: rgba(0. 0. 0. 0.5%);
+    background-color: rgba(255, 255, 255, 0.2);
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
