@@ -78,7 +78,7 @@ const SignUp = () => {
                 </div>
                 <div>
                     <div>
-                        <img src={imgView ?? '/images/user.png'} />
+                        <S.ProFileImg src={imgView ?? '/images/userIconImg.png'} />
                     </div>
                     <div>
                         <S.ProFileImgLabel htmlFor='propfileImg'>프로필 이미지 추가</S.ProFileImgLabel>
