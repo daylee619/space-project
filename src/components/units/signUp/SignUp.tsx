@@ -2,6 +2,21 @@ import axios from 'axios'
 import { useRef, useState } from 'react'
 import * as S from './SignUp.style'
 
+interface IPostDataType {
+    name?: string;
+    password?: string;
+    email: string;
+    birthday?: string;
+    nickname?: string;
+    thumbnail: string;
+    gender?: 'male' | 'female';
+    phone?: string;
+    address?: string;
+    detail_address?: string;
+    zip_code?: string;
+}
+
+
 const SignUp = () => {
     // type 수정
     // 보여지는 이미지 저장 
@@ -10,7 +25,6 @@ const SignUp = () => {
     const imgRef = useRef<any>(null)
     // 보내는 이미지 파일 저장
     const [postFile, setPostFile] = useState<any>(null)
-
 
     const changeHandler = () => {
         setPostFile(imgRef.current?.files[0])
@@ -23,37 +37,30 @@ const SignUp = () => {
     }
 
     const filePostHandler = async () => {
-        const formData = new FormData();
-        formData.append('file', postFile);
         try {
-            await axios.post('api', {
-                formData
-            })
+            await axios.post('http://192.168.232.162:3000/user/create',
+                {
+                    name: "name",
+                    password: 'password',
+                    email: 'email',
+                    birthday: 'birthday',
+                    nickname: 'nickname',
+                    thumbnail: postFile,
+                    gender: 'male',
+                    phone: 'phone',
+                },
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                }
+            )
                 .then(res => { console.log(res); })
                 .then(data => { console.log(data); })
         } catch (error) {
             console.log(error)
         }
     }
-
-    // const [imgFile2, setImgFile2] = useState(null)
-
-    // const changeHandler = (e) => {
-    //     setImgFile2(e.target.files[0])
-    // }
-
-    // const fileHandler = (e) => {
-    //     const formData = new FormData();
-    //     formData.append('file', imgFile2);
-
-    //     axios.post('/api/upload', {
-    //         formData,
-    //         input: 'aa',
-    //         aInput: 'bb'
-    //     })
-    //     .then(res => {})
-    // }
-
 
     return (
         <div>
@@ -88,9 +95,9 @@ const SignUp = () => {
             <div>
                 <span>성별</span>
                 <label>남성</label>
-                <input type='checkbox' />
+                <input type='checkbox' value='male' />
                 <label>여성</label>
-                <input type='checkbox' />
+                <input type='checkbox' value='female' />
             </div>
             <div>
                 <button onClick={filePostHandler}>회원가입</button>
