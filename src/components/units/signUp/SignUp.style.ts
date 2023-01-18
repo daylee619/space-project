@@ -14,3 +14,13 @@ export const UpperBox = styled.div``
 export const MiddleBox = styled.div``
 
 export const BottomBox = styled.div``
+
+export const ProFileImgLabel = styled.label`
+  color: #0095f6;
+  cursor: pointer;
+  display: inline-block;
+`
+
+export const ProFileImgInput = styled.input`
+  display: none;
+`
