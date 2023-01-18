@@ -34,7 +34,7 @@ const ProductItem = (props: IProductItemProps) => {
 
     return (
         <>
-            <div>
+            <Box imgHeight={imgHeight}>
                 <Img
                     imgWidth={imgWidth}
                     imgHeight={imgHeight}
@@ -52,7 +52,7 @@ const ProductItem = (props: IProductItemProps) => {
                         }
                     </Div>
                 }
-            </div>
+            </Box>
         </>
     )
 }
@@ -79,18 +79,23 @@ const Frame = keyframes`
         }
 `
 
-const Img = styled.img`
+const Box = styled.div`
     position: relative;
+    height: ${(props: ICssProps) => props.imgHeight ? props.imgHeight : '700px'};
+`
+
+const Img = styled.img`
+    /* position: relative; */
     width: ${(props: ICssProps) => props.imgWidth ? props.imgWidth : '400px'};
     height: ${(props: ICssProps) => props.imgHeight ? props.imgHeight : '700px'};
 `
 
 const Div = styled.div`
     position: relative;
-    bottom: ${(props: ICssProps) => props.bottom ? props.bottom : '700px'};;
+    bottom: ${(props: ICssProps) => props.bottom ? props.bottom : '700px'};
     width: ${(props: ICssProps) => props.imgWidth ? props.imgWidth : '400px'};
     height: ${(props: ICssProps) => props.imgHeight ? props.imgHeight : '700px'};
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
