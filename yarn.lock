@@ -2697,7 +2697,7 @@ rc-overflow@^1.0.0, rc-overflow@^1.2.8:
     rc-resize-observer "^1.0.0"
     rc-util "^5.19.2"
 
-rc-pagination@~3.2.0:
+rc-pagination@^3.2.0, rc-pagination@~3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/rc-pagination/-/rc-pagination-3.2.0.tgz#4f2fdba9fdac0f48e5c9fb1141973818138af7e1"
   integrity sha512-5tIXjB670WwwcAJzAqp2J+cOBS9W3cH/WU1EiYwXljuZ4vtZXKlY2Idq8FZrnYBz8KhN3vwPo9CoV/SJS6SL1w==

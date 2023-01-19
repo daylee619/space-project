@@ -1,11 +1,14 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable array-callback-return */
 import axios from "axios"
-import { HeartOutlined } from "@ant-design/icons"
-import { useEffect, useState } from "react"
+import { HeartOutlined, HeartFilled } from "@ant-design/icons"
+import React, { useEffect, useState } from "react"
 import ProductItem from "../../../common/libraries/productItem/ProductItem"
 import styled from "@emotion/styled"
 
 export default function ProductList() {
   const [data, setData] = useState([])
+  //   const [heart, setHeart] = useState(false)
 
   useEffect(() => {
     axios.get("./data/productlist.json").then((res) => {
@@ -14,58 +17,181 @@ export default function ProductList() {
   }, [])
 
   //   console.log(data)
+  //   const onClickHeart = (e) => {
+  //     setHeart((prev) => !prev)
+  //   }
 
-  const dataBox = data.map((el) => el.color.map((el) => el.size))
-  console.log(dataBox)
+  const [countIndex, setCountIndex] = useState()
+  const handleOnClick = (e, idx) => {
+    setCountIndex(idx)
+  }
+
+  // menu option function
+  const optionBox = []
+  const size = []
+  const optionTotal = []
+  const optionFn = data.forEach((el) =>
+    el.color.map((item) => {
+      optionBox.push(`(${item.colorId})${item.colorName} / Size : `)
+      item?.size?.forEach((element) => size.push(element.sizeName))
+    })
+  )
+  for (let i = 0; i < optionBox.length; i++) {
+    optionTotal.push(optionBox[i] + size[i])
+  }
+
   return (
-    <>
-      <div>Women</div>
+    <ProductListWrapper>
+      <MenuTitle>Women</MenuTitle>
+      <Category>
+        <MenuCategoryBox>
+          <MenuCategoryList>신상품</MenuCategoryList>
+          <MenuCategoryList>상품명</MenuCategoryList>
+          <MenuCategoryList>낮은가격</MenuCategoryList>
+          <MenuCategoryList>높은가격</MenuCategoryList>
+          <MenuCategoryList>제조사</MenuCategoryList>
+          <MenuCategoryList>인기상품</MenuCategoryList>
+          <MenuCategoryList>사용후기</MenuCategoryList>
+          <MenuCategoryList>조회수</MenuCategoryList>
+          <MenuCategoryList>좋아요</MenuCategoryList>
+        </MenuCategoryBox>
+        <ItemNumber>872 Items</ItemNumber>
+      </Category>
       <div
         style={{
           display: "flex",
           flexDirection: "row",
-          width: "985px",
+          width: "980px",
           flexWrap: "wrap",
         }}
       >
-        {data.map((el) => (
+        {data.map((el, idx) => (
           <div
             key={el.id}
             style={{ margin: "10px" }}
           >
             <ProductItem
-              imgWidth="300px"
+              imgWidth="280px"
               imgHeight="400px"
-              menuWidth="150px"
-              bottom="400px"
+              menuWidth="200px"
+              bottom="403px"
               imgUrl={el.thumbnail}
-              data={dataBox}
+              data={optionTotal}
             />
-            <div>
-              <ItemName>{el.name}</ItemName>
-              <HeartOutlined />
+            <ItemDescription>
+              <ItemTitle>
+                <ItemName>{el.name}</ItemName>
+                <HeartButton onClick={(e) => handleOnClick(e, idx)}>
+                  {countIndex === idx ? (
+                    <HeartFilled style={{ color: "red" }} />
+                  ) : (
+                    <HeartOutlined />
+                  )}
+                </HeartButton>
+              </ItemTitle>
+
               <ItemPrice>{el.price}</ItemPrice>
-              <div>
+              <ColorDisplay>
                 {el.color.map((el) => (
-                  <div key={el.id}>{el.colorId}</div>
+                  <Color
+                    color={el.colorName}
+                    key={el.id}
+                  ></Color>
                 ))}
-              </div>
-              <div>리뷰 0건</div>
-            </div>
+              </ColorDisplay>
+              <Review>리뷰 0건</Review>
+            </ItemDescription>
           </div>
         ))}
       </div>
-    </>
+    </ProductListWrapper>
   )
 }
+export const ProductListWrapper = styled.div`
+  float: right;
+  font-family: "Poppins", "Noto Sans KR", Verdana, Dotum, AppleGothic,
+    sans-serif;
+  width: 78%;
+  margin-top: 100px;
+`
+export const MenuTitle = styled.div`
+  margin: 15px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 500;
+  color: #1a1a1a;
+`
 
+export const Category = styled.div`
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid #e5e5e5;
+  width: 878px;
+  margin-left: 10px;
+  margin-bottom: 35px;
+`
+
+export const MenuCategoryBox = styled.ul`
+  display: flex;
+  width: 76%;
+  float: left;
+  padding: 10px;
+`
+export const MenuCategoryList = styled.li`
+  font-size: 12px;
+  font-weight: 400;
+  color: #707070;
+  margin-right: 20px;
+  cursor: pointer;
+`
+
+export const ItemNumber = styled.div`
+  /* width: 50%; */
+  font-size: 12px;
+  color: #707070;
+  border-left: 1px solid #e5e5e5;
+
+  margin-left: 35px;
+  padding: 10px;
+`
+
+export const Review = styled.div`
+  font-size: 10px;
+  color: #9a9a9a;
+  margin-top: 10px;
+`
+export const ItemDescription = styled.div`
+  padding: 20px 0;
+`
+export const ItemTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 export const ItemName = styled.div`
-  font-size: 16px;
+  font-size: 12px;
   color: #1a1a1a;
   font-family: "Poppins", "Noto Sans KR", Verdana, Dotum, AppleGothic,
     sans-serif;
+  cursor: pointer;
 `
+
 export const ItemPrice = styled.div`
-  font-size: 22px;
+  font-size: 15px;
   font-weight: 500;
+`
+export const ColorDisplay = styled.div`
+  display: flex;
+`
+export const Color = styled.div`
+  width: 10px;
+  height: 10px;
+  background-color: ${(props) => props.color};
+  margin: 12px 0 0;
+  margin-right: 3px;
+`
+
+export const HeartButton = styled.button`
+  border: none;
+  background-color: white;
+  cursor: pointer;
 `
