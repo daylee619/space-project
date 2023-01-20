@@ -15,7 +15,7 @@ const ReviewWrite = () => {
     const postHandler = async () => {
         try {
             console.log('2', postFile)
-            await axios.post('http://172.20.10.2:3000/review/product', {
+            await axios.post('http://192.168.232.162:3000/review/product', {
                 files: postFile
             }, {
                 headers: { "Content-Type": "multipart/form-data" }
