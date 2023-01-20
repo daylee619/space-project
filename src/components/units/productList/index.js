@@ -9,6 +9,7 @@ import { Pagination } from "antd"
 
 export default function ProductList() {
   const [data, setData] = useState([])
+  console.log(data)
   const [wish, setWist] = useState([])
   //   const [check, setCheck] = useState(false)
   //   const wishHandler = (e) => {
@@ -21,9 +22,12 @@ export default function ProductList() {
   //   }
 
   useEffect(() => {
-    axios.get("./data/productlist.json").then((res) => {
-      setData(res.data)
-    })
+    // axios
+    //   .get("/data/finish.json")
+    //   .then((res) => {
+    //     setData(res.data.result)
+    //   })
+    //   .catch((error) => console.log(error))
     getData()
   }, [])
 
@@ -31,6 +35,7 @@ export default function ProductList() {
     try {
       axios.get(`http://172.20.10.7:3000/product/list?offset=1`).then((res) => {
         console.log(res)
+        setData(res.data.result)
       })
     } catch (error) {
       console.log(error)
