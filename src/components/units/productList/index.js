@@ -24,7 +24,18 @@ export default function ProductList() {
     axios.get("./data/productlist.json").then((res) => {
       setData(res.data)
     })
+    getData()
   }, [])
+
+  const getData = async () => {
+    try {
+      axios.get(`http://172.20.10.7:3000/product/list?offset=1`).then((res) => {
+        console.log(res)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const [countIndex, setCountIndex] = useState()
   const handleOnClick = (e, idx) => {
