@@ -5,21 +5,26 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons"
 import React, { useEffect, useState } from "react"
 import ProductItem from "../../../common/libraries/productItem/ProductItem"
 import styled from "@emotion/styled"
+import { Pagination } from "antd"
 
 export default function ProductList() {
   const [data, setData] = useState([])
-  //   const [heart, setHeart] = useState(false)
+  const [wish, setWist] = useState([])
+  //   const [check, setCheck] = useState(false)
+  //   const wishHandler = (e) => {
+  //     if (check === true && !wish.includes(e.target.value)) {
+  //       setWist(wish.concat(e.target.value))
+  //     }
+  //     if (wish.includes(e.target.value)) {
+  //       setWist(wish.filter((el) => !el === e.target.value))
+  //     }
+  //   }
 
   useEffect(() => {
     axios.get("./data/productlist.json").then((res) => {
       setData(res.data)
     })
   }, [])
-
-  //   console.log(data)
-  //   const onClickHeart = (e) => {
-  //     setHeart((prev) => !prev)
-  //   }
 
   const [countIndex, setCountIndex] = useState()
   const handleOnClick = (e, idx) => {
@@ -42,77 +47,94 @@ export default function ProductList() {
 
   return (
     <ProductListWrapper>
-      <MenuTitle>Women</MenuTitle>
-      <Category>
-        <MenuCategoryBox>
-          <MenuCategoryList>신상품</MenuCategoryList>
-          <MenuCategoryList>상품명</MenuCategoryList>
-          <MenuCategoryList>낮은가격</MenuCategoryList>
-          <MenuCategoryList>높은가격</MenuCategoryList>
-          <MenuCategoryList>제조사</MenuCategoryList>
-          <MenuCategoryList>인기상품</MenuCategoryList>
-          <MenuCategoryList>사용후기</MenuCategoryList>
-          <MenuCategoryList>조회수</MenuCategoryList>
-          <MenuCategoryList>좋아요</MenuCategoryList>
-        </MenuCategoryBox>
-        <ItemNumber>872 Items</ItemNumber>
-      </Category>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          width: "980px",
-          flexWrap: "wrap",
-        }}
-      >
-        {data.map((el, idx) => (
-          <div
-            key={el.id}
-            style={{ margin: "10px" }}
-          >
-            <ProductItem
-              imgWidth="280px"
-              imgHeight="400px"
-              menuWidth="200px"
-              bottom="403px"
-              imgUrl={el.thumbnail}
-              data={optionTotal}
-            />
-            <ItemDescription>
-              <ItemTitle>
-                <ItemName>{el.name}</ItemName>
-                <HeartButton onClick={(e) => handleOnClick(e, idx)}>
-                  {countIndex === idx ? (
-                    <HeartFilled style={{ color: "red" }} />
-                  ) : (
-                    <HeartOutlined />
-                  )}
-                </HeartButton>
-              </ItemTitle>
+      <ProductListBox>
+        <MenuTitle>Women</MenuTitle>
+        <Category>
+          <MenuCategoryBox>
+            <MenuCategoryList>신상품</MenuCategoryList>
+            <MenuCategoryList>상품명</MenuCategoryList>
+            <MenuCategoryList>낮은가격</MenuCategoryList>
+            <MenuCategoryList>높은가격</MenuCategoryList>
+            <MenuCategoryList>제조사</MenuCategoryList>
+            <MenuCategoryList>인기상품</MenuCategoryList>
+            <MenuCategoryList>사용후기</MenuCategoryList>
+            <MenuCategoryList>조회수</MenuCategoryList>
+            <MenuCategoryList>좋아요</MenuCategoryList>
+          </MenuCategoryBox>
+          <ItemNumber>872 Items</ItemNumber>
+        </Category>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "980px",
+            flexWrap: "wrap",
+          }}
+        >
+          {data.map((el, idx) => (
+            <div
+              key={el.id}
+              style={{ margin: "10px" }}
+            >
+              <ProductItem
+                imgWidth="280px"
+                imgHeight="400px"
+                menuWidth="200px"
+                bottom="403px"
+                imgUrl={el.thumbnail}
+                data={optionTotal}
+              />
+              <ItemDescription>
+                <ItemTitle>
+                  <ItemName>{el.name}</ItemName>
+                  <HeartButton onClick={(e) => handleOnClick(e, idx)}>
+                    {countIndex === idx ? (
+                      <HeartFilled style={{ color: "red" }} />
+                    ) : (
+                      <HeartOutlined />
+                    )}
+                  </HeartButton>
+                </ItemTitle>
 
-              <ItemPrice>{el.price}</ItemPrice>
-              <ColorDisplay>
-                {el.color.map((el) => (
-                  <Color
-                    color={el.colorName}
-                    key={el.id}
-                  ></Color>
-                ))}
-              </ColorDisplay>
-              <Review>리뷰 0건</Review>
-            </ItemDescription>
-          </div>
-        ))}
-      </div>
+                <ItemPrice>{el.price}</ItemPrice>
+                <ColorDisplay>
+                  {el.color.map((el) => (
+                    <Color
+                      color={el.colorName}
+                      key={el.id}
+                    ></Color>
+                  ))}
+                </ColorDisplay>
+                <Review>리뷰 0건</Review>
+              </ItemDescription>
+            </div>
+          ))}
+        </div>
+      </ProductListBox>
+
+      <Pagination
+        defaultCurrent={1}
+        total={50}
+        style={{
+          marginBottom: "30px",
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      />
     </ProductListWrapper>
   )
 }
+
 export const ProductListWrapper = styled.div`
   float: right;
   font-family: "Poppins", "Noto Sans KR", Verdana, Dotum, AppleGothic,
     sans-serif;
-  width: 78%;
+  width: 100%;
   margin-top: 100px;
+`
+export const ProductListBox = styled.div`
+  float: right;
 `
 export const MenuTitle = styled.div`
   margin: 15px;
