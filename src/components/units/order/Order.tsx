@@ -11,46 +11,42 @@ import { IOrderInfoType, IOrderPostDataType } from './Order.type'
 
 
 const Order = () => {
-    // 오더 데이터 받아오는 구역
     const [orderData, setOrderData] = useState<any>([])
     const [totalPrice, setTotalPrice] = useState(0)
+    console.log('1', totalPrice)
 
-    const [orderPostData, setOrderPostData] = useState<IOrderPostDataType>({
-        writer: '',
-        email: '',
-        phone_number: '',
-        post_writer: '',
-        post_zip_code: '',
-        post_address: '',
-        post_detail_address: '',
-        post_phone_number: '',
-        message_state: '',
-        post_message: ''
-    })
-    console.log(orderPostData)
+    const [orderPostData, setOrderPostData] = useState<IOrderPostDataType>(
+        {
+            writer: '',
+            email: '',
+            phone_number: '',
+            post_writer: '',
+            post_zip_code: '',
+            post_address: '',
+            post_detail_address: '',
+            post_phone_number: '',
+            message_state: '',
+            post_message: ''
+        }
+    )
 
     const dataHandler = async () => {
         try {
-            await axios.get('/data/orderPage.json')
-                .then(res => { setOrderData(res?.data); })
-                .then(() => {
-                    if (orderData) {
-                        const temp = orderData.orderInfo?.map((el: IOrderInfoType) => el.priceByProduct)
-                        let newPrice = 0
-                        temp?.forEach((el: string) => { setTotalPrice(newPrice += Number(el)); })
-                    }
-                })
+            const data = await axios.get('/data/orderPage.json')
+            setOrderData(data.data)
+            // .then(res => { setOrderData(res?.data); })
         } catch (error) {
             console.log(error)
         }
     }
 
-    useEffect(() => {
-        dataHandler()
-        // userHandler()
-        // totalPriceHandler()
-    }, [])
+    const totalPriceHandler = () => {
+        const data = { ...orderData }
+        const temp = data.orderInfo?.map((el: IOrderInfoType) => el.priceByProduct)
+        temp?.forEach((el: string) => { setTotalPrice(prev => prev + Number(el)); })
+    }
 
+    console.log('2', totalPrice)
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setOrderPostData({ ...orderPostData, [e.target.name]: e.target.value })
@@ -59,6 +55,13 @@ const Order = () => {
     const selectHandler = (e: ChangeEvent<HTMLSelectElement>) => {
         setOrderPostData({ ...orderPostData, [e.target.name]: e.target.value })
     }
+
+    useEffect(() => {
+        dataHandler()
+        totalPriceHandler()
+    }, [])
+
+    console.log('3', totalPrice)
 
     return (
         <S.Contain>

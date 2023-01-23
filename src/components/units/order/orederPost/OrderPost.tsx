@@ -19,7 +19,7 @@ const OrderPost = (props: IOrderPostPropsType) => {
                 />
                 <S.SelectContain>
                     <S.PostMessageSelect name='message_state' onChange={props.selectHandler}>
-                        <option selected>-- 메시지 선택 (선택사항) --</option>
+                        <option>-- 메시지 선택 (선택사항) --</option>
                         <option value='배송전에 미리 연락바랍니다'>배송전에 미리 연락바랍니다.</option>
                         <option value='부재 시 경비실에 맡겨주세요'>부재 시 경비실에 맡겨주세요.</option>
                         <option value='부재 시 문 앞에 놓아주세요'>부재 시 문 앞에 놓아주세요.</option>

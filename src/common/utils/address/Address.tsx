@@ -22,21 +22,14 @@ const Address = (props: IAddressPropsType) => {
                 <S.UserInput
                     type='text'
                     name='post_writer'
-                    value={props.orderPostData.post_writer ? props.orderPostData.post_writer : props.orderData.userInfo?.name}
+                    defaultValue={props.orderData.userInfo?.name}
                     onChange={props.changeHandler}
                 />
             </S.UserBox>
             <S.ZipCodeBox>
                 <S.ZipCodeLabel>주소</S.ZipCodeLabel>
                 <S.ZipCode
-                    value=
-                    {
-                        postData?.zonecode
-                            ?
-                            postData?.zonecode
-                            :
-                            props.orderData.userInfo?.zip_code
-                    }
+                    defaultValue={props.orderData.userInfo?.zip_code}
                     name='post_zip_code'
                     onChange={props.changeHandler}
                 />
@@ -62,14 +55,16 @@ const Address = (props: IAddressPropsType) => {
             <S.DefAddressInput
                 type='text'
                 name='post_address'
-                value={postData?.address ? postData.address : props.orderData.userInfo?.address} placeholder='기본주소'
+                value={(postData?.address ? postData.address : props.orderData.userInfo?.address) || ''}
+                placeholder='기본주소'
                 onChange={props.changeHandler}
             />
             <S.NewAddressInput
                 type='text'
                 placeholder='상세 주소'
                 name='post_detail_address'
-                value={props.orderPostData.post_detail_address ? props.orderPostData.post_detail_address : props.orderData.userInfo?.detail_address}
+                // value={props.orderPostData.post_detail_address ? props.orderPostData.post_detail_address : props.orderData.userInfo?.detail_address}
+                defaultValue={props.orderData.userInfo?.detail_address}
                 onChange={props.changeHandler} />
             <S.PhoneContain>
                 <S.PhoneLabel htmlFor='phone'>휴대전화</S.PhoneLabel>
@@ -84,7 +79,7 @@ const Address = (props: IAddressPropsType) => {
                 <S.PhoneEndInput
                     type='text'
                     name='post_phone_number'
-                    value={props.orderPostData.post_phone_number ? props.orderPostData.post_phone_number : props.orderData.userInfo?.phone}
+                    defaultValue={props.orderData.userInfo?.phone}
                     onChange={props.changeHandler}
                 />
             </S.PhoneContain>

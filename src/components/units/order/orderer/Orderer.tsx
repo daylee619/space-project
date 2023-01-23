@@ -22,7 +22,7 @@ const Orderer = (props: IOrderItemPropsType) => {
                     id='user'
                     type='text'
                     name='writer'
-                    value={props.orderPostData.writer ? props.orderPostData.writer : props.orderData.userInfo?.name}
+                    defaultValue={props.orderData.userInfo?.name}
                     onChange={props.changeHandler}
                 />
             </S.UserBox>
@@ -33,7 +33,7 @@ const Orderer = (props: IOrderItemPropsType) => {
                         id='email'
                         type='text'
                         name='email'
-                        value={props.orderPostData.email ? props.orderPostData.email : props.orderData.userInfo?.email}
+                        defaultValue={props.orderData.userInfo?.email}
                         onChange={props.changeHandler}
                     />
                     {/* <S.EmailSign>@</S.EmailSign>
@@ -62,7 +62,7 @@ const Orderer = (props: IOrderItemPropsType) => {
                 <S.PhoneEndInput
                     type='text'
                     name='phone_number'
-                    value={props.orderPostData.phone_number ? props.orderPostData.phone_number : props.orderData.userInfo?.phone}
+                    defaultValue={props.orderData.userInfo?.phone}
                     onChange={props.changeHandler}
                 />
             </S.PhoneContain>
