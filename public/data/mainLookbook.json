@@ -1,0 +1,20 @@
+[
+    {
+        "lookbookId": 3,
+        "title": "MY LOVE SPRING LOOK",
+        "subTitle": "새싹이 피어나는 따스한 봄을 닮은 룩",
+        "thumbnail": "https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3ByaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60"
+    },
+    {
+        "lookbookId": 2,
+        "title": "ROYAL TEABACK SWEATER",
+        "subTitle": "늦겨울, 추운 한파속 느낄 수 있는 로얄룩",
+        "thumbnail": "https://images.unsplash.com/photo-1530646182317-74e58ed702ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fFJveWFsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60"
+    },
+    {
+        "lookbookId": 1,
+        "title": "WARM SPORTS SWEATER",
+        "subTitle": "추운 봄, 따뜻한 스포츠용 스웨터",
+        "thumbnail": "https://images.unsplash.com/photo-1554568218-ffd1e72a2151?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTN8fHN3ZWF0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60"
+    }
+]

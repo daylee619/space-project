@@ -1,0 +1,22 @@
+{
+  "detailReview": {
+    "nickname": "Zzrl5Ll",
+    "content": "dsdafk",
+    "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+    "star": 3,
+    "created_at": "2023-01-18T05:42:04.000Z",
+    "photos": [null],
+    "helpful": null,
+    "unhelpful": "1",
+    "productId": 1
+  },
+  "productInfo": [
+    {
+      "id": 1,
+      "name": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+      "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+      "reviewCount": "2",
+      "starAverage": "3.5000"
+    }
+  ]
+}

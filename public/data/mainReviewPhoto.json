@@ -1,0 +1,42 @@
+[
+  {
+    "productId": 1,
+    "reviewId": 3,
+    "thumbnail": "https://images.unsplash.com/photo-1673537074513-e66435b69012?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "productId": 1,
+    "reviewId": 4,
+    "thumbnail": "https://images.unsplash.com/photo-1673537074513-e66435b69012?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "productId": 4,
+    "reviewId": 5,
+    "thumbnail": "https://images.unsplash.com/photo-1673537074513-e66435b69012?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "productId": 4,
+    "reviewId": 6,
+    "thumbnail": "https://images.unsplash.com/photo-1673537074513-e66435b69012?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "productId": 10,
+    "reviewId": 7,
+    "thumbnail": "https://images.unsplash.com/photo-1673537074513-e66435b69012?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "productId": 33,
+    "reviewId": 8,
+    "thumbnail": "https://images.unsplash.com/photo-1673537074513-e66435b69012?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "productId": 4,
+    "reviewId": 9,
+    "thumbnail": "https://images.unsplash.com/photo-1673537074513-e66435b69012?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+  },
+  {
+    "productId": 4,
+    "reviewId": 10,
+    "thumbnail": "https://images.unsplash.com/photo-1511184059754-e4b5bbbcef75?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+  }
+]
