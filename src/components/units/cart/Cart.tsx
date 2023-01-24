@@ -71,20 +71,15 @@ const Cart = () => {
     const cartItemgetHandler = async () => {
         await axios.get('/data/cart.json')
             .then(res => {
-                setCartItem(res.data);
+                const { data } = res
+                setCartItem(data);
+                setTotalPrice(data.reduce((acc: number, cur: ICartItemInType) => cur.price + acc, 0))
             })
             .catch(error => { console.log(error); })
     }
 
-    const totalPriceHandler = () => {
-        if (cartItem) {
-            setTotalPrice(cartItem.reduce((acc: number, cur: ICartItemInType) => cur.price + acc, 0))
-        }
-    }
-
     useEffect(() => {
-        cartItemgetHandler();;
-        totalPriceHandler();
+        cartItemgetHandler();
     }, [])
 
 
