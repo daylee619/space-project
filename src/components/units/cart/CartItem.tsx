@@ -1,5 +1,5 @@
 import { ChangeEvent, Fragment, MouseEvent } from 'react'
-import CartOptionModal from '../../../common/utils/cartOptionModal/CartOptionModal'
+import CartOptionModal from '../../../common/utils/optionModal/OptionModal'
 import * as S from './CartItem.style'
 
 interface ICartItemType {

@@ -1,5 +1,5 @@
 import { ChangeEvent, Fragment } from 'react'
-import * as S from './CartOptionModal.style'
+import * as S from './OptionModal.style'
 
 interface IOptionPropsType {
     modalHandler: () => void
