@@ -1,6 +1,33 @@
+import axios from 'axios'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { IWishListDataType } from '../Mypage.type'
+import WishListItem from './wish-list-item/WishListItem'
 import * as S from './WisthList.style'
 
 const WishList = () => {
+    const [wishListData, setWishListData] = useState<IWishListDataType>()
+    const [selectState, setSelectState] = useState<string>('')
+
+    const wishListDataHandler = async () => {
+        try {
+            await axios.get('/data/getWishList.json')
+                .then(res => {
+                    const { data } = res
+                    setWishListData(data)
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const selectStateHandler = (selectValue: string) => {
+        setSelectState(selectValue)
+    }
+
+    useEffect(() => {
+        wishListDataHandler()
+    }, [])
+
     return (
         <S.Contain>
             <S.PageTitle>위시리스트</S.PageTitle>
@@ -14,25 +41,10 @@ const WishList = () => {
                 <S.ItemTitleSelect>선택</S.ItemTitleSelect>
             </S.ItemTitleBox>
             {
-                <S.ItemBox>
-                    <S.ItemCheckBox type='checkbox' />
-                    <S.ItemInfoBox>
-                        <img src='' alt='' />
-                        <div>
-                            <div></div>
-                            <div>옵션변경</div>
-                        </div>
-                    </S.ItemInfoBox>
-                    <S.ItemPoint>-</S.ItemPoint>
-                    <S.ItemPost>-</S.ItemPost>
-                    <S.ItemPostPrice>-</S.ItemPostPrice>
-                    <S.ItemTotalPrice>39900</S.ItemTotalPrice>
-                    <S.ItemSelectBox>
-                        <button>주문하기</button>
-                        <button>장바구니</button>
-                        <button>삭제</button>
-                    </S.ItemSelectBox>
-                </S.ItemBox>
+                <WishListItem
+                    wishListData={wishListData}
+                    selectStateHandler={selectStateHandler}
+                />
             }
         </S.Contain>
     )

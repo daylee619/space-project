@@ -69,3 +69,27 @@ export interface IOrderCountByStatus {
   statusName: string
   countStatus: string
 }
+
+// whisList type
+
+export interface IWishListDataType {
+  id: number
+  name: string
+  thumbnail: string
+  price: number
+  productId: number
+  userId: number
+  optionId: number
+  color: IWishListDataColorType[]
+}
+
+export interface IWishListDataColorType {
+  size: null
+  colorId: string
+  colorName: string
+}
+
+export interface IWishListItemPropsType {
+  wishListData: IWishListDataType[]
+  selectStateHandler: (selectValue: string) => void
+}
