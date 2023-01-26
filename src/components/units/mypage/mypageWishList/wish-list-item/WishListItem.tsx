@@ -1,9 +1,15 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
+import CartOptionModal from '../../../../../common/utils/optionModal/OptionModal';
 import { IWishListItemPropsType } from '../../Mypage.type';
 import * as S from './WishListItem.style'
 
 const WishListItem = (props: IWishListItemPropsType) => {
     const { wishListData, selectStateHandler } = props
+    const [optionModal, setOptionModal] = useState(false)
+
+    const modalHandler = () => {
+        setOptionModal(prv => !prv)
+    }
 
     return (
         <>
@@ -27,7 +33,7 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                     <S.ItemInformation>{`${el.name} (${el.colorName})`}</S.ItemInformation>
                                     <S.ItemInformation>{`[옵션: (${el.quantity})/${el.size.name}]`}</S.ItemInformation>
                                     <S.ItemInformationChange onClick={modalHandler}>옵션변경</S.ItemInformationChange>
-                                    {/* {
+                                    {
                                         optionModal
                                         &&
                                         <CartOptionModal
@@ -37,7 +43,7 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                             colorIdHandler={colorIdHandler}
                                             colorIdState={colorIdState}
                                         />
-                                    } */}
+                                    }
                                 </S.ItemInformationBox>
                             </S.ItemItemInforMation>
                             <S.ItemCount>
