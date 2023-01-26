@@ -1,8 +1,27 @@
-import { MouseEvent } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import MypageFilterList from '../mypageFilterList/MypageFilterList'
 import * as S from './MypageMain.style'
 
 const MypageMain = () => {
+    const [mainData, setMainData] = useState()
+
+    const mainDataGetHandler = async () => {
+        try {
+            await axios.get('/data/mypage_main.json')
+                .then(res => {
+                    const { data } = res
+                    setMainData(data)
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        mainDataGetHandler()
+    }, [])
+
     return (
         <S.Contain>
             <S.PageTitle>주문처리 현황</S.PageTitle>
@@ -33,7 +52,7 @@ const MypageMain = () => {
                 </S.TextBox>
             </S.OrderStateBox>
             <div>
-                <MypageFilterList />
+                <MypageFilterList mainData={mainData} />
             </div>
         </S.Contain>
     )

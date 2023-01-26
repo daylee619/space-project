@@ -73,3 +73,45 @@ export const ItemTitleSelect = styled.div`
     justify-content: center;
     font-size: 13px;
 `
+
+//
+
+export const ItemCheckBox = styled.input`
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid lightgray;
+`
+
+export const ItemInfoBox = styled.div`
+    width: 40%;
+    display: flex;
+    justify-content: center;
+`
+
+export const ItemPoint = styled.div`
+    width: 10%;
+    display: flex;
+    justify-content: center;
+`
+export const ItemPost = styled.div`
+    width: 10%;
+    display: flex;
+    justify-content: center;
+`
+export const ItemPostPrice = styled.div`
+    width: 10%;
+    display: flex;
+    justify-content: center;
+`
+export const ItemTotalPrice = styled.div`
+    width: 10%;
+    display: flex;
+    justify-content: center;
+`
+export const ItemSelectBox = styled.div`
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`

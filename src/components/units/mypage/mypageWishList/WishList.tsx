@@ -15,23 +15,23 @@ const WishList = () => {
             </S.ItemTitleBox>
             {
                 <S.ItemBox>
-                    <input type='checkbox' />
-                    <div>
+                    <S.ItemCheckBox type='checkbox' />
+                    <S.ItemInfoBox>
                         <img src='' alt='' />
                         <div>
                             <div></div>
                             <div>옵션변경</div>
                         </div>
-                    </div>
-                    <div>-</div>
-                    <div>-</div>
-                    <div>-</div>
-                    <div>39900</div>
-                    <div>
+                    </S.ItemInfoBox>
+                    <S.ItemPoint>-</S.ItemPoint>
+                    <S.ItemPost>-</S.ItemPost>
+                    <S.ItemPostPrice>-</S.ItemPostPrice>
+                    <S.ItemTotalPrice>39900</S.ItemTotalPrice>
+                    <S.ItemSelectBox>
                         <button>주문하기</button>
                         <button>장바구니</button>
                         <button>삭제</button>
-                    </div>
+                    </S.ItemSelectBox>
                 </S.ItemBox>
             }
         </S.Contain>

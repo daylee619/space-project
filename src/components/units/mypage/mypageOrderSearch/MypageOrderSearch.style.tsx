@@ -42,10 +42,11 @@ export const SearchDateButtonBox = styled.div`
 export const SearchDateButton = styled.button`
     padding: 3px;
     color: gray;
-    border: 1px solid lightgray;
+    border: 1px solid gray;
 
     &:hover {
         cursor: pointer;
+        background-color: lightgray;
     }
 `
 
