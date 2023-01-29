@@ -1,87 +1,93 @@
 import { Fragment, useState } from 'react';
-import CartOptionModal from '../../../../../common/utils/optionModal/OptionModal';
+import WishListOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/OptionModal';
+import PlusOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/PlusOptionModal';
 import { IWishListItemPropsType } from '../../Mypage.type';
 import * as S from './WishListItem.style'
 
 const WishListItem = (props: IWishListItemPropsType) => {
-    const { wishListData, selectStateHandler } = props
-    const [optionModal, setOptionModal] = useState(false)
+    const { wishListData, selectStateHandler, handleSingleCheck, checkItems, selectState } = props
+    const [optionModal, setOptionModal] = useState<number[]>([])
 
-    const modalHandler = () => {
-        setOptionModal(prv => !prv)
+    const modalHandler = (id: number) => {
+        if (!optionModal.includes(id)) {
+            setOptionModal(prv => [...prv, id])
+        }
+        if (optionModal.includes(id)) {
+            setOptionModal(optionModal.filter(el => el !== id))
+        }
+    }
+
+    const [bbb, setBbb] = useState(false)
+    const aaa = () => {
+        setBbb(prv => !prv)
     }
 
     return (
         <>
             {
                 wishListData.map(el =>
-                    <Fragment key={el.id} >
-                        <S.Contain>
-                            <S.ItemCheckBox>
-                                <input
-                                    type='checkbox'
-                                    id={(el.id).toString()}
-                                    onChange={(event) => { checkedHandler(event, el.cartId); }}
-                                    checked={!checkedState.includes(el.cartId)}
-                                />
-                            </S.ItemCheckBox>
-                            <S.ItemItemInforMation>
-                                <S.ItemImgBox>
-                                    <S.ItemImg src={el.thumbnail} alt={el.name} />
-                                </S.ItemImgBox>
-                                <S.ItemInformationBox>
-                                    <S.ItemInformation>{`${el.name} (${el.colorName})`}</S.ItemInformation>
-                                    <S.ItemInformation>{`[옵션: (${el.quantity})/${el.size.name}]`}</S.ItemInformation>
-                                    <S.ItemInformationChange onClick={modalHandler}>옵션변경</S.ItemInformationChange>
+                    <S.Contain key={el.id}>
+                        <S.ItemCheckBox>
+                            <input
+                                type='checkbox'
+                                id={(el.id).toString()}
+                                onChange={(event) => { handleSingleCheck(event.target.checked, el.id); }}
+                                checked={!!checkItems.includes(el.id)}
+                            />
+                        </S.ItemCheckBox>
+                        <S.ItemItemInforMation>
+                            <S.ItemImgBox>
+                                <S.ItemImg src={el.thumbnail} alt={el.name} />
+                            </S.ItemImgBox>
+                            <S.ItemInformationBox>
+                                <S.ItemInformation>{`${el.name} (${el.colorName})`}</S.ItemInformation>
+                                <S.ItemInformation>
                                     {
-                                        optionModal
+                                        (el.size.id !== null && el.size.name !== null)
                                         &&
-                                        <CartOptionModal
-                                            modalHandler={modalHandler}
-                                            selectStateHandler={selectStateHandler}
-                                            colorProps={el.color}
-                                            colorIdHandler={colorIdHandler}
-                                            colorIdState={colorIdState}
-                                        />
+                                        <S.ItemPlusOption>
+                                            {`[옵션: (${el.size.id})/${el.size.name}]`}
+                                        </S.ItemPlusOption>
                                     }
-                                </S.ItemInformationBox>
-                            </S.ItemItemInforMation>
-                            <S.ItemCount>
-                                <S.ItemCountButton
-                                    id={(el.id).toString()}
-                                    value={el.quantity}
-                                    onClick={minusCountHandler}
-                                >
-                                    -
-                                </S.ItemCountButton>
-                                <S.ItemCountText>{el.quantity}</S.ItemCountText>
-                                <S.ItemCountButton
-                                    id={el.cartId}
-                                    value={el.quantity}
-                                    onClick={addCountHandler}
-                                >
-                                    +
-                                </S.ItemCountButton>
-                            </S.ItemCount>
-                            <S.ItemSavings>
-                                <span>-</span>
-                            </S.ItemSavings>
-                            <S.ItemPost>
-                                <S.ItemPostText>기본배송</S.ItemPostText>
-                            </S.ItemPost>
-                            <S.ItemPostPrice>
-                                <S.ItemPostPriceText>무료</S.ItemPostPriceText>
-                            </S.ItemPostPrice>
-                            <S.ItemTotalPrice>
-                                <S.ItemTotalPriceText>{el.price}</S.ItemTotalPriceText>
-                            </S.ItemTotalPrice>
-                            <S.ItemChoose>
-                                <S.ItemChooseButton>주문하기</S.ItemChooseButton>
-                                <S.ItemChooseButton>관심상품</S.ItemChooseButton>
-                                <S.ItemChooseButton value={el.cartId} onClick={SelectDeleteClick}>삭제</S.ItemChooseButton>
-                            </S.ItemChoose>
-                        </S.Contain>
-                    </Fragment >
+                                </S.ItemInformation>
+                                <S.ItemInformationChange onClick={() => { modalHandler(el.id); }}>옵션변경</S.ItemInformationChange>
+                                {
+                                    optionModal.includes(el.id)
+                                    &&
+                                    <WishListOptionModal
+                                        modalHandler={modalHandler}
+                                        colorProps={el.color}
+                                        selectStateHandler={selectStateHandler}
+                                        selectState={selectState}
+                                        nameProps={el.name}
+                                        idProps={el.id}
+                                    />
+                                }
+                            </S.ItemInformationBox>
+                        </S.ItemItemInforMation>
+                        <S.ItemSavings>
+                            <span>-</span>
+                        </S.ItemSavings>
+                        <S.ItemPost>
+                            <S.ItemPostText>기본배송</S.ItemPostText>
+                        </S.ItemPost>
+                        <S.ItemPostPrice>
+                            <S.ItemPostPriceText>무료</S.ItemPostPriceText>
+                        </S.ItemPostPrice>
+                        <S.ItemTotalPrice>
+                            <S.ItemTotalPriceText>{el.price}</S.ItemTotalPriceText>
+                        </S.ItemTotalPrice>
+                        <S.ItemChoose>
+                            <S.ItemChooseButton>주문하기</S.ItemChooseButton>
+                            <S.ItemChooseButton onClick={aaa}>장바구니</S.ItemChooseButton>
+                            {
+                                bbb
+                                &&
+                                <PlusOptionModal />
+                            }
+                            <S.ItemChooseButton>삭제</S.ItemChooseButton>
+                        </S.ItemChoose>
+                    </S.Contain>
                 )
             }
         </>

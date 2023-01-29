@@ -38,6 +38,16 @@ export const TitleName = styled.div`
     font-size: 15px;
     margin-bottom: 15px;
 `
+export const Box = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const Desh = styled.span`
+    font-size: 25px;
+    font-weight: 500;
+`
+
 
 export const Count = styled.div`
     font-size: 25px;

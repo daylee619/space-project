@@ -17,14 +17,13 @@ const MypageFilterList = (props: IMypageFilterListPropsType) => {
                 <S.OrderStateTitle>주문상태</S.OrderStateTitle>
                 <S.OrderChagneTitle>취소/환불</S.OrderChagneTitle>
             </S.OrderListTitleBox>
-            {
-                !itemData || !mainData &&
+            {/* {
+                (!itemData || !mainData) &&
                 <S.OrderList>
                     주문 내역이 없습니다.
                 </S.OrderList>
-            }
+            } */}
             {
-                itemData || mainData &&
                 <MypageItem itemData={itemData} mainData={mainData} />
             }
         </>

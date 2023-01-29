@@ -1,10 +1,10 @@
 export interface IItemDataType {
-  orderList?: IOrderListType[]
-  orderFilter?: IOrderFilter[]
+  orderList: IOrderListType[]
+  orderFilter: IOrderFilter[]
 }
 
 export interface IOrderListType {
-  id: 44
+  id: number
   order_number: string
   created_at: string
   orderStatus: string
@@ -55,7 +55,7 @@ export interface IMypageFilterListPropsType {
 
 export interface IMainDataType {
   orderStatus: IOrderStatusType
-  orderCountByStatus: IOrderCountByStatus
+  orderCountByStatus: IOrderCountByStatus[]
   orderHistory: IOrderListType[]
 }
 
@@ -80,16 +80,42 @@ export interface IWishListDataType {
   productId: number
   userId: number
   optionId: number
+  size: {
+    id: number
+    name: string
+  }
+  colorName: string
   color: IWishListDataColorType[]
 }
 
 export interface IWishListDataColorType {
-  size: null
+  size: IWishListDataSizeType[] | null
   colorId: string
   colorName: string
 }
 
+export interface IWishListDataSizeType {
+  stock: string
+  sizeId: string
+  sizeName: string
+}
+
+// wish-list-item type
 export interface IWishListItemPropsType {
   wishListData: IWishListDataType[]
   selectStateHandler: (selectValue: string) => void
+  handleAllCheck: (checked: boolean) => void
+  handleSingleCheck: (checked: boolean, id: number) => void
+  checkItems: number[]
+  selectState: string
+}
+
+// wish-list-option-modal-type
+export interface IOptionPropsType {
+  modalHandler: (id: number) => void
+  colorProps: IWishListDataColorType[]
+  selectStateHandler: (selectValue: string) => void
+  selectState: string
+  nameProps: string
+  idProps: number
 }

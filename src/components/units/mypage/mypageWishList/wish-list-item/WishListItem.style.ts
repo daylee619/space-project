@@ -5,11 +5,12 @@ export const Contain = styled.div`
   height: 130px;
   display: flex;
   align-items: center;
+  padding: 10px;
   border-bottom: 1px solid rgb(230, 230, 230);
 `
 //
 export const ItemCheckBox = styled.div`
-  width: 5%;
+  width: 10%;
   display: flex;
   justify-content: center;
 `
@@ -17,7 +18,6 @@ export const ItemCheckBox = styled.div`
 export const ItemItemInforMation = styled.div`
   width: 40%;
   display: flex;
-  justify-content: center;
 `
 
 export const ItemCount = styled.div`
@@ -80,6 +80,10 @@ export const ItemInformationBox = styled.div`
 export const ItemInformation = styled.span`
   font-size: 12px;
   padding-bottom: 5px;
+`
+
+export const ItemPlusOption = styled.span`
+  color: gray;
 `
 
 export const ItemInformationChange = styled.div`

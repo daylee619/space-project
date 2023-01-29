@@ -16,7 +16,7 @@ const MypageCategory = () => {
                 <S.InfoBox>
                     <S.InfoTitle>나의 쇼핑 정보</S.InfoTitle>
                     <S.Category
-                        onClick={async () => await router.push(`/mypage/order/history/${localStorage.getItem('access_token')}?history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 3, 0)}&order_status=${''}`)}
+                        onClick={async () => await router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 3, 0)}&order_status=`)}
                     >
                         주문/배송 & 취소/반품
                     </S.Category>
