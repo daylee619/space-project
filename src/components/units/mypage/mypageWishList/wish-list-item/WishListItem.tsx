@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react';
+import CartCompleteModal from '../../../../../common/utils/optionModal/wishListOptionModal/CartCompleteModal';
 import WishListOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/OptionModal';
 import PlusOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/PlusOptionModal';
 import { IWishListItemPropsType } from '../../Mypage.type';
@@ -17,9 +18,16 @@ const WishListItem = (props: IWishListItemPropsType) => {
         }
     }
 
-    const [bbb, setBbb] = useState(false)
-    const aaa = () => {
-        setBbb(prv => !prv)
+    const [plusModalState, setPlusModalState] = useState<number[]>([])
+
+    const plusModalHandler = (id: number) => {
+        if (!plusModalState.includes(id)) {
+            setPlusModalState(prv => [...prv, id])
+        }
+        if (plusModalState.includes(id)) {
+            setPlusModalState(plusModalState.filter(el => el !== id))
+        }
+
     }
 
     return (
@@ -79,11 +87,30 @@ const WishListItem = (props: IWishListItemPropsType) => {
                         </S.ItemTotalPrice>
                         <S.ItemChoose>
                             <S.ItemChooseButton>주문하기</S.ItemChooseButton>
-                            <S.ItemChooseButton onClick={aaa}>장바구니</S.ItemChooseButton>
+                            <S.ItemChooseButton onClick={() => { plusModalHandler(el.optionId); }}>장바구니</S.ItemChooseButton>
                             {
-                                bbb
+                                (
+                                    plusModalState.includes(el.optionId)
+                                    &&
+                                    el.optionId === null
+                                )
                                 &&
-                                <PlusOptionModal />
+                                <PlusOptionModal
+                                    element={el}
+                                    plusModalHandler={plusModalHandler}
+                                />
+                            }
+                            {
+                                (
+                                    plusModalState.includes(el.optionId)
+                                    &&
+                                    el.optionId !== null
+                                )
+                                &&
+                                <CartCompleteModal
+                                    element={el}
+                                    plusModalHandler={plusModalHandler}
+                                />
                             }
                             <S.ItemChooseButton>삭제</S.ItemChooseButton>
                         </S.ItemChoose>

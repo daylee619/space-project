@@ -12,18 +12,18 @@
     "color": [
       {
         "size": [
-          { "stock": "15", "sizeId": "2", "sizeName": "S(085)" },
-          { "stock": "15", "sizeId": "3", "sizeName": "M(090)" },
-          { "stock": "15", "sizeId": "4", "sizeName": "L(095)" }
+          { "stock": "15", "sizeId": "2", "sizeName": "S(035)" },
+          { "stock": "15", "sizeId": "3", "sizeName": "M(030)" },
+          { "stock": "15", "sizeId": "4", "sizeName": "L(035)" }
         ],
         "colorId": "10",
         "colorName": "gray"
       },
       {
         "size": [
-          { "stock": "15", "sizeId": "2", "sizeName": "S(085)" },
-          { "stock": "15", "sizeId": "3", "sizeName": "M(090)" },
-          { "stock": "15", "sizeId": "4", "sizeName": "L(095)" }
+          { "stock": "15", "sizeId": "2", "sizeName": "S(045)" },
+          { "stock": "15", "sizeId": "3", "sizeName": "M(040)" },
+          { "stock": "15", "sizeId": "4", "sizeName": "L(045)" }
         ],
         "colorId": "9",
         "colorName": "black"
@@ -256,7 +256,7 @@
     "color": [{ "size": null, "colorId": "", "colorName": "" }]
   },
   {
-    "id": 3,
+    "id": 5,
     "name": "단추 가디건",
     "thumbnail": "https://images.unsplash.com/photo-1610288311735-39b7facbd095?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyZGlnYW58ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
     "price": 48700,
@@ -282,10 +282,33 @@
     "userId": 1,
     "optionId": null,
     "color": [
-      { "size": null, "colorId": "10", "colorName": "gray" },
-      { "size": null, "colorId": "9", "colorName": "black" },
-      { "size": null, "colorId": "8", "colorName": "white" },
-      { "size": null, "colorId": "7", "colorName": "purple" }
+      {
+        "size": [
+          { "stock": "15", "sizeId": "2", "sizeName": "S(035)" },
+          { "stock": "15", "sizeId": "3", "sizeName": "M(030)" },
+          { "stock": "15", "sizeId": "4", "sizeName": "L(035)" }
+        ],
+        "colorId": "10",
+        "colorName": "gray"
+      },
+      {
+        "size": [
+          { "stock": "15", "sizeId": "2", "sizeName": "S(045)" },
+          { "stock": "15", "sizeId": "3", "sizeName": "M(040)" },
+          { "stock": "15", "sizeId": "4", "sizeName": "L(045)" }
+        ],
+        "colorId": "9",
+        "colorName": "black"
+      },
+      {
+        "size": [
+          { "stock": "15", "sizeId": "2", "sizeName": "S(085)" },
+          { "stock": "15", "sizeId": "3", "sizeName": "M(090)" },
+          { "stock": "15", "sizeId": "4", "sizeName": "L(095)" }
+        ],
+        "colorId": "8",
+        "colorName": "white"
+      }
     ]
   }
 ]

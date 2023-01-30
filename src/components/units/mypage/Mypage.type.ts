@@ -119,3 +119,23 @@ export interface IOptionPropsType {
   nameProps: string
   idProps: number
 }
+
+export interface IMypageUserModifyDefaultDataType {
+  email: string
+  birthday: Date
+  nickname: string
+  thumbnail: string
+  gender: string
+  phone: string
+  name: string
+}
+
+export interface IPlusOptionModalPropsType {
+  element: IWishListDataType
+  plusModalHandler: (id: number) => void
+}
+
+export interface IMypageCartConfirmModalPropsType {
+  element: IWishListDataType
+  plusModalHandler: (id: number) => void
+}

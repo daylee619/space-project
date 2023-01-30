@@ -1,6 +1,8 @@
 import axios from 'axios'
-import { ChangeEvent, useRef, useState } from 'react'
-import * as S from './SignUp.style'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { getDate } from '../../../../common/utils/date/Date';
+import { IMypageUserModifyDefaultDataType } from '../Mypage.type';
+import * as S from './MypageUserModify.style'
 
 const MypageUserModify = () => {
     // type 수정
@@ -18,14 +20,29 @@ const MypageUserModify = () => {
     const [birthday, setBirthday] = useState('')
     const [nickname, setNickname] = useState('')
     const [gender, setGender] = useState('')
-    // user post data error state
-    // const [nameError, setNameError] = useState('')
-    // const [emailError, setEmailError] = useState('')
-    // const [passwordError, setPasswordError] = useState('')
-    // const [phoneError, setPhoneError] = useState('')
-    // const [birthdayError, setBirthdayError] = useState('')
-    // const [nicknameError, setNicknameError] = useState('')
-    // const [genderError, setGenderError] = useState('')
+
+    // data
+    const [defaultData, setDefaultData] = useState<IMypageUserModifyDefaultDataType>()
+
+    const defaultDataHandler = async () => {
+        try {
+            await axios.get('http://172.30.1.42:3000/user/info', {
+                headers: {
+                    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRsYWNvZG5qczY2N0BhZGlvcy5jb20iLCJ1c2VySWQiOjE5LCJpYXQiOjE2NzQ5ODYzMTIsImV4cCI6MTY3NDk4OTkxMn0.Gz-nV5dOLzHEhfieCkOpVfcjsrtYca0XxE2fnJpkpAE"
+                }
+            })
+                .then(res => {
+                    const { data } = res
+                    setDefaultData(data)
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        defaultDataHandler()
+    }, [])
 
     // change Function
     const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,29 +77,35 @@ const MypageUserModify = () => {
             setImgView(reader.result)
         }
     }
-    console.log(postFile)
+
     // confirm 버튼 Function
     const filePostHandler = async () => {
         try {
-            await axios.post('http://192.168.232.162:3000/user/create',
+            await axios.patch('http://172.30.1.42:3000/user/info',
                 {
-                    name,
-                    password,
-                    email,
-                    birthday,
-                    nickname,
+                    name: name || defaultData?.name,
+                    userPassword: password,
+                    email: email || defaultData?.email,
+                    birthday: birthday || (defaultData?.birthday ? getDate(defaultData.birthday) : ''),
+                    nickname: nickname || defaultData?.nickname,
                     file: postFile,
-                    gender,
-                    phone,
+                    thumbnail: defaultData?.thumbnail,
+                    gender: gender || defaultData?.gender,
+                    phone: phone || defaultData?.phone,
                 },
                 {
                     headers: {
-                        "Content-Type": "multipart/form-data"
+                        "Content-Type": "multipart/form-data",
+                        "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRsYWNvZG5qczY2N0BhZGlvcy5jb20iLCJ1c2VySWQiOjE5LCJpYXQiOjE2NzQ5ODYzMTIsImV4cCI6MTY3NDk4OTkxMn0.Gz-nV5dOLzHEhfieCkOpVfcjsrtYca0XxE2fnJpkpAE"
                     }
                 }
             )
-                .then(res => { console.log(res); })
-                .then(data => { console.log(data); })
+                .then(res => {
+                    if (res) {
+                        console.log(res);
+                        alert(res.data.message)
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
@@ -90,34 +113,63 @@ const MypageUserModify = () => {
 
     return (
         <S.Contain>
-            <S.Title>회원가입</S.Title>
+            <S.Title>회원정보 수정</S.Title>
             <S.UpperBox>
                 <S.UserBox>
                     <S.Label htmlFor='name'>이름</S.Label>
-                    <S.Input type='text' id='name' onChange={nameChangeHandler} />
+                    <S.Input
+                        type='text'
+                        id='name'
+                        defaultValue={defaultData?.name ?? ""}
+                        onChange={nameChangeHandler}
+                    />
                     <S.Label htmlFor='nickName'>닉네임</S.Label>
-                    <S.Input type='text' id='nickName' onChange={nickNameChangeHandler} />
+                    <S.Input
+                        type='text'
+                        id='nickName'
+                        defaultValue={defaultData?.nickname ?? ""}
+                        onChange={nickNameChangeHandler}
+                    />
                     <S.Label htmlFor='email'>이메일</S.Label>
-                    <S.Input type='text' id='email' onChange={emailChangeHandler} />
+                    <S.Input
+                        type='text'
+                        id='email'
+                        value={defaultData?.email ?? ""}
+                        onChange={emailChangeHandler}
+                    />
                     <S.Label id='password'>비밀번호</S.Label>
-                    <S.Input type='password' id='password' onChange={pwdChangeHandler} />
+                    <S.Input
+                        type='password'
+                        id='password'
+                        onChange={pwdChangeHandler}
+                    />
                     <S.Label htmlFor='phoneNumber'>전화번호</S.Label>
-                    <S.Input type='text' id='phoneNumber' onChange={phoneChangeHandler} />
+                    <S.Input
+                        type='text'
+                        id='phoneNumber'
+                        defaultValue={defaultData?.phone ?? ""}
+                        onChange={phoneChangeHandler}
+                    />
                     <S.Label htmlFor='birthday'>생일</S.Label>
-                    <S.Input type='date' id='birthday' onChange={birthdayHandler} />
+                    <S.Input
+                        type='date'
+                        id='birthday'
+                        defaultValue={defaultData?.birthday ? getDate(defaultData.birthday) : ''}
+                        onChange={birthdayHandler}
+                    />
                     <S.GenderBox>
                         <S.Label>성별</S.Label>
                         <div>
                             <S.GenderLabel htmlFor='male'>남성</S.GenderLabel>
-                            <S.GenderRadio type='radio' name='gender' value='male' id='male' onChange={genderHandelr} />
+                            <S.GenderRadio type='radio' name='gender' value='male' id='male' onChange={genderHandelr} defaultChecked={defaultData?.gender === 'male'} />
                             <S.GenderLabel htmlFor='female'>여성</S.GenderLabel>
-                            <S.GenderRadio type='radio' name='gender' value='female' id='female' onChange={genderHandelr} />
+                            <S.GenderRadio type='radio' name='gender' value='female' id='female' onChange={genderHandelr} defaultChecked={defaultData?.gender === 'female'} />
                         </div>
                     </S.GenderBox>
                 </S.UserBox>
                 <S.UserProfileBox>
                     <S.UserProfileInBox>
-                        <S.ProFileImg src={imgView ?? '/images/userIconImg.png'} />
+                        <S.ProFileImg src={imgView ?? defaultData?.thumbnail} />
                         <S.ProFileImgLabel htmlFor='propfileImg'>프로필 이미지 추가</S.ProFileImgLabel>
                         <S.ProFileImgInput
                             type='file'
@@ -131,7 +183,7 @@ const MypageUserModify = () => {
             </S.UpperBox>
             <S.BottomBox>
                 <S.ConfirmButton>취소</S.ConfirmButton>
-                <S.ConfirmButton onClick={filePostHandler}>회원가입</S.ConfirmButton>
+                <S.ConfirmButton onClick={filePostHandler}>수정하기</S.ConfirmButton>
             </S.BottomBox>
         </S.Contain>
     )

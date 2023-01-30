@@ -23,9 +23,10 @@ const MypageCategory = () => {
                 </S.InfoBox>
                 <S.InfoBox>
                     <S.InfoTitle>나의 활동 정보</S.InfoTitle>
-                    <S.Category>회원정보 수정</S.Category>
+                    <S.Category onClick={async () => await router.push('/mypage/user_modify')}>회원정보 수정</S.Category>
                     <S.Category
-                    // onClick={() => { filterIdHandler('review'); }}
+                        // onClick={() => { filterIdHandler('review'); }}
+                        onClick={async () => await router.push('/mypage/my_review')}
                     >
                         나의 게시물 관리
                     </S.Category>
