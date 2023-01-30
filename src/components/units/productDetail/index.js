@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { ShareAltOutlined, HeartOutlined } from "@ant-design/icons"
 import ShareModal from "../Modal/sharemodal"
 import ShippingModal from "../Modal/shippingmodal"
@@ -23,15 +23,25 @@ const ProductDetail = () => {
 
   //   console.log(data)
 
-  const onClickSelectColor = (e) => {
-    if (!colorBox.includes(e.target.value)) {
-      setColorBox(colorBox.concat(e.target.value))
+  // const onClickSelectColor = (e) => {
+  //   if (!colorBox.includes(e.target.value)) {
+  //     setColorBox(colorBox.concat(e.target.value))
+  //   }
+  //   if (colorBox.includes(e.target.value)) {
+  //     setColorBox(colorBox.filter((el) => e.target.value !== el))
+  //   }
+  // }
+  // console.log(colorBox)
+  const [colorCheck, setColorCheck] = useState([])
+  console.log(colorCheck)
+  const changeHandler = (checked, colorId) => {
+    if (!checked) {
+      setColorCheck((prv) => [...prv, colorId])
     }
-    if (colorBox.includes(e.target.value)) {
-      setColorBox(colorBox.filter((el) => e.target.value !== el))
+    if (checked) {
+      setColorCheck(colorCheck.filter((el) => el !== colorId))
     }
   }
-  console.log(colorBox)
 
   const onClickImgMoreViewBtn = () => {
     setIsMoreView(!isMoreView)
@@ -152,13 +162,24 @@ const ProductDetail = () => {
             <ColorTitle>Color</ColorTitle>
             <ColorButtonBox>
               {data.options?.map((el) => (
-                <ColorButton
-                  key={el.colorId}
-                  value={el.colorId}
-                  onClick={onClickSelectColor}
-                >
-                  {"(" + el.colorId + ")" + el.colorName}
-                </ColorButton>
+                <Fragment key={el.colorId}>
+                  <ColorLabel htmlFor={el.colorId}>
+                    {"(" + el.colorId + ")" + el.colorName}
+                  </ColorLabel>
+                  <ColorButton
+                    type="checkbox"
+                    id={el.colorId}
+                    value={el.colorId}
+                    disabled={
+                      colorCheck.length === 1 &&
+                      !colorCheck.includes(el.colorId)
+                    }
+                    // onClick={onClickSelectColor}
+                    onChange={(e) =>
+                      changeHandler(e.target.checked, el.colorId)
+                    }
+                  />
+                </Fragment>
               ))}
             </ColorButtonBox>
             <OptionNotice>
@@ -167,11 +188,22 @@ const ProductDetail = () => {
           </div>
           <SizeBox>
             <SizeTitle>Size</SizeTitle>
-            <div>
-              {/* {data.options?.map((el) =>
-                el.options.map((a, i) => <button key={a.i}>{a.size}</button>)
-              )} */}
-              {data.options?.map((el, i) => {
+            <div style={{ paddingTop: "10px" }}>
+              {data.options?.map(
+                (el) =>
+                  colorCheck.includes(el.colorId) &&
+                  el.options.map((a, i) => (
+                    <Fragment key={i}>
+                      <ColorLabel htmlFor={a.sizeId}>{a.size}</ColorLabel>
+                      <SizeButton
+                        type="checkbox"
+                        id={a.sizeId}
+                        key={a.i}
+                      />
+                    </Fragment>
+                  ))
+              )}
+              {/* {data.options?.map((el, i) => {
                 if (el.colorId === i) {
                   return data.options.map((el, i) =>
                     el.options?.map((el, i) => (
@@ -179,7 +211,7 @@ const ProductDetail = () => {
                     ))
                   )
                 }
-              })}
+              })} */}
             </div>
             <OptionNotice>
               <p>[필수]</p> <span>옵션을 선택해주세요.</span>
@@ -402,7 +434,29 @@ export const ColorButtonBox = styled.div`
   display: flex;
   padding-top: 10px;
 `
-export const ColorButton = styled.button`
+export const ColorButton = styled.input`
+  display: none;
+`
+export const SizeButton = styled.input`
+  display: none;
+`
+
+export const ColorLabel = styled.label`
+  font-size: 10px;
+  border: 1px solid #d5d5d5;
+  background-color: transparent;
+  padding: 6px 5px;
+  margin-right: 10px;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid #000;
+  }
+
+  &:focus {
+    border: 1px solid #000;
+  }
+`
+export const SizeLabel = styled.label`
   font-size: 10px;
   border: 1px solid #d5d5d5;
   background-color: transparent;
@@ -421,7 +475,7 @@ export const OptionNotice = styled.div`
   display: flex;
   color: #909090;
   font-size: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
 `
 export const ReorderButton = styled.button`
   font-size: 10px;
