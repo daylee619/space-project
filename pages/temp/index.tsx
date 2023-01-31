@@ -1,9 +1,13 @@
-import ReviewWrite from '../../src/components/units/reviewWrite/ReviewWrite'
+import CalenderReviewList from '../../src/components/units/calenderReviewList/calenderReviewList'
+import CalenderReviewWrite from '../../src/components/units/calenderReviewWrite/ReviewWrite'
 
 
 const Test = () => {
     return (
-        <ReviewWrite />
+        <>
+            <CalenderReviewWrite />
+            <CalenderReviewList />
+        </>
     )
 }
 
