@@ -139,3 +139,19 @@ export interface IMypageCartConfirmModalPropsType {
   element: IWishListDataType
   plusModalHandler: (id: number) => void
 }
+
+// mypage review type
+export interface IWritedReviewDataType {
+  id: number
+  productId: number
+  thumbnail: string
+  title: string
+  content: string
+  created_at: string
+  updated_at: string
+  star: number
+}
+
+export interface IWritedUserReveiwPropsType {
+  writedData: IWritedReviewDataType[]
+}

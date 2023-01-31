@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import CartCompleteModal from '../../../../../common/utils/optionModal/wishListOptionModal/CartCompleteModal';
 import WishListOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/OptionModal';
 import PlusOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/PlusOptionModal';
@@ -8,6 +8,7 @@ import * as S from './WishListItem.style'
 const WishListItem = (props: IWishListItemPropsType) => {
     const { wishListData, selectStateHandler, handleSingleCheck, checkItems, selectState } = props
     const [optionModal, setOptionModal] = useState<number[]>([])
+
 
     const modalHandler = (id: number) => {
         if (!optionModal.includes(id)) {
@@ -39,8 +40,8 @@ const WishListItem = (props: IWishListItemPropsType) => {
                             <input
                                 type='checkbox'
                                 id={(el.id).toString()}
-                                onChange={(event) => { handleSingleCheck(event.target.checked, el.id); }}
-                                checked={!!checkItems.includes(el.id)}
+                                onChange={(event) => { handleSingleCheck(event.currentTarget.checked, el.id); }}
+                                checked={checkItems.includes(el.id)}
                             />
                         </S.ItemCheckBox>
                         <S.ItemItemInforMation>
@@ -51,10 +52,10 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                 <S.ItemInformation>{`${el.name} (${el.colorName})`}</S.ItemInformation>
                                 <S.ItemInformation>
                                     {
-                                        (el.size.id !== null && el.size.name !== null)
+                                        (el?.size?.id !== null && el?.size?.name !== null)
                                         &&
                                         <S.ItemPlusOption>
-                                            {`[옵션: (${el.size.id})/${el.size.name}]`}
+                                            {`[옵션: (${el?.size?.id})/${el?.size?.name}]`}
                                         </S.ItemPlusOption>
                                     }
                                 </S.ItemInformation>
@@ -87,10 +88,10 @@ const WishListItem = (props: IWishListItemPropsType) => {
                         </S.ItemTotalPrice>
                         <S.ItemChoose>
                             <S.ItemChooseButton>주문하기</S.ItemChooseButton>
-                            <S.ItemChooseButton onClick={() => { plusModalHandler(el.optionId); }}>장바구니</S.ItemChooseButton>
+                            <S.ItemChooseButton onClick={() => { plusModalHandler(el.id); }}>장바구니</S.ItemChooseButton>
                             {
                                 (
-                                    plusModalState.includes(el.optionId)
+                                    plusModalState.includes(el.id)
                                     &&
                                     el.optionId === null
                                 )
@@ -102,7 +103,7 @@ const WishListItem = (props: IWishListItemPropsType) => {
                             }
                             {
                                 (
-                                    plusModalState.includes(el.optionId)
+                                    plusModalState.includes(el.id)
                                     &&
                                     el.optionId !== null
                                 )

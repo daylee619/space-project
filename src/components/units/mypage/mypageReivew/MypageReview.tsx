@@ -1,12 +1,32 @@
-import { useState } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { IWritedReviewDataType } from '../Mypage.type'
+import WritedUserReview from './getUserReview/WritedUserReview'
 import * as S from './MypageReview.style'
 
 const MypageReview = () => {
     const [reviewTitleOption, setReviewTitleOption] = useState<string>('possible_review')
+    const [writedReviewData, setWritedReviewData] = useState<IWritedReviewDataType[]>([])
 
     const reviewTitleOptionHandler = (id: string) => {
         setReviewTitleOption(id)
     }
+
+    const writedReviewDataHandler = async () => {
+        try {
+            await axios.get('/data/getUserReview.json')
+                .then(res => {
+                    const { data } = res
+                    setWritedReviewData(data)
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        writedReviewDataHandler()
+    }, [])
 
     return (
         <S.Contain>
@@ -34,10 +54,18 @@ const MypageReview = () => {
             }
             {
                 reviewTitleOption === 'writed_review'
-                &&
-                <S.ReviewBox>
-                    작성한 리뷰가 없습니다.
-                </S.ReviewBox>
+                    &&
+                    writedReviewData
+                    ?
+                    <WritedUserReview
+                        writedData={writedReviewData}
+                    />
+                    :
+                    reviewTitleOption === 'writed_review'
+                    &&
+                    <S.ReviewBox>
+                        작성한 리뷰가 없습니다.
+                    </S.ReviewBox>
             }
         </S.Contain>
     )

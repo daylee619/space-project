@@ -7,7 +7,7 @@ import * as S from './WisthList.style'
 const WishList = () => {
     const [wishListData, setWishListData] = useState<IWishListDataType[]>([])
     const [selectState, setSelectState] = useState<string>('')
-
+    console.log(wishListData)
     // 체크박스
     const [checkItems, setCheckItems] = useState<number[]>([])
 
@@ -33,8 +33,7 @@ const WishList = () => {
         try {
             await axios.get('/data/wishlist.json')
                 .then(res => {
-                    const { data } = res
-                    setWishListData(data)
+                    setWishListData(res.data)
                 })
         } catch (error) {
             console.log(error)

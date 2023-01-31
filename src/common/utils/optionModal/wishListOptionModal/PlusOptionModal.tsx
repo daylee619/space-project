@@ -5,6 +5,7 @@ import * as S from './PlusOptionModal.style'
 const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
     const { element, plusModalHandler } = props
 
+    const [likeId, setLikeId] = useState<number[]>([])
     const [colorId, setColorId] = useState<string[]>([])
     const [colorName, setColorName] = useState<string>('')
 
@@ -23,13 +24,15 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
 
     const [sumCount, setSumCount] = useState(0)
 
-    const colorHandler = (checked: boolean, id: string, name: string) => {
+    const colorHandler = (checked: boolean, id: string, name: string, like: number) => {
         if (!checked) {
             setColorId(prv => [...prv, id])
+            setLikeId(prv => [...prv, like])
             setColorName(name)
         }
         if (checked) {
             setColorId(colorId.filter(el => el !== id))
+            setLikeId(likeId.filter(el => el !== like))
             setColorName('')
         }
     }
@@ -78,11 +81,11 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
     }
 
     return (
-        <S.Contain key={element.id}>
+        <S.Contain>
             <S.Header>
                 <S.HeaderTitle>옵션선택</S.HeaderTitle>
                 <S.HeaderX
-                    onClick={() => { plusModalHandler(element.optionId); }}
+                    onClick={() => { plusModalHandler(element.id); }}
                 >X</S.HeaderX>
             </S.Header>
             <S.ContentContain>
@@ -109,7 +112,8 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
                                                         id={item.colorId}
                                                         type='checkbox'
                                                         disabled={!colorId.includes(item.colorId) && colorId.length === 1}
-                                                        onChange={(e) => { colorHandler(e.target.checked, item.colorId, item.colorName); }}
+                                                        onChange={(e) => { colorHandler(e.currentTarget.checked, item.colorId, item.colorName, element.id); }}
+                                                        checked={!colorId.includes(item.colorId)}
                                                     />
                                                 </Fragment>
                                             )
