@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "thumbnail": "https://images.unsplash.com/photo-1582656607963-3d621b6016b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+    "productName": "꽃꽃 퍼집업",
+    "productId": 6
+  },
+  {
+    "id": 2,
+    "thumbnail": "https://images.unsplash.com/photo-1582656607963-3d621b6016b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+    "productName": "꽃꽃 퍼집업",
+    "productId": 7
+  },
+  {
+    "id": 3,
+    "thumbnail": "https://images.unsplash.com/photo-1582656607963-3d621b6016b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+    "productName": "꽃꽃 퍼집업",
+    "productId": 8
+  }
+]

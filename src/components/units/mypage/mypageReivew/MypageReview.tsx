@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { IWritedReviewDataType } from '../Mypage.type'
 import WritedUserReview from './getUserReview/WritedUserReview'
 import * as S from './MypageReview.style'
+import CreateReviewPossibleList from './possibleUserReview/PossibleUserReview'
 
 const MypageReview = () => {
     const [reviewTitleOption, setReviewTitleOption] = useState<string>('possible_review')
@@ -47,10 +48,14 @@ const MypageReview = () => {
             </S.TegReviewTitle>
             {
                 reviewTitleOption === 'possible_review'
-                &&
-                <S.ReviewBox>
-                    현재 작성 가능한 리뷰가 없습니다.
-                </S.ReviewBox>
+                    ?
+                    <CreateReviewPossibleList />
+                    :
+                    reviewTitleOption === 'possible_review'
+                    &&
+                    <S.ReviewBox>
+                        현재 작성 가능한 리뷰가 없습니다.
+                    </S.ReviewBox>
             }
             {
                 reviewTitleOption === 'writed_review'
@@ -67,7 +72,7 @@ const MypageReview = () => {
                         작성한 리뷰가 없습니다.
                     </S.ReviewBox>
             }
-        </S.Contain>
+        </S.Contain >
     )
 }
 
