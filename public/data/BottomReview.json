@@ -1,0 +1,50 @@
+[
+  {
+    "productId": 1,
+    "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+    "name": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+    "price": 87600,
+    "mainCategoryId": 2,
+    "subCategoryId": 1,
+    "reviewCount": "1",
+    "reviews": [
+      { "star": 5, "image": "dsc", "content": "dcsdc", "reviewId": 1 }
+    ]
+  },
+  {
+    "productId": 2,
+    "thumbnail": "https://images.unsplash.com/photo-1528228377194-2faca82540e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDc5fHxqYWNrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+    "name": "가을 날씨에 딱~ 청난방",
+    "price": 124000,
+    "mainCategoryId": 2,
+    "subCategoryId": 1,
+    "reviewCount": "3",
+    "reviews": [
+      { "star": 4, "image": "sdc", "content": "sdcsdc", "reviewId": 3 },
+      { "star": 3, "image": "csdsc", "content": "sdcd", "reviewId": 4 },
+      { "star": 3, "image": "sdcsc", "content": "scdsc", "reviewId": 5 }
+    ]
+  },
+  {
+    "productId": 3,
+    "thumbnail": "https://images.unsplash.com/photo-1610288311735-39b7facbd095?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyZGlnYW58ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+    "name": "단추 가디건",
+    "price": 48700,
+    "mainCategoryId": 2,
+    "subCategoryId": 1,
+    "reviewCount": "1",
+    "reviews": [
+      { "star": 3, "image": "scsdc", "content": "sdc", "reviewId": 6 }
+    ]
+  },
+  {
+    "productId": 4,
+    "thumbnail": "https://cdn.pixabay.com/photo/2018/11/30/07/51/woman-3847209__480.jpg",
+    "name": "다양한 무늬 가디건",
+    "price": 84000,
+    "mainCategoryId": 2,
+    "subCategoryId": 1,
+    "reviewCount": null,
+    "reviews": null
+  }
+]
