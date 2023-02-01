@@ -12,8 +12,8 @@ const ProductDetail = () => {
   const [isShippingModal, setIsShippingModal] = useState(false)
   const [isRefundModal, setIsRefundModal] = useState(false)
   const [isMoreView, setIsMoreView] = useState(false)
-  const [colorBox, setColorBox] = useState([])
-  const [isColor, setIsColor] = useState(false)
+  // const [colorBox, setColorBox] = useState([])
+  // const [isColor, setIsColor] = useState(false)
 
   useEffect(() => {
     axios.get("/data/re.json").then((res) => {
@@ -21,17 +21,6 @@ const ProductDetail = () => {
     })
   }, [])
 
-  //   console.log(data)
-
-  // const onClickSelectColor = (e) => {
-  //   if (!colorBox.includes(e.target.value)) {
-  //     setColorBox(colorBox.concat(e.target.value))
-  //   }
-  //   if (colorBox.includes(e.target.value)) {
-  //     setColorBox(colorBox.filter((el) => e.target.value !== el))
-  //   }
-  // }
-  // console.log(colorBox)
   const [colorCheck, setColorCheck] = useState([])
   console.log(colorCheck)
   const changeHandler = (checked, colorId) => {
@@ -68,31 +57,6 @@ const ProductDetail = () => {
   const closeRefundModal = () => {
     setIsRefundModal(false)
   }
-  //   const a = data.options?.map((el) => {
-  //     return el.colorId
-  //   })
-  //   console.log(a)
-
-  //   const b = a?.map((el, i) => i)
-
-  //   console.log(b)
-
-  //   const c = data.options?.map(
-  //     (el, i) => el.colorId === 10 && data.options.map((el, i) => el.options[i])
-  //   )
-
-  //   console.log(c)
-  //   const d = data.options?.map((el) => {
-  //     if (el.colorId === 10) {
-  //       return data.options.map((el, i) => el.options?.map((el) => el))
-  //     } else if (el.colorId === 9) {
-  //       return data.options.map((el, i) => el.options?.map((el) => el))
-  //     } else if (el.colorId === 8) {
-  //       return data.options.map((el, i) => el.options.map((el) => el))
-  //     }
-  //   })
-
-  //   console.log(d)
 
   return (
     <div>
