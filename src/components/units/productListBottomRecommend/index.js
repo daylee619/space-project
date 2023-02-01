@@ -14,9 +14,10 @@ export default function ProductListRecommend() {
     })
   }, [])
 
-  //   const a = data.map((el) => el.reviews)
-  //   console.log(a)
-
+  const a = data.map((el) => el.reviews)
+  console.log(a)
+  // const b = a.map((el) => <div key={el.reviewId}>{el.content}</div>)
+  // console.log(b)
   return (
     <ReviewRecommendContainer>
       <RecommendReviewTitleWrapper>
