@@ -18,7 +18,7 @@ export default function ProductListRecommend() {
   //   console.log(a)
 
   return (
-    <>
+    <ReviewRecommendContainer>
       <RecommendReviewTitleWrapper>
         <RecommendReviewTitle>Recommended by REVIEW</RecommendReviewTitle>
       </RecommendReviewTitleWrapper>
@@ -60,9 +60,13 @@ export default function ProductListRecommend() {
           </RecommendItem>
         ))}
       </RecommendItemWrapper>
-    </>
+    </ReviewRecommendContainer>
   )
 }
+export const ReviewRecommendContainer = styled.div`
+  width: 100%;
+  padding: 100px 0;
+`
 export const RecommendReviewTitleWrapper = styled.div`
   text-align: center;
 `

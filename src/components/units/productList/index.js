@@ -22,25 +22,25 @@ export default function ProductList() {
   //   }
 
   useEffect(() => {
-    // axios
-    //   .get("/data/finish.json")
-    //   .then((res) => {
-    //     setData(res.data.result)
-    //   })
-    //   .catch((error) => console.log(error))
-    getData()
-  }, [])
-
-  const getData = async () => {
-    try {
-      axios.get(`http://172.20.10.7:3000/product/list?offset=1`).then((res) => {
-        console.log(res)
+    axios
+      .get("/data/finish.json")
+      .then((res) => {
         setData(res.data.result)
       })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+      .catch((error) => console.log(error))
+    // getData()
+  }, [])
+
+  // const getData = async () => {
+  //   try {
+  //     axios.get(`http://172.20.10.7:3000/product/list?offset=1`).then((res) => {
+  //       console.log(res)
+  //       setData(res.data.result)
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const [countIndex, setCountIndex] = useState()
   const handleOnClick = (e, idx) => {
@@ -132,7 +132,7 @@ export default function ProductList() {
         defaultCurrent={1}
         total={50}
         style={{
-          marginBottom: "30px",
+          marginBottom: "80px",
           display: "flex",
           justifyContent: "center",
           width: "100%",
