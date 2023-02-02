@@ -8,7 +8,7 @@ export default function ProductListRecommend() {
   const [data, setData] = useState([])
   const router = useRouter()
   useEffect(() => {
-    axios.get("/data/finished.json").then((res) => {
+    axios.get("/data/reviewrecommend.json").then((res) => {
       setData(res.data)
       console.log(data)
     })
@@ -36,22 +36,24 @@ export default function ProductListRecommend() {
             <RecommendItemInfo>
               <RecommendItemName key={el.id}>{el.name}</RecommendItemName>
               <RecommendItemPrice key={el.id}>{el.price}</RecommendItemPrice>
-              {/* {el.aa.map((el, i) => (
-                <div key={i}>
-                  <div key={el.reviewId}>{el.content}</div>
-                </div>
-              ))} */}
-              <ReviewCount>
-                {el.reviewCount !== null
-                  ? `${el.reviewCount}개 리뷰 모두 보기`
-                  : null}
+              <InfoBottomWrapper>
+                <ReviewContent key={el.id}>
+                  {el.reviewInform?.content === null
+                    ? "작성된 리뷰가 없습니다."
+                    : `${el.reviewInform?.content}`}
+                </ReviewContent>
+                <ReviewCount>
+                  {el.reviewCount !== null
+                    ? `${el.reviewCount}개 리뷰 모두 보기`
+                    : null}
 
-                <span>
-                  {el.reviewCount !== null ? (
-                    <RightOutlined style={{ fontSize: "10px" }} />
-                  ) : null}
-                </span>
-              </ReviewCount>
+                  <span>
+                    {el.reviewCount !== null ? (
+                      <RightOutlined style={{ fontSize: "10px" }} />
+                    ) : null}
+                  </span>
+                </ReviewCount>
+              </InfoBottomWrapper>
             </RecommendItemInfo>
           </RecommendItem>
         ))}
@@ -62,6 +64,7 @@ export default function ProductListRecommend() {
 export const ReviewRecommendContainer = styled.div`
   width: 100%;
   padding: 100px 0;
+  /* margin-left: 100px; */
 `
 export const RecommendReviewTitleWrapper = styled.div`
   text-align: center;
@@ -93,6 +96,7 @@ export const RecommendItemImgBox = styled.div`
 export const RecommendItemImg = styled.img`
   width: 230px;
   height: 350px;
+  object-fit: cover;
 `
 export const Star = styled.div`
   font-size: 12px;
@@ -128,8 +132,14 @@ export const RecommendItemPrice = styled.div`
 export const RecommendItemInfo = styled.div`
   text-align: left;
   border: 1px solid #e8e8ea;
-
   padding: 0 16px 20px 16px;
+  height: 174px;
+`
+export const ReviewContent = styled.div`
+  font-weight: normal;
+  color: #757577;
+  font-size: 13px;
+  line-height: 18px;
 `
 export const ReviewCount = styled.div`
   font-size: 13px;
@@ -140,4 +150,8 @@ export const ReviewCount = styled.div`
   span {
     margin-left: 5px;
   }
+`
+export const InfoBottomWrapper = styled.div`
+  padding-top: 20px;
+  padding-bottom: 20px;
 `
