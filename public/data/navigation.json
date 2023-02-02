@@ -1,0 +1,218 @@
+[
+  {
+    "id": 1,
+    "name": "BEST",
+    "subCategories": null,
+    "namingCategoies": null,
+    "productInfo": [null]
+  },
+  {
+    "id": 2,
+    "name": "WOMEN",
+    "subCategories": [
+      {
+        "id": "1",
+        "name": "아우터"
+      },
+      {
+        "id": "2",
+        "name": "상의"
+      },
+      {
+        "id": "3",
+        "name": "하의"
+      },
+      {
+        "id": "4",
+        "name": "원피스"
+      },
+      {
+        "id": "5",
+        "name": "ACC"
+      }
+    ],
+    "namingCategoies": [
+      {
+        "namingId": 7,
+        "namingName": "NEW"
+      },
+      {
+        "namingId": 8,
+        "namingName": "BEST"
+      },
+      {
+        "namingId": 9,
+        "namingName": "ALL"
+      }
+    ],
+    "productInfo": [
+      {
+        "price": 87600,
+        "productId": 1,
+        "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+        "productName": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓"
+      },
+      {
+        "price": 48300,
+        "productId": 6,
+        "thumbnail": "https://images.unsplash.com/photo-1582656607963-3d621b6016b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+        "productName": "꽃꽃 퍼집업"
+      },
+      {
+        "price": 124000,
+        "productId": 2,
+        "thumbnail": "https://images.unsplash.com/photo-1528228377194-2faca82540e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDc5fHxqYWNrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+        "productName": "가을 날씨에 딱~ 청난방"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "MEN",
+    "subCategories": [
+      {
+        "id": "1",
+        "name": "아우터"
+      },
+      {
+        "id": "2",
+        "name": "상의"
+      },
+      {
+        "id": "3",
+        "name": "하의"
+      },
+      {
+        "id": "5",
+        "name": "ACC"
+      }
+    ],
+    "namingCategoies": [
+      {
+        "namingId": 10,
+        "namingName": "NEW"
+      },
+      {
+        "namingId": 11,
+        "namingName": "BEST"
+      },
+      {
+        "namingId": 12,
+        "namingName": "ALL"
+      }
+    ],
+    "productInfo": [
+      {
+        "price": 65000,
+        "productId": 27,
+        "thumbnail": "https://images.unsplash.com/photo-1549882742-3a8e8de4c279?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXw5MjQyNTkxfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60",
+        "productName": "부릉부릉 라이더 자켓"
+      },
+      {
+        "price": 56000,
+        "productId": 28,
+        "thumbnail": "https://images.unsplash.com/photo-1613831622507-6c567efda45d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MnwtWk9VX1hOVWJiZ3x8ZW58MHx8fHw%3D&auto=format&fit=crop&w=900&q=60",
+        "productName": "사나이 자켓"
+      },
+      {
+        "price": 57000,
+        "productId": 29,
+        "thumbnail": "https://plus.unsplash.com/premium_photo-1661304778464-8413ea2a6c62?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2FyZGlnYW58ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
+        "productName": "땜빵 가디건"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "KIDS",
+    "subCategories": [
+      {
+        "id": "1",
+        "name": "아우터"
+      },
+      {
+        "id": "2",
+        "name": "상의"
+      },
+      {
+        "id": "3",
+        "name": "하의"
+      },
+      {
+        "id": "4",
+        "name": "원피스"
+      },
+      {
+        "id": "5",
+        "name": "ACC"
+      }
+    ],
+    "namingCategoies": null,
+    "productInfo": [
+      {
+        "price": 28000,
+        "productId": 51,
+        "thumbnail": "https://cdn.pixabay.com/photo/2017/01/01/17/20/young-man-1944982__480.jpg",
+        "productName": "나 졸려서 먼저 자켓"
+      },
+      {
+        "price": 120000,
+        "productId": 52,
+        "thumbnail": "https://cdn.pixabay.com/photo/2020/05/03/15/36/rose-5125509__480.jpg",
+        "productName": "나도 자켓"
+      },
+      {
+        "price": 39000,
+        "productId": 53,
+        "thumbnail": "https://cdn.pixabay.com/photo/2016/11/22/19/08/hangers-1850082__480.jpg",
+        "productName": "검정 바람막이"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "COMMUNITY",
+    "subCategories": null,
+    "namingCategoies": [
+      {
+        "namingId": 1,
+        "namingName": "런칭 캘린더"
+      },
+      {
+        "namingId": 2,
+        "namingName": "LOOKBOOK"
+      },
+      {
+        "namingId": 3,
+        "namingName": "SNAP"
+      },
+      {
+        "namingId": 4,
+        "namingName": "위클리 코디"
+      },
+      {
+        "namingId": 5,
+        "namingName": "REVIEW"
+      },
+      {
+        "namingId": 6,
+        "namingName": "EVENT"
+      }
+    ],
+    "productInfo": [null]
+  },
+  {
+    "id": 6,
+    "name": "런칭 캘린더",
+    "subCategories": null,
+    "namingCategoies": null,
+    "productInfo": [null]
+  },
+  {
+    "id": 7,
+    "name": "리뷰랩",
+    "subCategories": null,
+    "namingCategoies": null,
+    "productInfo": [null]
+  }
+]
