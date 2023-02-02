@@ -1,0 +1,31 @@
+{
+  "userInfo": {
+    "name": "심채원",
+    "email": "tlacodnjs667@gmail.com",
+    "phone": "010-3124-0321",
+    "points": "1938812.00",
+    "address": "강서구",
+    "detail_address": "fes",
+    "zip_code": "9392"
+  },
+  "orderInfo": [
+    {
+      "cartId": 1,
+      "name": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+      "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+      "priceByProduct": "175200",
+      "quantity": 2,
+      "color": "black",
+      "size": "S(085)"
+    },
+    {
+      "cartId": 5,
+      "name": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+      "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+      "priceByProduct": "700800",
+      "quantity": 8,
+      "color": "black",
+      "size": "L(095)"
+    }
+  ]
+}
