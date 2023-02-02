@@ -1,10 +1,10 @@
 import Order from '../../src/components/units/order/Order'
 
 
-const Test = () => {
+const OrderPage = () => {
     return (
         <Order />
     )
 }
 
-export default Test
+export default OrderPage
