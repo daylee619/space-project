@@ -12,8 +12,6 @@ const ProductDetail = () => {
   const [isShippingModal, setIsShippingModal] = useState(false)
   const [isRefundModal, setIsRefundModal] = useState(false)
   const [isMoreView, setIsMoreView] = useState(false)
-  // const [colorBox, setColorBox] = useState([])
-  // const [isColor, setIsColor] = useState(false)
 
   useEffect(() => {
     axios.get("/data/re.json").then((res) => {
@@ -22,13 +20,24 @@ const ProductDetail = () => {
   }, [])
 
   const [colorCheck, setColorCheck] = useState([])
-  console.log(colorCheck)
+  // console.log(colorCheck)
+  const [sizeCheck, setSizeCheck] = useState([])
+  console.log(sizeCheck)
   const changeHandler = (checked, colorId) => {
     if (!checked) {
       setColorCheck((prv) => [...prv, colorId])
     }
     if (checked) {
       setColorCheck(colorCheck.filter((el) => el !== colorId))
+    }
+  }
+
+  const sizeHandler = (checked, sizeId) => {
+    if (!checked) {
+      setColorCheck((prv) => [...prv, sizeId])
+    }
+    if (checked) {
+      setColorCheck(colorCheck.filter((el) => el !== sizeId))
     }
   }
 
@@ -57,7 +66,7 @@ const ProductDetail = () => {
   const closeRefundModal = () => {
     setIsRefundModal(false)
   }
-
+  console.log(colorCheck)
   return (
     <div>
       <DetailWrapper>
@@ -127,7 +136,10 @@ const ProductDetail = () => {
             <ColorButtonBox>
               {data.options?.map((el) => (
                 <Fragment key={el.colorId}>
-                  <ColorLabel htmlFor={el.colorId}>
+                  <ColorLabel
+                    htmlFor={el.colorId}
+                    colorCheck={colorCheck}
+                  >
                     {"(" + el.colorId + ")" + el.colorName}
                   </ColorLabel>
                   <ColorButton
@@ -138,7 +150,6 @@ const ProductDetail = () => {
                       colorCheck.length === 1 &&
                       !colorCheck.includes(el.colorId)
                     }
-                    // onClick={onClickSelectColor}
                     onChange={(e) =>
                       changeHandler(e.target.checked, el.colorId)
                     }
@@ -147,7 +158,19 @@ const ProductDetail = () => {
               ))}
             </ColorButtonBox>
             <OptionNotice>
-              <p>[필수]</p> <span>옵션을 선택해주세요.</span>
+              <p>[필수]</p>
+              {colorCheck.length === 0 ? (
+                <span>옵션을 선택해주세요</span>
+              ) : (
+                data.options.map(
+                  (el) =>
+                    colorCheck.includes(el.colorId) && (
+                      <span
+                        key={el.colorId}
+                      >{`(${el.colorId})${el.colorName}`}</span>
+                    )
+                )
+              )}
             </OptionNotice>
           </div>
           <SizeBox>
@@ -163,22 +186,33 @@ const ProductDetail = () => {
                         type="checkbox"
                         id={a.sizeId}
                         key={a.i}
+                        // onChange={() => sizeHandler(el.sizeId)}
+                        disabled={
+                          sizeCheck.length === 1 &&
+                          !sizeCheck.includes(a.sizeId)
+                        }
                       />
                     </Fragment>
                   ))
               )}
-              {/* {data.options?.map((el, i) => {
-                if (el.colorId === i) {
-                  return data.options.map((el, i) =>
-                    el.options?.map((el, i) => (
-                      <button key={el.colorId}>{el.size[0]}</button>
-                    ))
-                  )
-                }
-              })} */}
             </div>
             <OptionNotice>
-              <p>[필수]</p> <span>옵션을 선택해주세요.</span>
+              <p>[필수]</p>
+
+              {sizeCheck.length === 0 ? (
+                <span>옵션을 선택해주세요.</span>
+              ) : (
+                data.options.map((el) =>
+                  el.options?.map(
+                    (el, i) =>
+                      sizeCheck.includes(el.sizeId) && (
+                        <div key={i}>
+                          <span key={el.i}>{el.size}</span>
+                        </div>
+                      )
+                  )
+                )
+              )}
             </OptionNotice>
             <SizeRecommendBtn>사이즈를 추천합니다.</SizeRecommendBtn>
           </SizeBox>
@@ -245,8 +279,6 @@ export const DetailWrapper = styled.div`
 `
 
 export const DetailImg = styled.div`
-  /* display: flex; */
-
   width: 870px;
   max-width: 1005px;
   min-width: 870px;
@@ -416,8 +448,8 @@ export const ColorLabel = styled.label`
     border: 1px solid #000;
   }
 
-  &:focus {
-    border: 1px solid #000;
+  &:focus-within {
+    border: 1px solid black;
   }
 `
 export const SizeLabel = styled.label`
