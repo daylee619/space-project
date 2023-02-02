@@ -8,16 +8,12 @@ export default function ProductListRecommend() {
   const [data, setData] = useState([])
   const router = useRouter()
   useEffect(() => {
-    axios.get("/data/BottomReview.json").then((res) => {
+    axios.get("/data/finished.json").then((res) => {
       setData(res.data)
-      //   console.log(data)
+      console.log(data)
     })
   }, [])
 
-  const a = data.map((el) => el.reviews)
-  console.log(a)
-  // const b = a.map((el) => <div key={el.reviewId}>{el.content}</div>)
-  // console.log(b)
   return (
     <ReviewRecommendContainer>
       <RecommendReviewTitleWrapper>
@@ -26,26 +22,25 @@ export default function ProductListRecommend() {
 
       <RecommendItemWrapper>
         {data.map((el) => (
-          <RecommendItem key={el.productId}>
+          <RecommendItem key={el.id}>
             <RecommendItemImgBox
-              key={el.productId}
+              key={el.id}
               onClick={() => router.push("/productdetail")}
             >
               <RecommendItemImg src={el.thumbnail} />
-              {/* <div>{el}</div> */}
+
+              <Star star={el.star}>
+                {el.star !== null ? `평점 ${Number(el.star).toFixed(1)}` : ""}
+              </Star>
             </RecommendItemImgBox>
             <RecommendItemInfo>
-              <RecommendItemName key={el.productId}>
-                {el.name}
-              </RecommendItemName>
-              <RecommendItemPrice key={el.productId}>
-                {el.price}
-              </RecommendItemPrice>
-              {/* <div>
-                {el.reviews?.map((el) => (
-                  <div key={el.productId}>{el.content}</div>
-                ))}
-              </div> */}
+              <RecommendItemName key={el.id}>{el.name}</RecommendItemName>
+              <RecommendItemPrice key={el.id}>{el.price}</RecommendItemPrice>
+              {/* {el.aa.map((el, i) => (
+                <div key={i}>
+                  <div key={el.reviewId}>{el.content}</div>
+                </div>
+              ))} */}
               <ReviewCount>
                 {el.reviewCount !== null
                   ? `${el.reviewCount}개 리뷰 모두 보기`
@@ -98,6 +93,20 @@ export const RecommendItemImgBox = styled.div`
 export const RecommendItemImg = styled.img`
   width: 230px;
   height: 350px;
+`
+export const Star = styled.div`
+  font-size: 12px;
+  font-weight: normal;
+  color: #ffffff;
+  line-height: 16px;
+  letter-spacing: -0.5px;
+  background-color: ${(props) =>
+    props.star === null ? "white" : "rgba(0, 0, 0, 0.8)"};
+  border-radius: 4px;
+  position: absolute;
+  left: 8px;
+  padding: 6px 8px;
+  top: 10px;
 `
 export const RecommendItemName = styled.div`
   /* white-space: nowrap;

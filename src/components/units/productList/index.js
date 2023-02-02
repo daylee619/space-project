@@ -6,24 +6,12 @@ import React, { useEffect, useState } from "react"
 import ProductItem from "../../../common/libraries/productItem/ProductItem"
 import styled from "@emotion/styled"
 import { Pagination } from "antd"
-
 export default function ProductList() {
   const [data, setData] = useState([])
-  console.log(data)
-  const [wish, setWist] = useState([])
-  //   const [check, setCheck] = useState(false)
-  //   const wishHandler = (e) => {
-  //     if (check === true && !wish.includes(e.target.value)) {
-  //       setWist(wish.concat(e.target.value))
-  //     }
-  //     if (wish.includes(e.target.value)) {
-  //       setWist(wish.filter((el) => !el === e.target.value))
-  //     }
-  //   }
 
   useEffect(() => {
     axios
-      .get("/data/finish.json")
+      .get("/data/prolist.json")
       .then((res) => {
         setData(res.data.result)
       })
@@ -61,21 +49,93 @@ export default function ProductList() {
     optionTotal.push(optionBox[i] + size[i])
   }
 
+  // 상품명 정렬
+  const nameSort = () => {
+    const nameSorting = [...data]
+    const nameCompare = (key) => (a, b) => {
+      return a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0
+    }
+    nameSorting.sort(nameCompare("name"))
+    setData(nameSorting)
+  }
+
+  // 낮은 가격순 정렬
+  const lowPriceSort = () => {
+    const priceSorting = [...data]
+    const priceCompare = (key) => (a, b) => {
+      return a[key] - b[key]
+    }
+    priceSorting.sort(priceCompare("price"))
+    setData(priceSorting)
+  }
+  // 높은 가격순 정렬
+  const highPriceSort = () => {
+    const priceSorting = [...data]
+    const priceCompare = (key) => (a, b) => {
+      return b[key] - a[key]
+    }
+    priceSorting.sort(priceCompare("price"))
+    setData(priceSorting)
+  }
+  // const newsDate = data.map((el, i) => el.news)
+
+  // console.log(newsDate)
+
+  // 신상품 정렬
+  const newItemSort = () => {
+    const newItemSorting = [...data]
+    const newItemCompare = (key) => (a, b) => {
+      return b[key] - a[key]
+    }
+    newItemSorting.sort(newItemCompare("id"))
+    setData(newItemSorting)
+  }
+
+  // 좋아요 정렬
+  const likeSort = () => {
+    const likeSorting = [...data]
+    const likeCompare = (key) => (a, b) => {
+      return b[key] - a[key]
+    }
+    likeSorting.sort(likeCompare("likeCount"))
+    setData(likeSorting)
+  }
+
+  // 사용후기 정렬
+  const reviewSort = () => {
+    const reviewSorting = [...data]
+    const reviewCompare = (key) => (a, b) => {
+      return b[key] - a[key]
+    }
+    reviewSorting.sort(reviewCompare("reviewCount"))
+    setData(reviewSorting)
+  }
+
+  // 인기순 정렬
+  const orderSorting = () => {
+    const orderSorting = [...data]
+    const orderCompare = (key) => (a, b) => {
+      return b[key] - a[key]
+    }
+    orderSorting.sort(orderCompare("orderCount"))
+    setData(orderSorting)
+  }
+
   return (
     <ProductListWrapper>
       <ProductListBox>
         <MenuTitle>Women</MenuTitle>
         <Category>
           <MenuCategoryBox>
-            <MenuCategoryList>신상품</MenuCategoryList>
-            <MenuCategoryList>상품명</MenuCategoryList>
-            <MenuCategoryList>낮은가격</MenuCategoryList>
-            <MenuCategoryList>높은가격</MenuCategoryList>
-            <MenuCategoryList>제조사</MenuCategoryList>
-            <MenuCategoryList>인기상품</MenuCategoryList>
-            <MenuCategoryList>사용후기</MenuCategoryList>
-            <MenuCategoryList>조회수</MenuCategoryList>
-            <MenuCategoryList>좋아요</MenuCategoryList>
+            <MenuCategoryList onClick={newItemSort}>신상품</MenuCategoryList>
+            <MenuCategoryList onClick={nameSort}>상품명</MenuCategoryList>
+            <MenuCategoryList onClick={lowPriceSort}>낮은가격</MenuCategoryList>
+            <MenuCategoryList onClick={highPriceSort}>
+              높은가격
+            </MenuCategoryList>
+            <MenuCategoryList onClick={orderSorting}>인기상품</MenuCategoryList>
+            <MenuCategoryList onClick={reviewSort}>사용후기</MenuCategoryList>
+            <MenuCategoryList onClick={likeSort}>좋아요</MenuCategoryList>
           </MenuCategoryBox>
           <ItemNumber>872 Items</ItemNumber>
         </Category>
@@ -114,14 +174,19 @@ export default function ProductList() {
 
                 <ItemPrice>{el.price}</ItemPrice>
                 <ColorDisplay>
-                  {el.color.map((el) => (
+                  {el.color?.map((el) => (
                     <Color
                       color={el.colorName}
                       key={el.id}
                     ></Color>
                   ))}
                 </ColorDisplay>
-                <Review>리뷰 0건</Review>
+
+                <Review key={el.id}>
+                  {el.reviewCount === null
+                    ? "리뷰 0건"
+                    : `리뷰 ${el.reviewCount}건`}
+                </Review>
               </ItemDescription>
             </div>
           ))}
