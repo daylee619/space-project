@@ -34,6 +34,42 @@ export default function ProductList() {
   const handleOnClick = (e, idx) => {
     setCountIndex(idx)
   }
+  const [wish, setWish] = useState([])
+  const wishHandler = async (id, likeid) => {
+    try {
+      if (!wish.includes(id)) {
+        setWish(wish.concat(id))
+        await axios.post(
+          "api",
+          {
+            productId: id,
+          },
+          {
+            headers: {
+              authorization: "token",
+            },
+          }
+        )
+      }
+      if (wish.includes(id)) {
+        setWish(wish.filter((el) => id !== el))
+        await axios.post(
+          "api",
+          {
+            productId: id,
+          },
+
+          {
+            headers: {
+              authorization: "token",
+            },
+          }
+        )
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   // menu option function
   const optionBox = []
@@ -163,8 +199,8 @@ export default function ProductList() {
               <ItemDescription>
                 <ItemTitle>
                   <ItemName>{el.name}</ItemName>
-                  <HeartButton onClick={(e) => handleOnClick(e, idx)}>
-                    {countIndex === idx ? (
+                  <HeartButton onClick={() => wishHandler(el.id, el.likeid)}>
+                    {wish.includes(el.id) || el.likeid !== null ? (
                       <HeartFilled style={{ color: "red" }} />
                     ) : (
                       <HeartOutlined />
