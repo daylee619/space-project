@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
+import NavigationSearch from './navigation-search/NavigationSearch'
 import NavSubCategory from './navigation-sub-category/NavSubCategory'
 import * as S from "./Navigation.style"
 import { INavigationData } from './Navigation.type'
@@ -10,7 +11,9 @@ const Navigation = () => {
     const [navigationData, setNavigationData] = useState<INavigationData[]>([])
     const [categoryState, setCategoryState] = useState<number>()
     const [userPointerState, setUserPointerState] = useState<boolean>(false)
+    const [serachModal, setSearchModal] = useState<boolean>(false)
     const router = useRouter()
+
 
     // const token = localStorage.getItem('access_token')
 
@@ -43,6 +46,11 @@ const Navigation = () => {
         await router.push('/sign-in')
     }
 
+    // search modal handler 
+    const searchModalHandler = () => {
+        setSearchModal(prv => !prv)
+    }
+
     useEffect(() => {
         navigationDataHandler()
     }, [])
@@ -61,9 +69,8 @@ const Navigation = () => {
                     </S.ImgBox>
                     <S.NavContain>
                         {navigationData.map(el =>
-                            <>
+                            <Fragment key={el.id}>
                                 <S.NavCategory
-                                    key={el.id}
                                     onPointerEnter={() => { pointerHandler(el.id); }}
                                     onClick={async () => await router.push(`/${el.name}`)}
                                 >
@@ -81,7 +88,7 @@ const Navigation = () => {
                                         />
                                     </>
                                 }
-                            </>
+                            </Fragment>
                         )}
                     </S.NavContain>
                     <S.UserSignIconContain
@@ -125,7 +132,16 @@ const Navigation = () => {
                             }
                         </S.UserOutLinedBox>
                         <S.SearchOutLinedBox>
-                            <S.SearchOutLined />
+                            <S.SearchOutLined
+                                onClick={searchModalHandler}
+                            />
+                            {
+                                serachModal
+                                &&
+                                <NavigationSearch
+                                    searchModalHandler={searchModalHandler}
+                                />
+                            }
                         </S.SearchOutLinedBox>
                         <S.HeartOutLinedBox>
                             <S.HeartOutLined
