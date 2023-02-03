@@ -6,9 +6,10 @@ import React, { useEffect, useState } from "react"
 import ProductItem from "../../../common/libraries/productItem/ProductItem"
 import styled from "@emotion/styled"
 import { Pagination } from "antd"
+import { useRouter } from "next/router"
 export default function ProductList() {
   const [data, setData] = useState([])
-
+  const router = useRouter()
   useEffect(() => {
     axios
       .get("/data/prolist.json")
