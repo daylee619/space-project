@@ -27,3 +27,7 @@ export interface INavSubCategoryPropsType {
   subCategoryData: INavigationData
   pointerLeaveHandelr: () => void
 }
+
+export interface INavigationSearchPropsType {
+  searchModalHandler: () => void
+}

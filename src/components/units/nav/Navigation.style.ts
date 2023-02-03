@@ -84,11 +84,8 @@ export const SearchOutLinedBox = styled.div`
   margin-right: 10px;
   height: 100%;
   display: flex;
-  align-items: center;
-
-  &:hover {
-    cursor: pointer;
-  }
+  flex-direction: column;
+  justify-content: center;
 `
 
 export const SearchOutLined = styled(SearchOutlined)`
