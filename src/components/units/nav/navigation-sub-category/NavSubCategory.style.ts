@@ -8,6 +8,7 @@ export const SubCategoryContain = styled.div`
   left: 0px;
   border-bottom: 1px solid lightgray;
   background-color: white;
+  z-index: 1;
 `
 
 export const Box = styled.div`
