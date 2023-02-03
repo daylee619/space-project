@@ -2,6 +2,7 @@ import CartItem from './CartItem'
 import * as S from './Cart.style'
 import { ChangeEvent, MouseEvent, MouseEventHandler, useEffect, useState } from 'react'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 
 interface ICartItemInType {
@@ -45,6 +46,8 @@ const Cart = () => {
     const [optionModal, setOptionModal] = useState(false)
     // option color ID state
     const [colorIdState, setColorState] = useState<string>('')
+
+    const router = useRouter()
 
     // checkbox function
     const checkedHandler = (event: ChangeEvent<HTMLInputElement>, id: string) => {
@@ -271,7 +274,9 @@ const Cart = () => {
                 <S.ConfirmBox>
                     <S.ChoiseConfirm>선택상품주문</S.ChoiseConfirm>
                     <S.KeepGoingConfirm>쇼핑계속하기</S.KeepGoingConfirm>
-                    <S.AllChoiseConfirm>전체상품주문</S.AllChoiseConfirm>
+                    <S.AllChoiseConfirm
+                        onClick={async () => await router.push('/order')}
+                    >전체상품주문</S.AllChoiseConfirm>
                 </S.ConfirmBox>
             </S.ContainIn>
         </S.Contain>

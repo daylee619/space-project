@@ -5,6 +5,7 @@ export const Contain = styled.div`
   height: 100%;
   padding-top: 15px;
   border-top: 1px solid lightgray;
+  margin-top: 100px;
 `
 
 export const CommentText = styled.div`

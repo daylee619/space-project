@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useRouter } from 'next/router';
 import { ChangeEvent, useRef, useState } from 'react'
 import * as S from './SignUp.style'
 
@@ -26,6 +27,7 @@ const SignUp = () => {
     // const [birthdayError, setBirthdayError] = useState('')
     // const [nicknameError, setNicknameError] = useState('')
     // const [genderError, setGenderError] = useState('')
+    const router = useRouter()
 
     // change Function
     const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -130,7 +132,11 @@ const SignUp = () => {
                 </S.UserProfileBox>
             </S.UpperBox>
             <S.BottomBox>
-                <S.ConfirmButton>취소</S.ConfirmButton>
+                <S.ConfirmButton
+                    onClick={async () => await router.push('/sign-in')}
+                >
+                    취소
+                </S.ConfirmButton>
                 <S.ConfirmButton onClick={filePostHandler}>회원가입</S.ConfirmButton>
             </S.BottomBox>
         </S.Contain>

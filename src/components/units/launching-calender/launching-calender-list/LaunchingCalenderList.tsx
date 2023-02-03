@@ -43,7 +43,7 @@ const LaunchingCalenderList = () => {
                     lanchingCalenderData.map(el =>
                         <S.ItemBox
                             key={el.id}
-                            onClick={async () => await router.push(`/launching-calender/detail/${el.id}`)}
+                            onClick={async () => await router.push(`/LAUNCHING_CALENDER/detail/${el.id}`)}
                         >
                             <S.CalenderImg src={el.thumbnail} alt={el.title} />
                             <S.Date>{el.created_at}</S.Date>

@@ -5,13 +5,16 @@ export const Contain = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
+  padding: 0 15px;
 `
 
 export const Title = styled.h1`
-  font-size: 50px;
-  margin: 50px;
+  font-size: 18px;
+  font-weight: 900;
+  padding-bottom: 12px;
+  border-bottom: 2px solid black;
+  margin-bottom: 30px;
 `
 
 export const UpperBox = styled.div`
@@ -75,10 +78,10 @@ export const BottomBox = styled.div`
 `
 
 export const ConfirmButton = styled.button`
-  width: 150px;
-  height: 40px;
+  width: 100px;
+  height: 30px;
   margin-right: 10px;
-  background-color: rgb(255, 255, 225);
+  background-color: rgb(255, 255, 224);
   color: black;
   border-radius: 5px;
   border: 1px solid lightgray;

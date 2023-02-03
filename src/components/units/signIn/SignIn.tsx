@@ -1,5 +1,7 @@
-import axios from 'axios'
+import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
+import GoogleSignIn from '../googleSignIn/GoogleSignIn'
+import KakaoSignIn from '../kakaoSignIn/KakaoSignIn'
 import * as S from './SignIn.style'
 
 const SignIn = () => {
@@ -7,6 +9,7 @@ const SignIn = () => {
     const [errorId, setErrorId] = useState('')
     const [userPassword, setUserPassword] = useState('')
     const [errorPassword, setErrorPassword] = useState('')
+    const router = useRouter()
 
     // Id Change State Handler
     const idChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +59,15 @@ const SignIn = () => {
                         <S.PasswordErrorMessage>{errorPassword}</S.PasswordErrorMessage>
                     </div>
                     <S.LoginButton onClick={SignInHandler}>로그인</S.LoginButton>
-                    <S.SignUpButton>회원가입</S.SignUpButton>
+                    <S.SignUpButton
+                        onClick={async () => await router.push('/sign-up')}
+                    >
+                        회원가입
+                    </S.SignUpButton>
+                    <S.SocialLogInBox>
+                        <KakaoSignIn />
+                        <GoogleSignIn />
+                    </S.SocialLogInBox>
                 </S.SignInBox>
             </S.Box>
         </S.Contain>

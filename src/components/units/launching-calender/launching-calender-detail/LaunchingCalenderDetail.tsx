@@ -56,7 +56,7 @@ const LaunchingCalenderDetail = () => {
                 LAUNCHING CALENDAR
             </S.OutTitle>
             <S.SubTitle
-                onClick={async () => await router.push('/launching-calender')}
+                onClick={async () => await router.push('/LAUNCHING_CALENDER')}
             >
                 런칭 캘린더
             </S.SubTitle>

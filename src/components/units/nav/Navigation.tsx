@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import NavSubCategory from './navigation-sub-category/NavSubCategory'
 import * as S from "./Navigation.style"
@@ -9,6 +10,7 @@ const Navigation = () => {
     const [navigationData, setNavigationData] = useState<INavigationData[]>([])
     const [categoryState, setCategoryState] = useState<number>()
     const [userPointerState, setUserPointerState] = useState<boolean>(false)
+    const router = useRouter()
 
     // const token = localStorage.getItem('access_token')
 
@@ -36,6 +38,11 @@ const Navigation = () => {
         setUserPointerState(prv => !prv)
     }
 
+    // mypage 이동
+    const mypageMoveHandler = async () => {
+        await router.push('/sign-in')
+    }
+
     useEffect(() => {
         navigationDataHandler()
     }, [])
@@ -46,7 +53,11 @@ const Navigation = () => {
             <S.Contain>
                 <S.InContain>
                     <S.ImgBox>
-                        <S.LogoImg src='https://www.spao.com/morenvyimg/top_logo_pc.png' alt='https://www.spao.com/morenvyimg/top_logo_pc.png' />
+                        <S.LogoImg
+                            src='https://www.spao.com/morenvyimg/top_logo_pc.png'
+                            alt='https://www.spao.com/morenvyimg/top_logo_pc.png'
+                            onClick={async () => await router.push('/')}
+                        />
                     </S.ImgBox>
                     <S.NavContain>
                         {navigationData.map(el =>
@@ -54,6 +65,7 @@ const Navigation = () => {
                                 <S.NavCategory
                                     key={el.id}
                                     onPointerEnter={() => { pointerHandler(el.id); }}
+                                    onClick={async () => await router.push(`/${el.name}`)}
                                 >
                                     {el.name}
                                 </S.NavCategory>
@@ -75,6 +87,7 @@ const Navigation = () => {
                     <S.UserSignIconContain
                     >
                         <S.UserOutLinedBox
+                            onClick={mypageMoveHandler}
                         >
                             <S.UserOutLined
                                 onPointerEnter={userPointerHandler}
@@ -89,8 +102,15 @@ const Navigation = () => {
                                         <S.UserInfoNavSpanBox
                                             onPointerLeave={userPointerHandler}
                                         >
-                                            <S.UserInfoNavSpan>LOGIN</S.UserInfoNavSpan>
-                                            <S.UserInfoNavSpanLast>ORDER</S.UserInfoNavSpanLast>
+                                            <S.UserInfoNavSpan
+                                                onClick={async () => await router.push('/sign-in')}
+                                            >
+                                                LOGIN
+                                            </S.UserInfoNavSpan>
+                                            <S.UserInfoNavSpanLast
+                                                onClick={async () => await router.push('/sign-in')}
+                                            >
+                                                ORDER</S.UserInfoNavSpanLast>
                                         </S.UserInfoNavSpanBox>
                                     </S.UserInfoNav>
 
@@ -108,10 +128,14 @@ const Navigation = () => {
                             <S.SearchOutLined />
                         </S.SearchOutLinedBox>
                         <S.HeartOutLinedBox>
-                            <S.HeartOutLined />
+                            <S.HeartOutLined
+                                onClick={async () => await router.push('/mypage/wish-list')}
+                            />
                         </S.HeartOutLinedBox>
                         <S.ShoppingCartOutLinedBox>
-                            <S.ShoppingCartOutLined />
+                            <S.ShoppingCartOutLined
+                                onClick={async () => await router.push('/cart')}
+                            />
                         </S.ShoppingCartOutLinedBox>
                     </S.UserSignIconContain>
                 </S.InContain>

@@ -3,6 +3,7 @@ import styled from "@emotion/styled"
 export const Contain = styled.div`
   width: 100%;
   height: 100%;
+  margin-top: 80px;
 `
 
 export const Box = styled.div`
@@ -13,7 +14,7 @@ export const Box = styled.div`
 `
 
 export const LoginTitle = styled.h1`
-  font-size: 100px;
+  font-size: 50px;
 `
 
 export const SignInBox = styled.div`
@@ -89,4 +90,9 @@ export const SignUpButton = styled.button`
     background: lightgray;
     color: black;
   }
+`
+
+export const SocialLogInBox = styled.div`
+  display: flex;
+  margin-top: 80px;
 `
