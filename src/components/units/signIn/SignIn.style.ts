@@ -91,3 +91,8 @@ export const SignUpButton = styled.button`
     color: black;
   }
 `
+
+export const SocialLogInBox = styled.div`
+  display: flex;
+  margin-top: 80px;
+`

@@ -75,16 +75,17 @@ export const BottomBox = styled.div`
 `
 
 export const ConfirmButton = styled.button`
-  width: 100px;
-  height: 30px;
+  width: 150px;
+  height: 40px;
   margin-right: 10px;
-  background-color: rgb(255, 255, 224);
+  background-color: rgb(255, 255, 225);
   color: black;
   border-radius: 5px;
   border: 1px solid lightgray;
 
   &:hover {
     background-color: rgb(255, 250, 205);
+    cursor: pointer;
   }
 `
 

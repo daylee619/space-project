@@ -65,6 +65,7 @@ const Navigation = () => {
                                 <S.NavCategory
                                     key={el.id}
                                     onPointerEnter={() => { pointerHandler(el.id); }}
+                                    onClick={async () => await router.push(`/${el.name}`)}
                                 >
                                     {el.name}
                                 </S.NavCategory>
@@ -101,8 +102,15 @@ const Navigation = () => {
                                         <S.UserInfoNavSpanBox
                                             onPointerLeave={userPointerHandler}
                                         >
-                                            <S.UserInfoNavSpan>LOGIN</S.UserInfoNavSpan>
-                                            <S.UserInfoNavSpanLast>ORDER</S.UserInfoNavSpanLast>
+                                            <S.UserInfoNavSpan
+                                                onClick={async () => await router.push('/sign-in')}
+                                            >
+                                                LOGIN
+                                            </S.UserInfoNavSpan>
+                                            <S.UserInfoNavSpanLast
+                                                onClick={async () => await router.push('/sign-in')}
+                                            >
+                                                ORDER</S.UserInfoNavSpanLast>
                                         </S.UserInfoNavSpanBox>
                                     </S.UserInfoNav>
 
