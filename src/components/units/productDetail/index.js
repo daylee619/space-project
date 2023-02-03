@@ -14,7 +14,7 @@ const ProductDetail = () => {
   const [isMoreView, setIsMoreView] = useState(false)
 
   useEffect(() => {
-    axios.get("/data/re.json").then((res) => {
+    axios.get("/data/prodetail.json").then((res) => {
       setData(res.data)
     })
   }, [])
@@ -40,6 +40,35 @@ const ProductDetail = () => {
       setColorCheck(colorCheck.filter((el) => el !== sizeId))
     }
   }
+  const [wish, setWish] = useState([])
+  const wishHandler = async (id, likeid) => {
+    try {
+      if (!wish.includes(likeid)) {
+        setWish(wish.concat(likeid))
+        await axios.post(
+          "api",
+          { productId: id },
+          {
+            Headers: {
+              authorization: "token",
+            },
+          }
+        )
+      }
+      if (wish.includes(likeid)) {
+        setWish(wish.filter((el) => likeid !== el))
+        await axios.post(
+          "api",
+          { productId: id },
+          { headers: { authorization: "token" } }
+        )
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  console.log(wish)
 
   const onClickImgMoreViewBtn = () => {
     setIsMoreView(!isMoreView)
@@ -222,7 +251,7 @@ const ProductDetail = () => {
             <PriceTotalNumber>0 (0개)</PriceTotalNumber>
           </PriceTotal>
           <BuyBtnBox>
-            <LikeBtn>
+            <LikeBtn onClick={() => wishHandler(data.id, data.likeid)}>
               <HeartOutlined style={{ fontSize: "18px" }} />
             </LikeBtn>
             <CartBtn>장바구니</CartBtn>
