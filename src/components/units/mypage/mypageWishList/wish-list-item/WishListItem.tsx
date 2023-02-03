@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useState } from 'react';
 import CartCompleteModal from '../../../../../common/utils/optionModal/wishListOptionModal/CartCompleteModal';
 import WishListOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/OptionModal';
 import PlusOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/PlusOptionModal';
@@ -6,7 +6,7 @@ import { IWishListItemPropsType } from '../../Mypage.type';
 import * as S from './WishListItem.style'
 
 const WishListItem = (props: IWishListItemPropsType) => {
-    const { wishListData, selectStateHandler, handleSingleCheck, checkItems, selectState } = props
+    const { wishListData, selectStateHandler, selectState } = props
     const [optionModal, setOptionModal] = useState<number[]>([])
 
 
@@ -36,14 +36,14 @@ const WishListItem = (props: IWishListItemPropsType) => {
             {
                 wishListData.map(el =>
                     <S.Contain key={el.id}>
-                        <S.ItemCheckBox>
+                        {/* <S.ItemCheckBox>
                             <input
                                 type='checkbox'
                                 id={(el.id).toString()}
                                 onChange={(event) => { handleSingleCheck(event.currentTarget.checked, el.id); }}
                                 checked={checkItems.includes(el.id)}
                             />
-                        </S.ItemCheckBox>
+                        </S.ItemCheckBox> */}
                         <S.ItemItemInforMation>
                             <S.ItemImgBox>
                                 <S.ItemImg src={el.thumbnail} alt={el.name} />

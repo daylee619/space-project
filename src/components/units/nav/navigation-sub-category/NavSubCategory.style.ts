@@ -77,6 +77,10 @@ export const ProductImgShadow = styled.div`
   height: 200px;
   color: white;
   font-size: 13px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Shadow = styled.div`

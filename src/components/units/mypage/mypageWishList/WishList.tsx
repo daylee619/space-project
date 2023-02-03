@@ -9,25 +9,25 @@ const WishList = () => {
     const [selectState, setSelectState] = useState<string>('')
     console.log(wishListData)
     // 체크박스
-    const [checkItems, setCheckItems] = useState<number[]>([])
+    // const [checkItems, setCheckItems] = useState<number[]>([])
 
-    const handleSingleCheck = (checked: boolean, id: number) => {
-        if (checked) {
-            setCheckItems(prv => [...prv, id])
-        } else {
-            setCheckItems(checkItems.filter(el => id !== el))
-        }
-    }
+    // const handleSingleCheck = (checked: boolean, id: number) => {
+    //     if (checked) {
+    //         setCheckItems(prv => [...prv, id])
+    //     } else {
+    //         setCheckItems(checkItems.filter(el => id !== el))
+    //     }
+    // }
 
-    const handleAllCheck = (checked: boolean) => {
-        if (checked) {
-            const idArray: number[] = []
-            wishListData.forEach(el => idArray.push(el.id))
-            setCheckItems(idArray)
-        } else {
-            setCheckItems([])
-        }
-    }
+    // const handleAllCheck = (checked: boolean) => {
+    //     if (checked) {
+    //         const idArray: number[] = []
+    //         wishListData.forEach(el => idArray.push(el.id))
+    //         setCheckItems(idArray)
+    //     } else {
+    //         setCheckItems([])
+    //     }
+    // }
 
     const wishListDataHandler = async () => {
         try {
@@ -52,11 +52,11 @@ const WishList = () => {
         <S.Contain>
             <S.PageTitle>위시리스트</S.PageTitle>
             <S.ItemTitleBox>
-                <S.ItemTitleCheckBox
+                {/* <S.ItemTitleCheckBox
                     type='checkbox'
                     onChange={(e) => { handleAllCheck(e.target.checked); }}
                     checked={checkItems.length === wishListData.length}
-                />
+                /> */}
                 <S.ItemTitleInfo>상품정보</S.ItemTitleInfo>
                 <S.ItemTitlePoint>적립금</S.ItemTitlePoint>
                 <S.ItemTitlePost>배송구분</S.ItemTitlePost>
@@ -68,9 +68,9 @@ const WishList = () => {
                 <WishListItem
                     wishListData={wishListData}
                     selectStateHandler={selectStateHandler}
-                    handleSingleCheck={handleSingleCheck}
-                    handleAllCheck={handleAllCheck}
-                    checkItems={checkItems}
+                    // handleSingleCheck={handleSingleCheck}
+                    // handleAllCheck={handleAllCheck}
+                    // checkItems={checkItems}
                     selectState={selectState}
                 />
             }

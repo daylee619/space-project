@@ -104,9 +104,9 @@ export interface IWishListDataSizeType {
 export interface IWishListItemPropsType {
   wishListData: IWishListDataType[]
   selectStateHandler: (selectValue: string) => void
-  handleAllCheck: (checked: boolean) => void
-  handleSingleCheck: (checked: boolean, id: number) => void
-  checkItems: number[]
+  // handleAllCheck: (checked: boolean) => void
+  // handleSingleCheck: (checked: boolean, id: number) => void
+  // checkItems: number[]
   selectState: string
 }
 

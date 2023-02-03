@@ -1,5 +1,6 @@
-import axios from 'axios'
 import { ChangeEvent, useState } from 'react'
+import GoogleSignIn from '../googleSignIn/GoogleSignIn'
+import KakaoSignIn from '../kakaoSignIn/KakaoSignIn'
 import * as S from './SignIn.style'
 
 const SignIn = () => {
@@ -57,6 +58,10 @@ const SignIn = () => {
                     </div>
                     <S.LoginButton onClick={SignInHandler}>로그인</S.LoginButton>
                     <S.SignUpButton>회원가입</S.SignUpButton>
+                    <div>
+                        <KakaoSignIn />
+
+                    </div>
                 </S.SignInBox>
             </S.Box>
         </S.Contain>

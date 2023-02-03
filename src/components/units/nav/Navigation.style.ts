@@ -30,6 +30,10 @@ export const ImgBox = styled.div`
 
 export const LogoImg = styled.img`
   width: 120px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const NavContain = styled.div`
@@ -62,6 +66,10 @@ export const UserOutLinedBox = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const UserOutLined = styled(UserOutlined)`
@@ -77,6 +85,10 @@ export const SearchOutLinedBox = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const SearchOutLined = styled(SearchOutlined)`
@@ -92,6 +104,10 @@ export const HeartOutLinedBox = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const HeartOutLined = styled(HeartOutlined)`
@@ -106,6 +122,10 @@ export const ShoppingCartOutLinedBox = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const ShoppingCartOutLined = styled(ShoppingCartOutlined)`
