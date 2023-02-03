@@ -19,7 +19,7 @@ export default function ProductFilter() {
 
   const getData = async () => {
     try {
-      await axios.get("/data/response.json").then((res) => {
+      await axios.get("/data/res.json").then((res) => {
         setData(res.data)
       })
     } catch (error) {
