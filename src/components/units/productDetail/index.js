@@ -5,6 +5,7 @@ import { ShareAltOutlined, HeartOutlined } from "@ant-design/icons"
 import ShareModal from "../Modal/sharemodal"
 import ShippingModal from "../Modal/shippingmodal"
 import RefundModal from "../Modal/refundmodal"
+import WishModal from "../Modal/wishmodal"
 
 const ProductDetail = () => {
   const [data, setData] = useState([])
@@ -12,6 +13,7 @@ const ProductDetail = () => {
   const [isShippingModal, setIsShippingModal] = useState(false)
   const [isRefundModal, setIsRefundModal] = useState(false)
   const [isMoreView, setIsMoreView] = useState(false)
+  const [isWishModal, setIsWishModal] = useState(false)
 
   useEffect(() => {
     axios.get("/data/prodetail.json").then((res) => {
@@ -95,7 +97,14 @@ const ProductDetail = () => {
   const closeRefundModal = () => {
     setIsRefundModal(false)
   }
-  console.log(colorCheck)
+
+  const openWishModal = () => {
+    setIsWishModal(true)
+  }
+  const closeWishModal = () => {
+    setIsWishModal(false)
+  }
+
   return (
     <div>
       <DetailWrapper>
@@ -251,9 +260,19 @@ const ProductDetail = () => {
             <PriceTotalNumber>0 (0개)</PriceTotalNumber>
           </PriceTotal>
           <BuyBtnBox>
-            <LikeBtn onClick={() => wishHandler(data.id, data.likeid)}>
+            <LikeBtn
+              onClick={() =>
+                wishHandler(data.id, data.likeid) && openWishModal()
+              }
+            >
               <HeartOutlined style={{ fontSize: "18px" }} />
             </LikeBtn>
+            {isWishModal && (
+              <WishModal
+                isWishModal={isWishModal}
+                close={closeWishModal}
+              />
+            )}
             <CartBtn>장바구니</CartBtn>
             <BuyBtn>구매하기</BuyBtn>
           </BuyBtnBox>
