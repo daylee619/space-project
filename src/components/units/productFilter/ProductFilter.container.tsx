@@ -1,10 +1,13 @@
 import ProductFilterUI from "./ProductFilter.presenter"
 import { ChangeEvent, useState, useEffect } from "react"
 import axios from "axios"
+import { useRouter } from "next/router"
 
 // 리팩토링 다시
 
 export default function ProductFilter() {
+  const router = useRouter()
+
   const [data, setData] = useState<number[] | string[]>([])
   const [colorView, setColorView] = useState<boolean>(true)
   const [itemView, setItemView] = useState<boolean>(true)
@@ -61,7 +64,9 @@ export default function ProductFilter() {
   const colorSelecteHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!colorSelect.includes(e.target.value)) {
       setColorSelect(colorSelect.concat(e.target.value))
+      // router.push(`/`)
     }
+
     if (colorSelect.includes(e.target.value)) {
       setColorSelect(colorSelect.filter((el) => e.target.value !== el))
     }
