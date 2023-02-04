@@ -21,14 +21,10 @@ export default function ReviewByProduct() {
     })
   }, [])
 
-  const average = data.scoreAvg?.map((el) => el.aa)
+  const average = data.scoreAvg?.map((el) => el.starAVG)
   console.log(average)
   const starAvg = Number(average).toFixed(1)
   console.log(starAvg)
-
-  const star = data.scoreCount?.map((el, i) => <div key={el.i}>{el.star}</div>)
-
-  //   console.log(star)
 
   return (
     <>
@@ -49,7 +45,7 @@ export default function ReviewByProduct() {
             />
             <StarAverage>
               {data.scoreAvg?.map((el, i) => (
-                <div key={el.i}>{Number(el.aa).toFixed(1)}</div>
+                <div key={el.i}>{Number(el.starAVG).toFixed(1)}</div>
               ))}
             </StarAverage>
           </AverBox>
