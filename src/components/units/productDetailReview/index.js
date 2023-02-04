@@ -1,8 +1,15 @@
 import styled from "@emotion/styled"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { StarFilled, RightOutlined, SearchOutlined } from "@ant-design/icons"
+import {
+  StarFilled,
+  RightOutlined,
+  SearchOutlined,
+  DownOutlined,
+  RedoOutlined,
+} from "@ant-design/icons"
 import ProductDetailReviewBox from "../productDetail/productDetailReviewBox"
+import { Rate } from "antd"
 
 export default function ReviewByProduct() {
   const [data, setData] = useState([])
@@ -95,11 +102,47 @@ export default function ReviewByProduct() {
               </ReviewMenuList>
             </ReviewMenu>
           </ReviewMenuWrapper>
-          <div>
-            <div style={{ padding: "20px", borderBottom: "1px solid black" }}>
-              별점 : 보통이에요
-            </div>
-          </div>
+          <StarOptionContaineriner>
+            <StarOptionBtn>
+              <StarOptionClick>
+                별점
+                <DownOutlined
+                  style={{ fontSize: "10px", marginLeft: "10px" }}
+                />
+              </StarOptionClick>
+            </StarOptionBtn>
+            <StarOptionList>
+              <StarResetWrapper>
+                <div>별점</div>
+                <ResetWrapper>
+                  <div>초기화</div>
+                  <RedoOutlined />
+                </ResetWrapper>
+              </StarResetWrapper>
+
+              <StarList>
+                <Rate defaultValue={5} />
+                <input type="checkbox" />
+              </StarList>
+              <StarList>
+                <Rate defaultValue={4} />
+                <input type="checkbox" />
+              </StarList>
+              <StarList>
+                <Rate defaultValue={3} />
+                <input type="checkbox" />
+              </StarList>
+              <StarList>
+                <Rate defaultValue={2} />
+                <input type="checkbox" />
+              </StarList>
+              <StarList>
+                <Rate defaultValue={1} />
+                <input type="checkbox" />
+              </StarList>
+            </StarOptionList>
+            <button>완료</button>
+          </StarOptionContaineriner>
           <ProductDetailReviewBox
             reviewData={reviewData}
             setReviewData={setReviewData}
@@ -215,6 +258,43 @@ export const ReviewMenuWrapper = styled.div`
   border-bottom: 1px solid #ebeff5;
   display: flex;
   position: relative;
+`
+export const StarOptionContainer = styled.div`
+  position: relative;
+  width: 200px;
+  height: 40px;
+`
+export const StarOptionBtn = styled.button`
+  border-color: #14161a;
+  border-radius: 4px;
+  border: solid 1px #ebeff5;
+  background-color: #ffffff;
+  /* padding: 8px 12px; */
+`
+
+export const StarOptionClick = styled.div`
+  padding: 8px 12px;
+`
+export const StarOptionList = styled.ul`
+  position: absolute;
+  top: 65px;
+`
+export const StarOptionContaineriner = styled.div``
+export const StarResetWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+export const StarList = styled.li`
+  cursor: pointer;
+  position: relative;
+  background-color: white;
+  font-size: 12px;
+  padding: 4px 22px 16px 0;
+  line-height: 18px;
+  border-bottom: 1px solid #ebeff5;
+`
+export const ResetWrapper = styled.div`
+  display: flex;
 `
 export const ReviewMenu = styled.ul`
   display: flex;
