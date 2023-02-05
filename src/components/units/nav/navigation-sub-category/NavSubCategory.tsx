@@ -1,3 +1,4 @@
+import { Router, useRouter } from 'next/router'
 import { useState } from 'react'
 import { INavSubCategoryPropsType } from '../Navigation.type'
 import * as S from './NavSubCategory.style'
@@ -6,6 +7,8 @@ const NavSubCategory = (props: INavSubCategoryPropsType) => {
     const { subCategoryData, pointerLeaveHandelr } = props
 
     const [imgState, setImgState] = useState<number>()
+
+    const router = useRouter()
 
     const imgStateHandler = (id?: number) => {
         setImgState(id)
@@ -22,7 +25,9 @@ const NavSubCategory = (props: INavSubCategoryPropsType) => {
                     <S.NamingBox>
                         <S.NamingCategoryBox>
                             {subCategoryData.namingCategoies?.map(item =>
-                                <S.NamingCategory key={item.namingId}>
+                                <S.NamingCategory
+                                    key={item.namingId}
+                                >
                                     {item.namingName}
                                 </S.NamingCategory>
                             )
@@ -31,7 +36,9 @@ const NavSubCategory = (props: INavSubCategoryPropsType) => {
                         <S.SubCategoryBox>
                             {
                                 subCategoryData.subCategories?.map(item =>
-                                    <S.SubCategory key={item.id}>
+                                    <S.SubCategory
+                                        key={item.id}
+                                    >
                                         {item.name}
                                     </S.SubCategory>
                                 )

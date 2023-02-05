@@ -92,6 +92,32 @@
           "trackingNumber": "5572095858878678",
           "shipment_status": "환불완료",
           "shippingCompany": "대학통운"
+        },
+        {
+          "price": 175200,
+          "quantity": 2,
+          "optionInfo": {
+            "size": "S(085)",
+            "colorName": "black"
+          },
+          "productName": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+          "orderProductId": 24,
+          "trackingNumber": "5572095858878678",
+          "shipment_status": "환불완료",
+          "shippingCompany": "대학통운"
+        },
+        {
+          "price": 175200,
+          "quantity": 2,
+          "optionInfo": {
+            "size": "S(085)",
+            "colorName": "black"
+          },
+          "productName": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+          "orderProductId": 25,
+          "trackingNumber": "5572095858878678",
+          "shipment_status": "환불완료",
+          "shippingCompany": "대학통운"
         }
       ],
       "addressInfo": {

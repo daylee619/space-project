@@ -9,9 +9,9 @@ const MypageMain = () => {
 
     const mainDataGetHandler = async () => {
         try {
-            await axios.get('http://172.30.1.42:3000/order/mypage', {
+            await axios.get('/data/mypage_main.json', {
                 headers: {
-                    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRsYWNvZG5qczY2N0BhZGlvcy5jb20iLCJ1c2VySWQiOjE5LCJpYXQiOjE2NzQ5ODA2NzQsImV4cCI6MTY3NDk4NDI3NH0.n7PVHXasgIrldkccjUlOahlCn1DkFN_Xc0W4J_dbikQ"
+                    "authorization": `${localStorage.getItem('access_token')}`
                 }
             })
                 .then(res => {
@@ -55,11 +55,11 @@ const MypageMain = () => {
                     <S.TitleName>취소/교환/반품</S.TitleName>
                     <S.Box>
                         {
-                            mainData?.orderCountByStatus.map(el => <S.Count key={el.orderStatusId}>{el.orderStatusId === 7 ? el.countStatus : 0} </S.Count>)
+                            mainData?.orderCountByStatus.map(el => <S.Count key={el.orderStatusId}>{el.orderStatusId === 7 && el.countStatus ? el.countStatus : '0'} </S.Count>)
                         }
                         <S.Desh> / </S.Desh>
                         {
-                            mainData?.orderCountByStatus.map(el => <S.Count key={el.orderStatusId}> {el.orderStatusId === 3 ? el.countStatus : 0}</S.Count>)
+                            mainData?.orderCountByStatus.map(el => <S.Count key={el.orderStatusId}> {el.orderStatusId === 3 && el.countStatus ? el.countStatus : '0'}</S.Count>)
                         }
                         <S.Desh> / </S.Desh>
                         <S.Desh> 0 </S.Desh>

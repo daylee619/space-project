@@ -133,8 +133,13 @@ export const ShoppingCartOutLined = styled(ShoppingCartOutlined)`
   }
 `
 
+export const UserInfoLogIn = styled.div`
+  position: absolute;
+`
+
 export const UserInfoNav = styled.div`
   position: absolute;
+  margin-top: 22px;
 `
 
 export const UserInfoNavSpanBox = styled.div`

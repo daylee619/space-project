@@ -1,4 +1,4 @@
-import KakaoRedirect from '../../../../../src/components/units/kakaoSignIn/KakaoRedirect'
+import KakaoRedirect from '../../../../src/components/units/kakaoSignIn/KakaoRedirect'
 
 const KakaoRe = () => {
 

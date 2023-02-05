@@ -31,7 +31,11 @@ const WishList = () => {
 
     const wishListDataHandler = async () => {
         try {
-            await axios.get('/data/wishlist.json')
+            await axios.get('http://172.16.101.103:3000/like', {
+                headers: {
+                    "authorization": `${localStorage.getItem('access_token')}`
+                }
+            })
                 .then(res => {
                     setWishListData(res.data)
                 })

@@ -11,7 +11,7 @@ const GoogleSignIn = () => {
                 onSuccess={async (credentialResponse) => {
                     try {
                         // console.log(credentialResponse);
-                        await axios.post('http://192.168.182.162:3000/user/google', {
+                        await axios.post('http://172.16.101.103:3000/user/google', {
                             credentialResponse
                         })
                             .then(res => {
@@ -19,13 +19,13 @@ const GoogleSignIn = () => {
                                     alert('회원가입이 완료 되었습니다.')
                                     console.log(res);
                                     localStorage.setItem('Access_token', res.data.access_token)
-                                    // router.push('/')
+                                    router.push('/')
                                 }
                                 if (res.data.message === "USER_LOGIN") {
                                     alert('로그인이 완료 되었습니다.')
                                     console.log(res);
-                                    localStorage.setItem('Access_token', res.data.access_token)
-                                    // router.push('/')
+                                    localStorage.setItem('access_token', res.data.access_token)
+                                    router.push('/')
                                 }
                                 // console.log(res);
                                 // localStorage.setItem('Access_token', res.data.access_token)

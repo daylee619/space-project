@@ -2,22 +2,38 @@ import styled from '@emotion/styled'
 
 export const Contain = styled.div`
     width: 100%;
-    height: 130px;
+    padding: 15px;
+    /* height: 130px; */
     display: flex;
     justify-content: center;
     border-bottom: 1px solid lightgray;
+    padding: 20px 20px;
 `
 
 export const OrderDate = styled.div`
-    width: 20%;
+    width: 15%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
 `
 
+export const Div = styled.div`
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+export const ItemDiv = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 15px;
+`
+
 export const OrderInfo = styled.div`
-    width: 30%;
+    width: 40%;
     display: flex;
     /* justify-content: center; */
     align-items: center;
@@ -112,10 +128,28 @@ export const Button = styled.button`
     width: 100px;
     height: 30px;
     margin-bottom: 10px;
-    background-color: white;
+    background-color: rgb(245,245,245);
     border: 1px solid lightgray;
 
     &:hover {
         cursor: pointer;
+    }
+`
+
+
+export const AllDelete = styled.div`
+    width: 80px;
+    height: 20px;
+    margin-top: 10px;
+    background-color: rgb(245,245,245);
+    padding: 5px;
+    border: 1px solid lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+        background-color: lightgray;
     }
 `
