@@ -1,8 +1,24 @@
 import styled from "@emotion/styled"
 import { RedoOutlined } from "@ant-design/icons"
 import { Rate } from "antd"
+import { useState } from "react"
 
 export default function ReviewStarDropdown(props) {
+  const [starCheck, setStarCheck] = useState([])
+  const onChangeStar = (checked, value) => {
+    if (checked) {
+      setStarCheck([...starCheck, value])
+    } else {
+      setStarCheck(starCheck.filter((el) => el !== value))
+    }
+  }
+  console.log(starCheck)
+  // const b = props.data.scoreCount?.map((el) => el.star)
+  // console.log(b)
+  const onClickStar = (e) => {
+    starCheck.includes(e.target.value)
+  }
+
   return (
     <>
       <StarOptionContaineriner>
@@ -13,109 +29,127 @@ export default function ReviewStarDropdown(props) {
           </StarOptionClick>
         </StarOptionBtn> */}
         <StarContainer>
-          {props.reviewData?.map((el) => (
-            <div key={el.id}>
-              <StarOptionList>
-                <StarResetWrapper>
-                  <div>별점</div>
-                  <ResetWrapper>
-                    <div>초기화 </div>
-                    <RedoOutlined style={{ marginLeft: "3px" }} />
-                  </ResetWrapper>
-                </StarResetWrapper>
-                <StarList>
-                  <StarLabelBox>
-                    <label htmlFor="star_five">
-                      <Rate
-                        defaultValue={5}
-                        disabled
-                        style={{ cursor: "pointer" }}
-                      />
-                    </label>
-                  </StarLabelBox>
+          <div>
+            <StarOptionList>
+              <StarResetWrapper>
+                <div>별점</div>
+                <ResetWrapper>
+                  <div>초기화 </div>
+                  <RedoOutlined style={{ marginLeft: "3px" }} />
+                </ResetWrapper>
+              </StarResetWrapper>
+              <StarList>
+                <StarLabelBox>
+                  <label htmlFor="star_five">
+                    <Rate
+                      defaultValue={5}
+                      disabled
+                      style={{ cursor: "pointer" }}
+                    />
+                  </label>
+                </StarLabelBox>
 
-                  <input
-                    type="checkbox"
-                    style={{ cursor: "pointer" }}
-                    id="star_five"
-                  />
-                </StarList>
-                <StarList>
-                  <StarLabelBox>
-                    <label htmlFor="star_four">
-                      <Rate
-                        defaultValue={4}
-                        disabled
-                        style={{ cursor: "pointer" }}
-                      />
-                    </label>
-                  </StarLabelBox>
+                <input
+                  type="checkbox"
+                  style={{ cursor: "pointer" }}
+                  id="star_five"
+                  value="5"
+                  onChange={(e) =>
+                    onChangeStar(e.target.checked, e.target.value)
+                  }
+                />
+              </StarList>
+              <StarList>
+                <StarLabelBox>
+                  <label htmlFor="star_four">
+                    <Rate
+                      defaultValue={4}
+                      disabled
+                      style={{ cursor: "pointer" }}
+                    />
+                  </label>
+                </StarLabelBox>
 
-                  <input
-                    type="checkbox"
-                    style={{ cursor: "pointer" }}
-                    id="star_four"
-                  />
-                </StarList>
-                <StarList>
-                  <StarLabelBox>
-                    <label htmlFor="star_three">
-                      <Rate
-                        defaultValue={3}
-                        disabled
-                        style={{ cursor: "pointer" }}
-                      />
-                    </label>
-                  </StarLabelBox>
+                <input
+                  type="checkbox"
+                  style={{ cursor: "pointer" }}
+                  id="star_four"
+                  value="4"
+                  onChange={(e) =>
+                    onChangeStar(e.target.checked, e.target.value)
+                  }
+                />
+              </StarList>
+              <StarList>
+                <StarLabelBox>
+                  <label htmlFor="star_three">
+                    <Rate
+                      defaultValue={3}
+                      disabled
+                      style={{ cursor: "pointer" }}
+                    />
+                  </label>
+                </StarLabelBox>
 
-                  <input
-                    type="checkbox"
-                    style={{ cursor: "pointer" }}
-                    id="star_three"
-                  />
-                </StarList>
-                <StarList>
-                  <StarLabelBox>
-                    <label htmlFor="star_two">
-                      <Rate
-                        defaultValue={2}
-                        disabled
-                        style={{ cursor: "pointer" }}
-                      />
-                    </label>
-                  </StarLabelBox>
+                <input
+                  type="checkbox"
+                  style={{ cursor: "pointer" }}
+                  id="star_three"
+                  value="3"
+                  onChange={(e) =>
+                    onChangeStar(e.target.checked, e.target.value)
+                  }
+                />
+              </StarList>
+              <StarList>
+                <StarLabelBox>
+                  <label htmlFor="star_two">
+                    <Rate
+                      defaultValue={2}
+                      disabled
+                      style={{ cursor: "pointer" }}
+                    />
+                  </label>
+                </StarLabelBox>
 
-                  <input
-                    type="checkbox"
-                    style={{ cursor: "pointer" }}
-                    id="star_two"
-                  />
-                </StarList>
-                <StarList>
-                  <StarLabelBox>
-                    <label htmlFor="star_one">
-                      <Rate
-                        defaultValue={1}
-                        disabled
-                        style={{ cursor: "pointer" }}
-                      />
-                    </label>
-                  </StarLabelBox>
+                <input
+                  type="checkbox"
+                  style={{ cursor: "pointer" }}
+                  id="star_two"
+                  value="2"
+                  onChange={(e) =>
+                    onChangeStar(e.target.checked, e.target.value)
+                  }
+                />
+              </StarList>
+              <StarList>
+                <StarLabelBox>
+                  <label htmlFor="star_one">
+                    <Rate
+                      defaultValue={1}
+                      disabled
+                      style={{ cursor: "pointer" }}
+                    />
+                  </label>
+                </StarLabelBox>
 
-                  <input
-                    type="checkbox"
-                    style={{ cursor: "pointer" }}
-                    id="star_one"
-                  />
-                </StarList>
-              </StarOptionList>
-              <BtnWrapper>
-                <OptionSelectBtn>
-                  <span>완료</span>
-                </OptionSelectBtn>
-              </BtnWrapper>
-            </div>
-          ))}
+                <input
+                  type="checkbox"
+                  style={{ cursor: "pointer" }}
+                  id="star_one"
+                  value="1"
+                  onChange={(e) =>
+                    onChangeStar(e.target.checked, e.target.value)
+                  }
+                />
+              </StarList>
+            </StarOptionList>
+            <BtnWrapper>
+              <OptionSelectBtn>
+                <span>완료</span>
+              </OptionSelectBtn>
+            </BtnWrapper>
+          </div>
         </StarContainer>
       </StarOptionContaineriner>
     </>

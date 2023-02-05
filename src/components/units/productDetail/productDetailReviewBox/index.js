@@ -5,9 +5,9 @@ import moment from "moment"
 import { useState } from "react"
 export default function ProductDetailReviewBox(props) {
   const userNickName = props.reviewData?.map((el) => el.nickname)
-  console.log(userNickName)
+  // console.log(userNickName)
   const content = props.reviewData?.map((el) => el.content)
-  console.log(content)
+  // console.log(content)
   const ReviewDateCreated = props.reviewData?.map((el) =>
     moment(el.created_at).format("YYYY.MM.DD")
   )

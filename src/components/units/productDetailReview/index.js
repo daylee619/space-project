@@ -18,7 +18,7 @@ export default function ReviewByProduct() {
   useEffect(() => {
     axios.get("/data/reviewScore.json").then((res) => {
       setData(res.data)
-      //   console.log(data)
+      // console.log(data)
     })
   }, [])
 
@@ -34,10 +34,11 @@ export default function ReviewByProduct() {
   }
 
   const average = data.scoreAvg?.map((el) => el.starAVG)
-  console.log(average)
+  // console.log(average)
   const starAvg = Number(average).toFixed(1)
-  console.log(starAvg)
-
+  // console.log(starAvg)
+  // const b = data.scoreCount?.map((el) => el.star)
+  // console.log(b)
   return (
     <>
       <div style={{ margin: "0 100px" }}>
@@ -201,6 +202,8 @@ export default function ReviewByProduct() {
               setIsOpen={setIsOpen}
               reviewData={reviewData}
               setReviewData={setReviewData}
+              data={data}
+              setData={setData}
             />
           )}
           <ProductDetailReviewBox
