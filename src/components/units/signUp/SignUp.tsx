@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router';
 import { ChangeEvent, useRef, useState } from 'react'
+import { API_IP } from '../../../common/utils/ApiIp';
 import * as S from './SignUp.style'
 
 const SignUp = () => {
@@ -66,7 +67,7 @@ const SignUp = () => {
     // confirm 버튼 Function
     const filePostHandler = async () => {
         try {
-            await axios.post('http://172.16.101.103:3000/user/create',
+            await axios.post(`http://${API_IP}:3000/user/create`,
                 {
                     name,
                     password,

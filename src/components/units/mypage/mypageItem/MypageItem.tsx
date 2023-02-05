@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { API_IP } from '../../../../common/utils/ApiIp'
 import { getDate } from '../../../../common/utils/date/Date'
 import { IMypageItemPropsType, IOrderListType } from '../Mypage.type'
 import * as S from './MypageItem.style'
@@ -11,7 +12,7 @@ const MypageItem = (props: IMypageItemPropsType) => {
 
     const deleteHandler = async (orderProductId: number) => {
         try {
-            await axios.delete(`http://10.10.10.10:3000/order/${orderProductId}`)
+            await axios.delete(`http://${API_IP}:3000/order/${orderProductId}`)
                 .then(res => {
                     const { data } = res
                     setRender(data)
@@ -23,7 +24,7 @@ const MypageItem = (props: IMypageItemPropsType) => {
 
     const AlldeleteHandler = async (orderId: number) => {
         try {
-            await axios.delete(`http://10.10.10.10:3000/order/all/${orderId}`)
+            await axios.delete(`http://172.30.1.37:3000/order/all/${orderId}`)
                 .then(res => {
                     const { data } = res
                     setRender(data)

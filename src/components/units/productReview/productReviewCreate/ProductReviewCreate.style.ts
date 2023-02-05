@@ -114,3 +114,8 @@ export const Delete = styled.div`
 export const FileUpload = styled.input`
   display: none;
 `
+
+export const RateBox = styled.div`
+  width: 100%;
+  margin-bottom: 12px;
+`

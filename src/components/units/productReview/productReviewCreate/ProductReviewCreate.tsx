@@ -1,11 +1,18 @@
+import { Rate } from 'antd';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import { ChangeEvent, Fragment, useState } from 'react';
 import * as S from './ProductReviewCreate.style'
 
 const ProductReviewCreate = () => {
     const [showImages, setShowImages] = useState<string[]>([]);
     const [postImages, setPostImages] = useState<File[]>([])
+    const [singlePostImage, setSinglePostImage] = useState<File>()
     const [reviewComment, setReivewComment] = useState<string>('')
+    const [rateCount, setRateCount] = useState<number>(0)
+    console.log(rateCount)
+
+    const router = useRouter()
 
     // 이미지 상대경로 저장
     const handleAddImages = (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +40,7 @@ const ProductReviewCreate = () => {
             const currentImageUrl = URL.createObjectURL(imageLists[0]);
             imageUrlLists.push(currentImageUrl);
             setPostImages(prv => [...prv, imageLists[0]])
+            setSinglePostImage(imageLists[0])
         }
 
         if (imageUrlLists.length > 3) {
@@ -56,16 +64,24 @@ const ProductReviewCreate = () => {
     // confirm post handler 
     const confirmHandler = async () => {
         try {
-            await axios.post('api', {
-                comment: reviewComment,
-                img_files: postImages
+            await axios.post('http://172.30.1.37:3000/review/product', {
+                productId: router.query.productId,
+                content: reviewComment,
+                star: rateCount,
+                thumbnail: singlePostImage
             }, {
                 headers: {
-                    'Content-Type': "multiful-file",
+                    'Content-Type': "multipart/form-data",
                     "authorization": localStorage.getItem('access_token')
                 }
             })
+                .then(res => {
+                    const { data } = res
+                    if (data.message === 'REVIEW_CREATED')
+                        router.push('/mypage/my_review')
+                })
         } catch (error) {
+            alert('등록에 실패하였습니다, 다시 시도해 주세요')
             console.log(error)
         }
     }
@@ -94,6 +110,9 @@ const ProductReviewCreate = () => {
                             )
                         }
                     </S.ReivewImgBox>
+                    <S.RateBox>
+                        <Rate onChange={(value) => { setRateCount(value); }} />
+                    </S.RateBox>
                     <S.ReivewCreateBox>
                         <S.ReviewCreate
                             onChange={reivewCommentHandler}
