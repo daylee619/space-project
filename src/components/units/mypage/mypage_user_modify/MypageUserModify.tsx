@@ -26,9 +26,9 @@ const MypageUserModify = () => {
 
     const defaultDataHandler = async () => {
         try {
-            await axios.get('http://172.30.1.42:3000/user/info', {
+            await axios.get('http://172.16.101.103:3000/user/info', {
                 headers: {
-                    "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRsYWNvZG5qczY2N0BhZGlvcy5jb20iLCJ1c2VySWQiOjE5LCJpYXQiOjE2NzQ5ODYzMTIsImV4cCI6MTY3NDk4OTkxMn0.Gz-nV5dOLzHEhfieCkOpVfcjsrtYca0XxE2fnJpkpAE"
+                    "authorization": `${localStorage.getItem('access_token')}`
                 }
             })
                 .then(res => {

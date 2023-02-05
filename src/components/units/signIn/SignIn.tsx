@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import GoogleSignIn from '../googleSignIn/GoogleSignIn'
@@ -5,9 +6,9 @@ import KakaoSignIn from '../kakaoSignIn/KakaoSignIn'
 import * as S from './SignIn.style'
 
 const SignIn = () => {
-    const [userId, setUserId] = useState("")
+    const [userId, setUserId] = useState<string>("")
     const [errorId, setErrorId] = useState('')
-    const [userPassword, setUserPassword] = useState('')
+    const [userPassword, setUserPassword] = useState<string>('')
     const [errorPassword, setErrorPassword] = useState('')
     const router = useRouter()
 
@@ -30,7 +31,19 @@ const SignIn = () => {
     const SignInHandler = async () => {
         try {
             if (userId && userPassword) {
-                // const login = await axios.get('')
+                await axios.post('http://172.16.101.103:3000/user/login', {
+                    email: userId,
+                    password: userPassword
+                })
+                    .then(res => {
+                        console.log(res)
+                        if (res.data.access_token) {
+                            localStorage.setItem('access_token', res.data.access_token)
+                        }
+                    })
+                    .then(async () =>
+                        await router.push('/')
+                    )
 
             }
             if (!userId) {
@@ -40,7 +53,7 @@ const SignIn = () => {
                 setErrorPassword("Password를 입력해 주세요.")
             }
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
             console.error(error)
         }
     }

@@ -14,7 +14,11 @@ const CreateReviewPossibleList = () => {
 
     const possibleListDataHandler = async () => {
         try {
-            await axios.get('/data/possibleReview.json')
+            await axios.get('http://172.16.101.103:3000/review/creation', {
+                headers: {
+                    "authorization": `${localStorage.getItem('access_token')}`
+                }
+            })
                 .then(res => {
                     const { data } = res
                     setListData(data)

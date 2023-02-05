@@ -16,17 +16,16 @@ const MypageOrderSearch = () => {
     const queryString: string | string[] = router.query.queryString ?? ''
     const URL_QUERY_ARRAY = !Array.isArray(queryString) ? queryString?.split('&') : queryString
     const URL_QUERY_ARRAY_STATE = URL_QUERY_ARRAY?.map((el: string) => el.split('='))
-
-    console.log("queryString : ", queryString)
+    console.log(URL_QUERY_ARRAY_STATE)
 
     const mypageItemData = async () => {
         try {
             await axios
                 .get
-                (`http://172.30.1.42:3000/order/history?history_start_date=${URL_QUERY_ARRAY_STATE[1][1]}&history_end_date=${URL_QUERY_ARRAY_STATE[0][1]}${URL_QUERY_ARRAY_STATE[2][1] && `&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`,
+                (`http://172.16.101.103:3000/order/history?history_start_date=${URL_QUERY_ARRAY_STATE[1][1]}&history_end_date=${URL_QUERY_ARRAY_STATE[0][1]}${URL_QUERY_ARRAY_STATE[2][1] && `&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`,
                     {
                         headers: {
-                            "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRsYWNvZG5qczY2N0BhZGlvcy5jb20iLCJ1c2VySWQiOjE5LCJpYXQiOjE2NzQ5NzYzNDMsImV4cCI6MTY3NDk3OTk0M30.exNeUPLFM0DIvJ_lBhKeKUNAnprHfTn4xQ7SUWl7JJY"
+                            "authorization": `${localStorage.getItem('access_token')}`
                         }
                     })
                 .then(res => {

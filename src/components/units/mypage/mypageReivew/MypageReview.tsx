@@ -15,7 +15,11 @@ const MypageReview = () => {
 
     const writedReviewDataHandler = async () => {
         try {
-            await axios.get('/data/getUserReview.json')
+            await axios.get('http://172.16.101.103:3000/review/user', {
+                headers: {
+                    "authorization": `${localStorage.getItem("access_token")}`
+                }
+            })
                 .then(res => {
                     const { data } = res
                     setWritedReviewData(data)

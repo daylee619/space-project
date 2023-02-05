@@ -25,6 +25,7 @@ module.exports = {
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/triple-slash-reference": "off",
     "@typescript-eslint/no-floating-promises": "off",
-    "array-callback-return": "off"
+    "array-callback-return": "off",
+    "@typescript-eslint/restrict-template-expressions": "off"
   }
 }

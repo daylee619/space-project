@@ -66,7 +66,7 @@ const SignUp = () => {
     // confirm 버튼 Function
     const filePostHandler = async () => {
         try {
-            await axios.post('http://192.168.232.162:3000/user/create',
+            await axios.post('http://172.16.101.103:3000/user/create',
                 {
                     name,
                     password,
