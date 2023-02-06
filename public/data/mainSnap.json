@@ -1,0 +1,30 @@
+[
+    {
+        "snapId": 9,
+        "thumbnail": "https://images.unsplash.com/photo-1587754539999-b5f5492704c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8Nnw4NjQyMzQ0OXx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60",
+        "hashtag": "#런던 #소호갬성 #쳌쳌",
+        "itemName": "스커트",
+        "productName": "안다양한 패턴 니트"
+    },
+    {
+        "snapId": 8,
+        "thumbnail": "https://images.unsplash.com/photo-1609766456145-f0332168845a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
+        "hashtag": "#놀라운#안경#그레이갬성",
+        "itemName": "슬랙스",
+        "productName": "가디건이랑 닮지않은 니트"
+    },
+    {
+        "snapId": 7,
+        "thumbnail": "https://images.unsplash.com/photo-1581091877286-979c6f103cad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8M3w4NjQyMzQ0OXx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60",
+        "hashtag": "#집에 #갈래",
+        "itemName": "팬츠",
+        "productName": "리본 블라우스"
+    },
+    {
+        "snapId": 6,
+        "thumbnail": "https://images.unsplash.com/photo-1490427712608-588e68359dbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXxsTnRWWVJDUDJ0NHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60",
+        "hashtag": "#놀방 #내인생",
+        "itemName": "스웨트셔츠",
+        "productName": "나풀나불 블라우스"
+    }
+]

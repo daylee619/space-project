@@ -1,0 +1,316 @@
+{
+    "weeklyBest": [
+        {
+            "id": 4,
+            "name": "다양한 무늬 가디건",
+            "thumbnail": "https://cdn.pixabay.com/photo/2018/11/30/07/51/woman-3847209__480.jpg",
+            "price": 84000,
+            "productColor": [
+                "gray",
+                "black",
+                "white",
+                "purple"
+            ],
+            "review": "4",
+            "point": "4.0000",
+            "stockCheck": [
+                {
+                    "opt": null,
+                    "colorId": 10,
+                    "colorName": "gray"
+                },
+                {
+                    "opt": null,
+                    "colorId": 9,
+                    "colorName": "black"
+                },
+                {
+                    "opt": null,
+                    "colorId": 8,
+                    "colorName": "white"
+                },
+                {
+                    "opt": null,
+                    "colorId": 7,
+                    "colorName": "purple"
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "name": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+            "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+            "price": 87600,
+            "productColor": [
+                "gray",
+                "black",
+                "white"
+            ],
+            "review": "2",
+            "point": "3.5000",
+            "stockCheck": [
+                {
+                    "opt": [
+                        {
+                            "stock": 15,
+                            "sizeId": 2,
+                            "sizeName": "S(085)"
+                        },
+                        {
+                            "stock": 14,
+                            "sizeId": 3,
+                            "sizeName": "M(090)"
+                        },
+                        {
+                            "stock": 12,
+                            "sizeId": 4,
+                            "sizeName": "L(095)"
+                        }
+                    ],
+                    "colorId": 10,
+                    "colorName": "gray"
+                },
+                {
+                    "opt": [
+                        {
+                            "stock": 7,
+                            "sizeId": 2,
+                            "sizeName": "S(085)"
+                        },
+                        {
+                            "stock": 11,
+                            "sizeId": 3,
+                            "sizeName": "M(090)"
+                        },
+                        {
+                            "stock": 15,
+                            "sizeId": 4,
+                            "sizeName": "L(095)"
+                        }
+                    ],
+                    "colorId": 9,
+                    "colorName": "black"
+                },
+                {
+                    "opt": [
+                        {
+                            "stock": 9,
+                            "sizeId": 2,
+                            "sizeName": "S(085)"
+                        },
+                        {
+                            "stock": 12,
+                            "sizeId": 3,
+                            "sizeName": "M(090)"
+                        },
+                        {
+                            "stock": 15,
+                            "sizeId": 4,
+                            "sizeName": "L(095)"
+                        }
+                    ],
+                    "colorId": 8,
+                    "colorName": "white"
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "name": "안다양한 패턴 니트",
+            "thumbnail": "https://images.unsplash.com/photo-1569753733378-c6aa34ee2c7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTY4fDExMzQxNTI5fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+            "price": 56000,
+            "productColor": null,
+            "review": "1",
+            "point": "5.0000",
+            "stockCheck": null
+        },
+        {
+            "id": 3,
+            "name": "단추 가디건",
+            "thumbnail": "https://images.unsplash.com/photo-1610288311735-39b7facbd095?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyZGlnYW58ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+            "price": 48700,
+            "productColor": [
+                "gray",
+                "black",
+                "white"
+            ],
+            "review": "0",
+            "point": null,
+            "stockCheck": [
+                {
+                    "opt": null,
+                    "colorId": 10,
+                    "colorName": "gray"
+                },
+                {
+                    "opt": null,
+                    "colorId": 9,
+                    "colorName": "black"
+                },
+                {
+                    "opt": null,
+                    "colorId": 8,
+                    "colorName": "white"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "벨벳 항공 집업",
+            "thumbnail": "https://images.unsplash.com/photo-1508822968860-53138518b4fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDJ8fGJvbWJlciUyMGphY2tldHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60",
+            "price": 84990,
+            "productColor": [
+                "gray",
+                "black",
+                "white",
+                "purple"
+            ],
+            "review": "0",
+            "point": null,
+            "stockCheck": [
+                {
+                    "opt": null,
+                    "colorId": 10,
+                    "colorName": "gray"
+                },
+                {
+                    "opt": null,
+                    "colorId": 9,
+                    "colorName": "black"
+                },
+                {
+                    "opt": null,
+                    "colorId": 8,
+                    "colorName": "white"
+                },
+                {
+                    "opt": null,
+                    "colorId": 7,
+                    "colorName": "purple"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "꽃꽃 퍼집업",
+            "thumbnail": "https://images.unsplash.com/photo-1582656607963-3d621b6016b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+            "price": 48300,
+            "productColor": [
+                "gray",
+                "black",
+                "white",
+                "purple"
+            ],
+            "review": "0",
+            "point": null,
+            "stockCheck": [
+                {
+                    "opt": null,
+                    "colorId": 10,
+                    "colorName": "gray"
+                },
+                {
+                    "opt": null,
+                    "colorId": 9,
+                    "colorName": "black"
+                },
+                {
+                    "opt": null,
+                    "colorId": 8,
+                    "colorName": "white"
+                },
+                {
+                    "opt": null,
+                    "colorId": 7,
+                    "colorName": "purple"
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "name": "나풀나불 블라우스",
+            "thumbnail": "https://images.unsplash.com/photo-1548778943-5bbeeb1ba6c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fEJsb3VzZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60",
+            "price": 44000,
+            "productColor": [
+                "gray",
+                "black",
+                "white",
+                "purple"
+            ],
+            "review": "0",
+            "point": null,
+            "stockCheck": [
+                {
+                    "opt": null,
+                    "colorId": 10,
+                    "colorName": "gray"
+                },
+                {
+                    "opt": null,
+                    "colorId": 9,
+                    "colorName": "black"
+                },
+                {
+                    "opt": null,
+                    "colorId": 8,
+                    "colorName": "white"
+                },
+                {
+                    "opt": null,
+                    "colorId": 7,
+                    "colorName": "purple"
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "name": "리본 블라우스",
+            "thumbnail": "https://images.unsplash.com/photo-1598626430719-9f6f38084c31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTJ8Z1ByT0E1RnEzcEl8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60",
+            "price": 46000,
+            "productColor": [
+                "gray",
+                "black",
+                "white",
+                "purple"
+            ],
+            "review": "0",
+            "point": null,
+            "stockCheck": [
+                {
+                    "opt": null,
+                    "colorId": 10,
+                    "colorName": "gray"
+                },
+                {
+                    "opt": null,
+                    "colorId": 9,
+                    "colorName": "black"
+                },
+                {
+                    "opt": null,
+                    "colorId": 8,
+                    "colorName": "white"
+                },
+                {
+                    "opt": null,
+                    "colorId": 7,
+                    "colorName": "purple"
+                }
+            ]
+        }
+    ],
+    "categories": [
+        {
+            "id": 2,
+            "name": "WOMEN"
+        },
+        {
+            "id": 3,
+            "name": "MEN"
+        },
+        {
+            "id": 4,
+            "name": "KIDS"
+        }
+    ]
+}

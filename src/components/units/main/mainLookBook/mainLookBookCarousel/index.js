@@ -12,12 +12,17 @@ import LookBookModal from "../../../../../lookbookmodal"
 export default function FocusOnSelect() {
   const [data, setData] = useState([])
 
+  // useEffect(() => {
+  //   axios.get("/data/mainLookbook.json").then((res) => {
+  //     setData(res.data)
+  //   })
+  // }, [])
+  // console.log(data)
   useEffect(() => {
-    axios.get("/data/mainLookbook.json").then((res) => {
+    axios.get("http://172.16.101.103:3000/lookbook/main").then((res) => {
       setData(res.data)
     })
   }, [])
-  // console.log(data)
 
   const settings = {
     focusOnSelect: true,

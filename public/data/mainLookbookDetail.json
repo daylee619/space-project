@@ -1,0 +1,45 @@
+[
+    {
+        "lookbookId": 2,
+        "title": "ROYAL TEABACK SWEATER",
+        "subTitle": "늦겨울, 추운 한파속 느낄 수 있는 로얄룩",
+        "content": "고급스러움과 따뜻함을 동시에! 당신의 겨울, 춥다고 생각하지 마세요. 당신의 곁에 언제나, 로얄 스페셜. 당신에게 언제나 프랑스 왕실의 고급스러움을 드립니다.",
+        "thumbnail": "https://images.unsplash.com/photo-1530646182317-74e58ed702ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fFJveWFsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+        "images": [
+            "https://images.unsplash.com/photo-1613801184329-4bf29a49225f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Um95YWwlMjBjbG90aHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60",
+            "https://images.unsplash.com/photo-1666529231311-fde05fe682d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fFJveWFsJTIwY2xvdGh8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60"
+        ],
+        "productInfo": [
+            {
+                "price": 44000,
+                "productId": 7,
+                "thumbnail": "https://images.unsplash.com/photo-1548778943-5bbeeb1ba6c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fEJsb3VzZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60",
+                "productName": "나풀나불 블라우스"
+            },
+            {
+                "price": 46000,
+                "productId": 8,
+                "thumbnail": "https://images.unsplash.com/photo-1598626430719-9f6f38084c31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTJ8Z1ByT0E1RnEzcEl8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60",
+                "productName": "리본 블라우스"
+            },
+            {
+                "price": 65000,
+                "productId": 9,
+                "thumbnail": "https://images.unsplash.com/photo-1616873494438-b34c014bcb6a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MjJ8MTEzNDE1Mjl8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60",
+                "productName": "가디건이랑 닮지않은 니트"
+            },
+            {
+                "price": 56000,
+                "productId": 10,
+                "thumbnail": "https://images.unsplash.com/photo-1569753733378-c6aa34ee2c7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTY4fDExMzQxNTI5fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+                "productName": "안다양한 패턴 니트"
+            },
+            {
+                "price": 57000,
+                "productId": 11,
+                "thumbnail": "https://images.unsplash.com/photo-1554568218-bb373581aa0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8M3xUVXZUU0RWNVB4QXx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60",
+                "productName": "arboreal 맨투맨"
+            }
+        ]
+    }
+]
