@@ -13,6 +13,13 @@ export default function ProductListRecommend() {
       console.log(data)
     })
   }, [])
+  // useEffect(() => {
+  //   axios
+  //     .get("http://172.30.1.47:3000/product/recommend?offset=1")
+  //     .then((res) => {
+  //       setData(res.data)
+  //     })
+  // }, [])
 
   return (
     <ReviewRecommendContainer>
@@ -36,6 +43,13 @@ export default function ProductListRecommend() {
             <RecommendItemInfo>
               <RecommendItemName key={el.id}>{el.name}</RecommendItemName>
               <RecommendItemPrice key={el.id}>{el.price}</RecommendItemPrice>
+              {/* <div>
+                <img
+                  src={el.reviewInform.image}
+                  style={{ width: "30px" }}
+                />
+              </div> */}
+
               <InfoBottomWrapper>
                 <ReviewContent key={el.id}>
                   {el.reviewInform?.content === null
