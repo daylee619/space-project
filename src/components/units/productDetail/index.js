@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import axios from "axios"
 import { Fragment, useEffect, useState } from "react"
-import { ShareAltOutlined, HeartOutlined } from "@ant-design/icons"
+import { ShareAltOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons"
 import ShareModal from "../Modal/sharemodal"
 import ShippingModal from "../Modal/shippingmodal"
 import RefundModal from "../Modal/refundmodal"
@@ -20,36 +20,132 @@ const ProductDetail = () => {
       setData(res.data)
     })
   }, [])
+  // useEffect(() => {
+  //   axios
+  //     .get("http://172.30.1.47:3000/product/detail?user=1&productId=1")
+  //     .then((res) => {
+  //       setData(res.data)
+  //     })
+  // }, [])
 
+  // Item Create State
+  const [itemObject, setItemObject] = useState([])
+
+  const [sumConut, setSumCount] = useState(0)
+
+  //
   const [colorCheck, setColorCheck] = useState([])
-  // console.log(colorCheck)
+
   const [sizeCheck, setSizeCheck] = useState([])
-  console.log(sizeCheck)
-  const changeHandler = (checked, colorId) => {
+
+  const changeHandler = (checked, colorId, colorName) => {
     if (!checked) {
       setColorCheck((prv) => [...prv, colorId])
+      setColorIdState(colorId)
+      setColorNameState(colorName)
+      setColorIdState(colorId)
     }
     if (checked) {
       setColorCheck(colorCheck.filter((el) => el !== colorId))
+      setColorNameState("")
+    }
+  }
+  const [colorNameState, setColorNameState] = useState("")
+  const [colorIdState, setColorIdState] = useState(0)
+  const [sizeNameState, setSizeNameState] = useState("")
+
+  const sizeHandler = (checked, sizeId, sizeName) => {
+    if (!checked) {
+      setSizeCheck((prev) => [...prev, sizeId])
+      setSizeNameState(sizeName)
+      const itemCreate = {
+        count: 1,
+        size_id: sizeId,
+        size_name: sizeName,
+        color_id: colorIdState,
+        color_name: colorNameState,
+      }
+      if (
+        itemObject.filter(
+          (el) => el.size_id === sizeId && el.color_id === colorIdState
+        ).length === 0
+      ) {
+        setItemObject((prev) => [...prev, itemCreate])
+        setSumCount((prev) => prev + 1)
+      } else {
+        for (let i = 0; i < itemObject.length; i++) {
+          if (
+            itemObject[i].size_id === sizeId &&
+            itemObject[i].color_id === colorIdState
+          ) {
+            itemObject[i].count++
+          }
+        }
+        setSumCount((prev) => prev + 1)
+      }
+    }
+    if (checked) {
+      setSizeCheck(sizeCheck.filter((el) => el !== sizeId))
+      setSizeNameState("")
     }
   }
 
-  const sizeHandler = (checked, sizeId) => {
-    if (!checked) {
-      setColorCheck((prv) => [...prv, sizeId])
-    }
-    if (checked) {
-      setColorCheck(colorCheck.filter((el) => el !== sizeId))
+  const soloCountHandler = (colorId, sizeId) => {
+    setSumCount((prv) => prv + 1)
+    for (let i = 0; i < itemObject.length; i++) {
+      if (
+        itemObject[i].size_id === sizeId &&
+        itemObject[i].color_id === colorId
+      ) {
+        itemObject[i].count++
+      }
     }
   }
+  const soloMinusCountHandler = (colorId, sizeId) => {
+    setSumCount((prv) => prv - 1)
+    for (let i = 0; i < itemObject.length; i++) {
+      if (
+        itemObject[i].size_id === sizeId &&
+        itemObject[i].color_id === colorId
+      ) {
+        itemObject[i].count--
+      }
+    }
+  }
+
+  const deleteItem = (index, sizeId, colorId) => {
+    setItemObject(itemObject.filter((_, id) => id !== index))
+    for (let i = 0; i < itemObject.length; i++) {
+      if (
+        itemObject[i].size_id === sizeId &&
+        itemObject[i].color_id === colorId
+      ) {
+        setSumCount((prv) => prv - itemObject[i].count)
+      }
+    }
+  }
+
+  // const onClikcSumCount = (id, colorId, sizeId) => {
+  //   setSumCount((prev) => prev + 1)
+  //   for (let i = 0; i < itemObject.length; i++) {
+  //     if (
+  //       itemObject[i].size_id === sizeId &&
+  //       itemObject[i].color_id === colorId
+  //     ) {
+  //       itemObject[i].count++
+  //     }
+  //   }
+  // }
+
   const [wish, setWish] = useState([])
+
   const wishHandler = async (id, likeid) => {
     try {
       if (!wish.includes(likeid)) {
         setWish(wish.concat(likeid))
         await axios.post(
-          "api",
-          { productId: id },
+          "http://172.30.1.47:3000/like",
+          { productId: id, user: id },
           {
             Headers: {
               authorization: "token",
@@ -60,8 +156,8 @@ const ProductDetail = () => {
       if (wish.includes(likeid)) {
         setWish(wish.filter((el) => likeid !== el))
         await axios.post(
-          "api",
-          { productId: id },
+          "http://172.30.1.47:3000/like",
+          { productId: id, user: id },
           { headers: { authorization: "token" } }
         )
       }
@@ -70,7 +166,7 @@ const ProductDetail = () => {
     }
   }
 
-  console.log(wish)
+  // console.log(wish)
 
   const onClickImgMoreViewBtn = () => {
     setIsMoreView(!isMoreView)
@@ -141,6 +237,10 @@ const ProductDetail = () => {
             <MyFitSizeTitle>MY FIT SIZE</MyFitSizeTitle>
             <SizeExplain src="/images/sizeexplain.jpg" />
             <SizeInfoImg src="/images/sizeinfo.jpg" />
+            <DescritionWrapper>
+              <DescriptionTitle>Description</DescriptionTitle>
+              <Description>{data.description}</Description>
+            </DescritionWrapper>
           </SizeWrapper>
         </DetailImg>
 
@@ -177,6 +277,7 @@ const ProductDetail = () => {
                   <ColorLabel
                     htmlFor={el.colorId}
                     colorCheck={colorCheck}
+                    cssId={el.colorId}
                   >
                     {"(" + el.colorId + ")" + el.colorName}
                   </ColorLabel>
@@ -189,7 +290,7 @@ const ProductDetail = () => {
                       !colorCheck.includes(el.colorId)
                     }
                     onChange={(e) =>
-                      changeHandler(e.target.checked, el.colorId)
+                      changeHandler(e.target.checked, el.colorId, el.colorName)
                     }
                   />
                 </Fragment>
@@ -217,17 +318,27 @@ const ProductDetail = () => {
               {data.options?.map(
                 (el) =>
                   colorCheck.includes(el.colorId) &&
-                  el.options.map((a, i) => (
+                  el.options.map((item, i) => (
                     <Fragment key={i}>
-                      <ColorLabel htmlFor={a.sizeId}>{a.size}</ColorLabel>
+                      <SizeLabel
+                        htmlFor={item.sizeId}
+                        sizeCheck={sizeCheck}
+                        cssId={item.sizeId}
+                      >
+                        {item.size}
+                      </SizeLabel>
                       <SizeButton
                         type="checkbox"
-                        id={a.sizeId}
-                        key={a.i}
-                        // onChange={() => sizeHandler(el.sizeId)}
+                        id={item.sizeId}
+                        key={item.i}
+                        value={item.size}
+                        onChange={(e) =>
+                          sizeHandler(e.target.checked, item.sizeId, item.size)
+                        }
                         disabled={
-                          sizeCheck.length === 1 &&
-                          !sizeCheck.includes(a.sizeId)
+                          (sizeCheck.length === 1 &&
+                            !sizeCheck.includes(item.sizeId)) ||
+                          item.stock === 0
                         }
                       />
                     </Fragment>
@@ -236,28 +347,66 @@ const ProductDetail = () => {
             </div>
             <OptionNotice>
               <p>[필수]</p>
+              {sizeNameState ? (
+                <span>{sizeNameState}</span>
+              ) : (
+                <span>옵션을 선택해주세요.</span>
+              )}
 
-              {sizeCheck.length === 0 ? (
+              {/* {sizeCheck.length === 0 ? (
                 <span>옵션을 선택해주세요.</span>
               ) : (
                 data.options.map((el) =>
                   el.options?.map(
-                    (el, i) =>
-                      sizeCheck.includes(el.sizeId) && (
-                        <div key={i}>
-                          <span key={el.i}>{el.size}</span>
-                        </div>
+                    (element, i) =>
+                      sizeCheck.includes(element.sizeId) && (
+                        <div key={element.i}>{element.size}</div>
                       )
                   )
                 )
-              )}
+              )} */}
             </OptionNotice>
+
             <SizeRecommendBtn>사이즈를 추천합니다.</SizeRecommendBtn>
           </SizeBox>
+          {/* {itemObject.map((a) => (
+            <div key={a.id}>
+              <div key={a.id}>{a.size_id}</div>
+              <div key={a.id}>
+                {a.color_id}/{a.size_name}
+              </div>
+            </div>
+          ))
+          } */}
+
+          {itemObject.map((el, index) => (
+            <div key={index}>
+              <div>{data.name}</div>
+              <div>{el.color_name}</div>
+              <div>{el.size_name}</div>
+              <input
+                type="number"
+                value={el.count}
+              />
+              <button onClick={() => soloCountHandler(el.color_id, el.size_id)}>
+                증가
+              </button>
+              <button
+                onClick={() => soloMinusCountHandler(el.color_id, el.size_id)}
+              >
+                감소
+              </button>
+              <div onClick={() => deleteItem(index, el.size_id, el.color_id)}>
+                X
+              </div>
+            </div>
+          ))}
 
           <PriceTotal>
             <PriceTotalTitle>총 상품금액</PriceTotalTitle>
-            <PriceTotalNumber>0 (0개)</PriceTotalNumber>
+            <PriceTotalNumber>
+              {sumConut * data.price} ({sumConut}개)
+            </PriceTotalNumber>
           </PriceTotal>
           <BuyBtnBox>
             <LikeBtn
@@ -265,7 +414,11 @@ const ProductDetail = () => {
                 wishHandler(data.id, data.likeid) && openWishModal()
               }
             >
-              <HeartOutlined style={{ fontSize: "18px" }} />
+              {wish.length === 1 ? (
+                <HeartFilled style={{ color: "red", fontSize: "18px" }} />
+              ) : (
+                <HeartOutlined style={{ fontSize: "18px" }} />
+              )}
             </LikeBtn>
             {isWishModal && (
               <WishModal
@@ -414,6 +567,26 @@ export const SizeWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
 `
+export const DescritionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+export const DescriptionTitle = styled.div`
+  font-size: 15px;
+
+  color: #666666;
+`
+
+export const Description = styled.div`
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  text-align: center;
+  margin: 10px;
+
+  color: #666666;
+`
 export const MyFitSizeTitle = styled.div`
   display: flex;
   justify-content: center;
@@ -487,11 +660,16 @@ export const SizeButton = styled.input`
 
 export const ColorLabel = styled.label`
   font-size: 10px;
-  border: 1px solid #d5d5d5;
+  /* border: 1px solid #d5d5d5; */
+  border: ${(props) =>
+    props.colorCheck?.includes(props.cssId)
+      ? "1px solid black"
+      : "1px solid #d5d5d5"};
   background-color: transparent;
   padding: 6px 5px;
   margin-right: 10px;
   cursor: pointer;
+
   &:hover {
     border: 1px solid #000;
   }
@@ -507,6 +685,10 @@ export const SizeLabel = styled.label`
   padding: 6px 5px;
   margin-right: 10px;
   cursor: pointer;
+  border: ${(props) =>
+    props.sizeCheck?.includes(props.cssId)
+      ? "1px solid black"
+      : "1px solid #d5d5d5"};
   &:hover {
     border: 1px solid #000;
   }
