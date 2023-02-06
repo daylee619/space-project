@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "warm sweater",
+    "sub_title": "따뜻한 겨울을 보내세요",
+    "content": "햇살이 피부에 닿는 따뜻한 느낌과 바람이 주는 가벼운 해방감을 스웨터에 담았습니다.\n입는 순간 느껴지는 온기와 포근함으로  하루를 채워보세요.",
+    "thumbnail": "https://cdn.pixabay.com/photo/2017/06/20/22/14/man-2425121__480.jpg",
+    "lookbook": [
+      {
+        "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+        "price": 87600,
+        "productId": 1,
+        "productName": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1528228377194-2faca82540e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDc5fHxqYWNrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+        "price": 124000,
+        "productId": 2,
+        "productName": "가을 날씨에 딱~ 청난방"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1610288311735-39b7facbd095?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyZGlnYW58ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+        "price": 48700,
+        "productId": 3,
+        "productName": "단추 가디건"
+      }
+    ]
+  }
+]

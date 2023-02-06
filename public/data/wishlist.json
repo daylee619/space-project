@@ -1,0 +1,104 @@
+[
+  {
+    "id": 7,
+    "name": "단추 가디건",
+    "thumbnail": "https://images.unsplash.com/photo-1610288311735-39b7facbd095?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyZGlnYW58ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+    "price": 48700,
+    "colorName": "black",
+    "size": { "id": 3, "name": "M(090)" },
+    "optionId": 5,
+    "userId": 1,
+    "color": [
+      { "size": null, "colorId": "10", "colorName": "gray" },
+      { "size": null, "colorId": "9", "colorName": "black" },
+      { "size": null, "colorId": "8", "colorName": "white" }
+    ]
+  },
+  {
+    "id": 54,
+    "name": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+    "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+    "price": 87600,
+    "colorName": "gray",
+    "size": { "id": 4, "name": "L(095)" },
+    "optionId": 3,
+    "userId": 1,
+    "color": [
+      {
+        "size": [
+          { "stock": "15", "sizeId": "2", "sizeName": "S(085)" },
+          { "stock": "15", "sizeId": "3", "sizeName": "M(090)" },
+          { "stock": "15", "sizeId": "4", "sizeName": "L(095)" }
+        ],
+        "colorId": "10",
+        "colorName": "gray"
+      },
+      {
+        "size": [
+          { "stock": "15", "sizeId": "2", "sizeName": "S(085)" },
+          { "stock": "15", "sizeId": "3", "sizeName": "M(090)" },
+          { "stock": "15", "sizeId": "4", "sizeName": "L(095)" }
+        ],
+        "colorId": "9",
+        "colorName": "black"
+      },
+      {
+        "size": [
+          { "stock": "15", "sizeId": "2", "sizeName": "S(085)" },
+          { "stock": "15", "sizeId": "3", "sizeName": "M(090)" },
+          { "stock": "15", "sizeId": "4", "sizeName": "L(095)" }
+        ],
+        "colorId": "8",
+        "colorName": "white"
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "name": "다양한 무늬 가디건",
+    "thumbnail": "https://cdn.pixabay.com/photo/2018/11/30/07/51/woman-3847209__480.jpg",
+    "price": 84000,
+    "colorName": "gray",
+    "size": { "id": 4, "name": "L(095)" },
+    "optionId": 3,
+    "userId": 1,
+    "color": [
+      { "size": null, "colorId": "10", "colorName": "gray" },
+      { "size": null, "colorId": "9", "colorName": "black" },
+      { "size": null, "colorId": "8", "colorName": "white" },
+      { "size": null, "colorId": "7", "colorName": "purple" }
+    ]
+  },
+  {
+    "id": 56,
+    "name": "벨벳 항공 집업",
+    "thumbnail": "https://images.unsplash.com/photo-1508822968860-53138518b4fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDJ8fGJvbWJlciUyMGphY2tldHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60",
+    "price": 84990,
+    "colorName": null,
+    "size": { "id": null, "name": null },
+    "optionId": null,
+    "userId": 1,
+    "color": [
+      { "size": null, "colorId": "10", "colorName": "gray" },
+      { "size": null, "colorId": "9", "colorName": "black" },
+      { "size": null, "colorId": "8", "colorName": "white" },
+      { "size": null, "colorId": "7", "colorName": "purple" }
+    ]
+  },
+  {
+    "id": 57,
+    "name": "꽃꽃 퍼집업",
+    "thumbnail": "https://images.unsplash.com/photo-1582656607963-3d621b6016b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+    "price": 48300,
+    "colorName": null,
+    "size": { "id": null, "name": null },
+    "optionId": null,
+    "userId": 1,
+    "color": [
+      { "size": null, "colorId": "10", "colorName": "gray" },
+      { "size": null, "colorId": "9", "colorName": "black" },
+      { "size": null, "colorId": "8", "colorName": "white" },
+      { "size": null, "colorId": "7", "colorName": "purple" }
+    ]
+  }
+]

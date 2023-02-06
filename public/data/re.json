@@ -1,49 +1,51 @@
-{
-  "id": 1,
-  "name": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
-  "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
-  "price": 87600,
-  "productImages": [
-    {
-      "image": "https://images.unsplash.com/photo-1617737164364-44c1e310cff4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDA4fHxqYWNrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
-      "imageId": 1
-    },
-    {
-      "image": "https://images.unsplash.com/photo-1617608587196-6391433fb6a3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzEzfHxqYWNrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
-      "imageId": 2
-    },
-    {
-      "image": "https://images.unsplash.com/photo-1617737164360-8a46adfbbb5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODA3fHxqYWNrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
-      "imageId": 3
-    }
-  ],
-  "options": [
-    {
-      "colorId": 10,
-      "options": [
-        { "size": "S(085)", "stock": 15, "sizeId": 2 },
-        { "size": "M(090)", "stock": 15, "sizeId": 3 },
-        { "size": "L(095)", "stock": 15, "sizeId": 4 }
-      ],
-      "colorName": "gray"
-    },
-    {
-      "colorId": 9,
-      "options": [
-        { "size": "S(085)", "stock": 15, "sizeId": 2 },
-        { "size": "M(090)", "stock": 15, "sizeId": 3 },
-        { "size": "L(095)", "stock": 15, "sizeId": 4 }
-      ],
-      "colorName": "black"
-    },
-    {
-      "colorId": 8,
-      "options": [
-        { "size": "S(085)", "stock": 15, "sizeId": 2 },
-        { "size": "M(090)", "stock": 15, "sizeId": 3 },
-        { "size": "L(095)", "stock": 15, "sizeId": 4 }
-      ],
-      "colorName": "white"
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "name": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+    "thumbnail": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+    "price": 87600,
+    "productImages": [
+      {
+        "image": "https://images.unsplash.com/photo-1617737164364-44c1e310cff4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDA4fHxqYWNrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+        "imageId": 1
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1617608587196-6391433fb6a3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzEzfHxqYWNrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+        "imageId": 2
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1617737164360-8a46adfbbb5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODA3fHxqYWNrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60",
+        "imageId": 3
+      }
+    ],
+    "options": [
+      {
+        "colorId": 10,
+        "options": [
+          { "size": "S(085)", "stock": 15, "sizeId": 2 },
+          { "size": "M(090)", "stock": 15, "sizeId": 3 },
+          { "size": "L(095)", "stock": 15, "sizeId": 4 }
+        ],
+        "colorName": "gray"
+      },
+      {
+        "colorId": 9,
+        "options": [
+          { "size": "S(085)", "stock": 15, "sizeId": 2 },
+          { "size": "M(090)", "stock": 15, "sizeId": 3 },
+          { "size": "L(095)", "stock": 15, "sizeId": 4 }
+        ],
+        "colorName": "black"
+      },
+      {
+        "colorId": 8,
+        "options": [
+          { "size": "S(085)", "stock": 15, "sizeId": 2 },
+          { "size": "M(090)", "stock": 15, "sizeId": 3 },
+          { "size": "L(095)", "stock": 15, "sizeId": 4 }
+        ],
+        "colorName": "white"
+      }
+    ]
+  }
+]
