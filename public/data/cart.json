@@ -1,0 +1,42 @@
+[
+  {
+    "name": "멋짐을 뽐내고 싶을 때 입는 가죽 자켓",
+    "price": 87600,
+    "cartId": 1,
+    "quantity": 2,
+    "size": { "id": 2, "name": "S(085)" },
+    "colorName": "gray",
+    "imgUrl": "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amFja2V0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+    "productColorId": 1,
+    "color": [
+      {
+        "colorId": 10,
+        "options": [
+          { "size": "S(085)", "stock": 15, "optionId": 2 },
+          { "size": "M(090)", "stock": 15, "optionId": 3 },
+          { "size": "L(095)", "stock": 15, "optionId": 4 }
+        ],
+        "colorName": "gray"
+      },
+      {
+        "colorId": 9,
+        "options": [
+          { "size": "S(085)", "stock": 15, "optionId": 2 },
+          { "size": "M(090)", "stock": 15, "optionId": 3 },
+          { "size": "L(095)", "stock": 15, "optionId": 4 }
+        ],
+        "colorName": "black"
+      },
+      {
+        "colorId": 8,
+        "options": [
+          { "size": "S(085)", "stock": 15, "optionId": 2 },
+          { "size": "M(090)", "stock": 15, "optionId": 3 },
+          { "size": "L(095)", "stock": 15, "optionId": 4 }
+        ],
+        "colorName": "white"
+      }
+    ],
+    "userId": 1
+  }
+]
