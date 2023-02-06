@@ -9,70 +9,74 @@ import { Pagination } from "antd"
 import { useRouter } from "next/router"
 export default function ProductList() {
   const [data, setData] = useState([])
-  const router = useRouter()
+  // const router = useRouter()
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://172.16.101.103:3000/product/list?offset=1&user=1")
+  //     .then((res) => {
+  //       setData(res.data.result)
+  //     })
+  // }, [])
+
   useEffect(() => {
-    axios
-      .get("/data/prolist.json")
-      .then((res) => {
-        setData(res.data.result)
-      })
-      .catch((error) => console.log(error))
-    // getData()
+    axios.get("/data/prolist.json").then((res) => {
+      setData(res.data.result)
+    })
   }, [])
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://172.30.1.47:3000/product/list?offset=1&sort=best")
+  //     .then((res) => {
+  //       setData(res.data.result)
+  //     })
+  // }, [])
 
   // const getData = async () => {
   //   try {
-  //     axios.get(`http://172.20.10.7:3000/product/list?offset=1`).then((res) => {
-  //       console.log(res)
-  //       setData(res.data.result)
-  //     })
+  //     axios
+  //       .get(`http://172.16.100.78:3000/product/list?offset=1&user=1`)
+  //       .then((res) => {
+  //         console.log(res)
+  //         setData(res.data.result)
+  //       })
   //   } catch (error) {
   //     console.log(error)
   //   }
-  // }
 
   const [countIndex, setCountIndex] = useState()
   const handleOnClick = (e, idx) => {
     setCountIndex(idx)
   }
   const [wish, setWish] = useState([])
+  // console.log(wish)
+
   const wishHandler = async (id, likeid) => {
     try {
-      if (!wish.includes(id)) {
-        setWish(wish.concat(id))
-        await axios.post(
-          "api",
-          {
-            productId: id,
-          },
-          {
-            headers: {
-              authorization: "token",
-            },
-          }
-        )
+      if (!wish.includes(likeid)) {
+        setWish(wish.concat(likeid))
+        await axios.post("http://172.16.101.103:3000/like", {
+          likeId: id,
+          user: 1,
+          productId: 3,
+        })
       }
-      if (wish.includes(id)) {
-        setWish(wish.filter((el) => id !== el))
-        await axios.post(
-          "api",
-          {
-            productId: id,
-          },
-
-          {
-            headers: {
-              authorization: "token",
-            },
-          }
-        )
+      if (wish.includes(likeid)) {
+        setWish(wish.filter((el) => likeid !== el))
+        await axios.post("http://172.16.101.103:3000/like", {
+          likeId: id,
+          user: 1,
+          productId: 3,
+        })
       }
     } catch (error) {
       console.log(error)
     }
   }
 
-  // menu option function
+  // menu option function[]
+
   const optionBox = []
   const size = []
   const optionTotal = []
@@ -86,77 +90,75 @@ export default function ProductList() {
     optionTotal.push(optionBox[i] + size[i])
   }
 
+  const onClickBest = (e) => {}
   // 상품명 정렬
-  const nameSort = () => {
-    const nameSorting = [...data]
-    const nameCompare = (key) => (a, b) => {
-      return a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0
-    }
-    nameSorting.sort(nameCompare("name"))
-    setData(nameSorting)
-  }
+  // const nameSort = () => {
+  //   const nameSorting = [...data]
+  //   const nameCompare = (key) => (a, b) => {
+  //     return a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0
+  //   }
+  //   nameSorting.sort(nameCompare("name"))
+  //   setData(nameSorting)
+  // }
 
   // 낮은 가격순 정렬
-  const lowPriceSort = () => {
-    const priceSorting = [...data]
-    const priceCompare = (key) => (a, b) => {
-      return a[key] - b[key]
-    }
-    priceSorting.sort(priceCompare("price"))
-    setData(priceSorting)
-  }
+  // const lowPriceSort = () => {
+  //   const priceSorting = [...data]
+  //   const priceCompare = (key) => (a, b) => {
+  //     return a[key] - b[key]
+  //   }
+  //   priceSorting.sort(priceCompare("price"))
+  //   setData(priceSorting)
+  // }
   // 높은 가격순 정렬
-  const highPriceSort = () => {
-    const priceSorting = [...data]
-    const priceCompare = (key) => (a, b) => {
-      return b[key] - a[key]
-    }
-    priceSorting.sort(priceCompare("price"))
-    setData(priceSorting)
-  }
-  // const newsDate = data.map((el, i) => el.news)
-
-  // console.log(newsDate)
+  // const highPriceSort = () => {
+  //   const priceSorting = [...data]
+  //   const priceCompare = (key) => (a, b) => {
+  //     return b[key] - a[key]
+  //   }
+  //   priceSorting.sort(priceCompare("price"))
+  //   setData(priceSorting)
+  // }
 
   // 신상품 정렬
-  const newItemSort = () => {
-    const newItemSorting = [...data]
-    const newItemCompare = (key) => (a, b) => {
-      return b[key] - a[key]
-    }
-    newItemSorting.sort(newItemCompare("id"))
-    setData(newItemSorting)
-  }
+  // const newItemSort = () => {
+  //   const newItemSorting = [...data]
+  //   const newItemCompare = (key) => (a, b) => {
+  //     return b[key] - a[key]
+  //   }
+  //   newItemSorting.sort(newItemCompare("id"))
+  //   setData(newItemSorting)
+  // }
 
   // 좋아요 정렬
-  const likeSort = () => {
-    const likeSorting = [...data]
-    const likeCompare = (key) => (a, b) => {
-      return b[key] - a[key]
-    }
-    likeSorting.sort(likeCompare("likeCount"))
-    setData(likeSorting)
-  }
+  // const likeSort = () => {
+  //   const likeSorting = [...data]
+  //   const likeCompare = (key) => (a, b) => {
+  //     return b[key] - a[key]
+  //   }
+  //   likeSorting.sort(likeCompare("likeCount"))
+  //   setData(likeSorting)
+  // }
 
   // 사용후기 정렬
-  const reviewSort = () => {
-    const reviewSorting = [...data]
-    const reviewCompare = (key) => (a, b) => {
-      return b[key] - a[key]
-    }
-    reviewSorting.sort(reviewCompare("reviewCount"))
-    setData(reviewSorting)
-  }
+  // const reviewSort = () => {
+  //   const reviewSorting = [...data]
+  //   const reviewCompare = (key) => (a, b) => {
+  //     return b[key] - a[key]
+  //   }
+  //   reviewSorting.sort(reviewCompare("reviewCount"))
+  //   setData(reviewSorting)
+  // }
 
   // 인기순 정렬
-  const orderSorting = () => {
-    const orderSorting = [...data]
-    const orderCompare = (key) => (a, b) => {
-      return b[key] - a[key]
-    }
-    orderSorting.sort(orderCompare("orderCount"))
-    setData(orderSorting)
-  }
+  // const orderSorting = () => {
+  //   const orderSorting = [...data]
+  //   const orderCompare = (key) => (a, b) => {
+  //     return b[key] - a[key]
+  //   }
+  //   orderSorting.sort(orderCompare("orderCount"))
+  //   setData(orderSorting)
+  // }
 
   return (
     <ProductListWrapper>
@@ -164,15 +166,13 @@ export default function ProductList() {
         <MenuTitle>Women</MenuTitle>
         <Category>
           <MenuCategoryBox>
-            <MenuCategoryList onClick={newItemSort}>신상품</MenuCategoryList>
-            <MenuCategoryList onClick={nameSort}>상품명</MenuCategoryList>
-            <MenuCategoryList onClick={lowPriceSort}>낮은가격</MenuCategoryList>
-            <MenuCategoryList onClick={highPriceSort}>
-              높은가격
-            </MenuCategoryList>
-            <MenuCategoryList onClick={orderSorting}>인기상품</MenuCategoryList>
-            <MenuCategoryList onClick={reviewSort}>사용후기</MenuCategoryList>
-            <MenuCategoryList onClick={likeSort}>좋아요</MenuCategoryList>
+            <MenuCategoryList>신상품</MenuCategoryList>
+            <MenuCategoryList>상품명</MenuCategoryList>
+            <MenuCategoryList>낮은가격</MenuCategoryList>
+            <MenuCategoryList>높은가격</MenuCategoryList>
+            <MenuCategoryList>인기상품</MenuCategoryList>
+            <MenuCategoryList>사용후기</MenuCategoryList>
+            <MenuCategoryList>좋아요</MenuCategoryList>
           </MenuCategoryBox>
           <ItemNumber>872 Items</ItemNumber>
         </Category>
@@ -243,7 +243,6 @@ export default function ProductList() {
     </ProductListWrapper>
   )
 }
-
 export const ProductListWrapper = styled.div`
   float: right;
   font-family: "Poppins", "Noto Sans KR", Verdana, Dotum, AppleGothic,
