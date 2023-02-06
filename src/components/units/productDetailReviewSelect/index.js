@@ -13,10 +13,19 @@ export default function ReviewStarDropdown(props) {
     }
   }
   console.log(starCheck)
-  // const b = props.data.scoreCount?.map((el) => el.star)
+
+  const b = props.data.scoreCount?.map((el) => el.star)
   // console.log(b)
+
   const onClickStar = (e) => {
     starCheck.includes(e.target.value)
+  }
+
+  const initFilter = () => {
+    // for (let i = 0; i < starCheck.length; i++) {
+    //   starCheck[i].checked = false
+
+    setStarCheck([])
   }
 
   return (
@@ -33,7 +42,7 @@ export default function ReviewStarDropdown(props) {
             <StarOptionList>
               <StarResetWrapper>
                 <div>별점</div>
-                <ResetWrapper>
+                <ResetWrapper onClick={initFilter}>
                   <div>초기화 </div>
                   <RedoOutlined style={{ marginLeft: "3px" }} />
                 </ResetWrapper>
@@ -53,7 +62,7 @@ export default function ReviewStarDropdown(props) {
                   type="checkbox"
                   style={{ cursor: "pointer" }}
                   id="star_five"
-                  value="5"
+                  value={5}
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
@@ -74,7 +83,7 @@ export default function ReviewStarDropdown(props) {
                   type="checkbox"
                   style={{ cursor: "pointer" }}
                   id="star_four"
-                  value="4"
+                  value={4}
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
@@ -95,7 +104,7 @@ export default function ReviewStarDropdown(props) {
                   type="checkbox"
                   style={{ cursor: "pointer" }}
                   id="star_three"
-                  value="3"
+                  value={3}
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
@@ -116,7 +125,7 @@ export default function ReviewStarDropdown(props) {
                   type="checkbox"
                   style={{ cursor: "pointer" }}
                   id="star_two"
-                  value="2"
+                  value={2}
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
@@ -137,14 +146,14 @@ export default function ReviewStarDropdown(props) {
                   type="checkbox"
                   style={{ cursor: "pointer" }}
                   id="star_one"
-                  value="1"
+                  value={1}
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
                 />
               </StarList>
             </StarOptionList>
-            <BtnWrapper>
+            <BtnWrapper onClick={onClickStar}>
               <OptionSelectBtn>
                 <span>완료</span>
               </OptionSelectBtn>
