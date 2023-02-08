@@ -339,6 +339,9 @@ export const StarOptionBtn = styled.button`
   background-color: #ffffff;
   /* padding: 8px 12px; */
   margin-left: 10px;
+  &:clicked {
+    outline: none;
+  }
 `
 
 export const StarOptionClick = styled.div`
