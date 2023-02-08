@@ -9,21 +9,32 @@ import { Pagination } from "antd"
 import { useRouter } from "next/router"
 export default function ProductList() {
   const [data, setData] = useState([])
+  const [pagination, setPagination] = useState(1)
+
+  const router = useRouter()
+  console.log(router.query.url_query)
+  const URL = router.query.url_query
+  const URL_HANDLER = URL?.split('&') ?? []
+  const MAIN_CATEGORY = URL_HANDLER[0]?.split('=') ?? ''
+  const COLOR = URL_HANDLER[1]?.split('=') ?? ''
+  const ITEM = URL_HANDLER[2]?.split('=') ?? ''
+  const SORT = URL_HANDLER[3]?.split('=') ?? ''
+
   // const router = useRouter()
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://172.16.101.103:3000/product/list?offset=1&user=1")
-  //     .then((res) => {
-  //       setData(res.data.result)
-  //     })
-  // }, [])
-
   useEffect(() => {
-    axios.get("/data/prolist.json").then((res) => {
-      setData(res.data.result)
-    })
-  }, [])
+    axios
+      .get(`http://172.20.10.7:3000/product/list?offset=${pagination}&mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${SORT[1]}`)
+      .then((res) => {
+        setData(res.data.result)
+      })
+  }, [router, pagination])
+
+  // useEffect(() => {
+  //   axios.get("/data/prolist.json").then((res) => {
+  //     setData(res.data.result)
+  //   })
+  // }, [])
 
   // useEffect(() => {
   //   axios
@@ -90,7 +101,7 @@ export default function ProductList() {
     optionTotal.push(optionBox[i] + size[i])
   }
 
-  const onClickBest = (e) => {}
+  // const onClickBest = (e) => {}
   // 상품명 정렬
   // const nameSort = () => {
   //   const nameSorting = [...data]
@@ -166,13 +177,41 @@ export default function ProductList() {
         <MenuTitle>Women</MenuTitle>
         <Category>
           <MenuCategoryBox>
-            <MenuCategoryList>신상품</MenuCategoryList>
-            <MenuCategoryList>상품명</MenuCategoryList>
-            <MenuCategoryList>낮은가격</MenuCategoryList>
-            <MenuCategoryList>높은가격</MenuCategoryList>
-            <MenuCategoryList>인기상품</MenuCategoryList>
-            <MenuCategoryList>사용후기</MenuCategoryList>
-            <MenuCategoryList>좋아요</MenuCategoryList>
+            <MenuCategoryList
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`new`}`)}
+            >
+              신상품
+            </MenuCategoryList>
+            <MenuCategoryList
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`name`}`)}
+            >
+              상품명
+            </MenuCategoryList>
+            <MenuCategoryList
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`low`}`)}
+            >
+              낮은가격
+            </MenuCategoryList>
+            <MenuCategoryList
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`high`}`)}
+            >
+              높은가격
+            </MenuCategoryList>
+            <MenuCategoryList
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`best`}`)}
+            >
+              인기상품
+            </MenuCategoryList>
+            <MenuCategoryList
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`review`}`)}
+            >
+              사용후기
+            </MenuCategoryList>
+            <MenuCategoryList
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`like`}`)}
+            >
+              좋아요
+            </MenuCategoryList>
           </MenuCategoryBox>
           <ItemNumber>872 Items</ItemNumber>
         </Category>
@@ -239,6 +278,7 @@ export default function ProductList() {
           justifyContent: "center",
           width: "100%",
         }}
+        onChange={(num) => setPagination(num)}
       />
     </ProductListWrapper>
   )
