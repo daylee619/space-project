@@ -1,7 +1,12 @@
 import styled from "@emotion/styled"
 import axios from "axios"
 import { Fragment, useEffect, useState } from "react"
-import { ShareAltOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons"
+import {
+  ShareAltOutlined,
+  HeartOutlined,
+  HeartFilled,
+  CloseOutlined,
+} from "@ant-design/icons"
 import ShareModal from "../Modal/sharemodal"
 import ShippingModal from "../Modal/shippingmodal"
 import RefundModal from "../Modal/refundmodal"
@@ -102,13 +107,15 @@ const ProductDetail = () => {
     }
   }
   const soloMinusCountHandler = (colorId, sizeId) => {
-    setSumCount((prv) => prv - 1)
     for (let i = 0; i < itemObject.length; i++) {
       if (
         itemObject[i].size_id === sizeId &&
         itemObject[i].color_id === colorId
       ) {
-        itemObject[i].count--
+        if (itemObject[i].count > 1) {
+          setSumCount((prv) => prv - 1)
+          itemObject[i].count--
+        }
       }
     }
   }
@@ -380,26 +387,44 @@ const ProductDetail = () => {
           } */}
 
           {itemObject.map((el, index) => (
-            <div key={index}>
-              <div>{data.name}</div>
-              <div>{el.color_name}</div>
-              <div>{el.size_name}</div>
-              <input
-                type="number"
-                value={el.count}
-              />
-              <button onClick={() => soloCountHandler(el.color_id, el.size_id)}>
-                증가
-              </button>
-              <button
-                onClick={() => soloMinusCountHandler(el.color_id, el.size_id)}
-              >
-                감소
-              </button>
-              <div onClick={() => deleteItem(index, el.size_id, el.color_id)}>
-                X
+            <OrderBoxWrapper key={index}>
+              <OptionOrderBox>
+                <OrderName>{data.name}</OrderName>
+                <OrderColoSize>
+                  <span>{el.color_name}/</span>
+                  <span>{el.size_name}</span>
+                </OrderColoSize>
+              </OptionOrderBox>
+
+              <div>
+                <MinusBtn
+                  onClick={() => soloMinusCountHandler(el.color_id, el.size_id)}
+                >
+                  -
+                </MinusBtn>
+                <InputNumber
+                  type="number"
+                  value={el.count}
+                />
+                <PlusBtn
+                  onClick={() => soloCountHandler(el.color_id, el.size_id)}
+                >
+                  +
+                </PlusBtn>
               </div>
-            </div>
+
+              <CloseBtn
+                onClick={() => deleteItem(index, el.size_id, el.color_id)}
+              >
+                <CloseOutlined
+                  style={{
+                    fontSize: "10px",
+                    color: "lightGrey",
+                    paddingBottom: "0px",
+                  }}
+                />
+              </CloseBtn>
+            </OrderBoxWrapper>
           ))}
 
           <PriceTotal>
@@ -711,6 +736,64 @@ export const ReorderButton = styled.button`
 `
 export const SizeBox = styled.div`
   border-bottom: 1px solid #e5e5e5;
+`
+export const OrderBoxWrapper = styled.div`
+  border-top: 1px solid #9a9ba0;
+  padding: 22px 0px;
+  display: flex;
+  position: relative;
+
+  /* justify-content: space-around; */
+`
+export const OptionOrderBox = styled.div`
+  padding: 0 10px 0 0;
+`
+export const MinusBtn = styled.button`
+  background-color: transparent;
+  border: 0;
+  border-top: 1px solid #d4d8d9;
+  border-left: 1px solid #d4d8d9;
+  border-bottom: 1px solid #d4d8d9;
+  cursor: pointer;
+`
+export const PlusBtn = styled.button`
+  background-color: transparent;
+  border: 0;
+  border-top: 1px solid #d4d8d9;
+  border-right: 1px solid #d4d8d9;
+  border-bottom: 1px solid #d4d8d9;
+  cursor: pointer;
+`
+export const CloseBtn = styled.div`
+  position: absolute;
+  top: 0;
+  right: 3px;
+  cursor: pointer;
+`
+
+export const InputNumber = styled.input`
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  width: 30px;
+  border: 0;
+  text-align: center;
+  border-top: 1px solid #d4d8d9;
+  border-bottom: 1px solid #d4d8d9;
+  &:focus {
+    outline: none;
+  }
+`
+export const OrderName = styled.div`
+  font-size: 12px;
+  font-weight: 400;
+`
+export const OrderColoSize = styled.div`
+  span {
+    font-size: 12px;
+    color: #909090;
+  }
 `
 export const SizeTitle = styled.div`
   font-size: 12px;
