@@ -117,3 +117,9 @@ export const UserProfileInBox = styled.div`
   top: -160px;
   margin-left: 20px;
 `
+
+export const PasswordAlert = styled.span`
+  margin-bottom: 10px;
+  color: red;
+  font-size: 12px;
+`

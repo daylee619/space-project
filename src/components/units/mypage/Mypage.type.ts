@@ -128,6 +128,7 @@ export interface IMypageUserModifyDefaultDataType {
   gender: string
   phone: string
   name: string
+  is_social: boolean
 }
 
 export interface IPlusOptionModalPropsType {

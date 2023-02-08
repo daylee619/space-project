@@ -9,7 +9,7 @@ const MypageMain = () => {
 
     const mainDataGetHandler = async () => {
         try {
-            await axios.get('/data/mypage_main.json', {
+            await axios.get(`http://${API_IP}:3000/order/mypage`, {
                 headers: {
                     "authorization": `${localStorage.getItem('access_token')}`
                 }

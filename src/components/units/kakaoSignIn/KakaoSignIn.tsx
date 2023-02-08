@@ -4,7 +4,7 @@ import { KakaoButton } from './KakaoSignIn.style'
 const KakaoSignIn = () => {
     const router = useRouter()
     const REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao'
-    const CLIENT_ID = '34a1cbc250ca3bc8b17e02f803303090'
+    const CLIENT_ID = ''
 
     console.log(router.query.code)
 

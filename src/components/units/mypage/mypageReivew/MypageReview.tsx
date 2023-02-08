@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { API_IP } from '../../../../common/utils/ApiIp'
 import { IWritedReviewDataType } from '../Mypage.type'
 import WritedUserReview from './getUserReview/WritedUserReview'
 import * as S from './MypageReview.style'
 import CreateReviewPossibleList from './possibleUserReview/PossibleUserReview'
 
 const MypageReview = () => {
-    const [reviewTitleOption, setReviewTitleOption] = useState<string>('possible_review')
+    const [reviewTitleOption, setReviewTitleOption] = useState<string>('writed_review')
     const [writedReviewData, setWritedReviewData] = useState<IWritedReviewDataType[]>([])
 
     const reviewTitleOptionHandler = (id: string) => {
@@ -15,7 +16,7 @@ const MypageReview = () => {
 
     const writedReviewDataHandler = async () => {
         try {
-            await axios.get('http://172.16.101.103:3000/review/user', {
+            await axios.get(`http://${API_IP}:3000/review/user`, {
                 headers: {
                     "authorization": `${localStorage.getItem("access_token")}`
                 }

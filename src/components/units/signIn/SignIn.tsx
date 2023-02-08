@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
+import { API_IP } from '../../../common/utils/ApiIp'
 import GoogleSignIn from '../googleSignIn/GoogleSignIn'
 import KakaoSignIn from '../kakaoSignIn/KakaoSignIn'
 import * as S from './SignIn.style'
@@ -31,7 +32,7 @@ const SignIn = () => {
     const SignInHandler = async () => {
         try {
             if (userId && userPassword) {
-                await axios.post('http://172.16.101.103:3000/user/login', {
+                await axios.post(`http://${API_IP}:3000/user/login`, {
                     email: userId,
                     password: userPassword
                 })

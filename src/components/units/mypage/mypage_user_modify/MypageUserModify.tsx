@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { API_IP } from '../../../../common/utils/ApiIp';
 import { getDate } from '../../../../common/utils/date/Date';
 import { IMypageUserModifyDefaultDataType } from '../Mypage.type';
 import * as S from './MypageUserModify.style'
@@ -26,7 +27,7 @@ const MypageUserModify = () => {
 
     const defaultDataHandler = async () => {
         try {
-            await axios.get('http://172.16.101.103:3000/user/info', {
+            await axios.get(`http://${API_IP}:3000/user/info`, {
                 headers: {
                     "authorization": `${localStorage.getItem('access_token')}`
                 }
@@ -81,7 +82,7 @@ const MypageUserModify = () => {
     // confirm 버튼 Function
     const filePostHandler = async () => {
         try {
-            await axios.patch('http://172.30.1.42:3000/user/info',
+            await axios.patch(`http://${API_IP}:3000/user/info`,
                 {
                     name: name || defaultData?.name,
                     userPassword: password,
@@ -96,7 +97,7 @@ const MypageUserModify = () => {
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
-                        "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRsYWNvZG5qczY2N0BhZGlvcy5jb20iLCJ1c2VySWQiOjE5LCJpYXQiOjE2NzQ5ODYzMTIsImV4cCI6MTY3NDk4OTkxMn0.Gz-nV5dOLzHEhfieCkOpVfcjsrtYca0XxE2fnJpkpAE"
+                        "authorization": `${localStorage.getItem('access_token')}`
                     }
                 }
             )
@@ -137,12 +138,20 @@ const MypageUserModify = () => {
                         value={defaultData?.email ?? ""}
                         onChange={emailChangeHandler}
                     />
-                    <S.Label id='password'>비밀번호</S.Label>
-                    <S.Input
-                        type='password'
-                        id='password'
-                        onChange={pwdChangeHandler}
-                    />
+                    {
+                        !defaultData?.is_social
+                        &&
+                        (
+                            <>
+                                <S.Label id='password'>비밀번호</S.Label>
+                                <S.Input
+                                    type='password'
+                                    id='password'
+                                    onChange={pwdChangeHandler}
+                                />
+                            </>
+                        )
+                    }
                     <S.Label htmlFor='phoneNumber'>전화번호</S.Label>
                     <S.Input
                         type='text'

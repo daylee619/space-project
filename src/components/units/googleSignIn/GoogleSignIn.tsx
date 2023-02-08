@@ -1,6 +1,7 @@
 import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios';
 import { useRouter } from 'next/router'
+import { API_IP } from '../../../common/utils/ApiIp';
 
 const GoogleSignIn = () => {
     const router = useRouter()
@@ -11,7 +12,7 @@ const GoogleSignIn = () => {
                 onSuccess={async (credentialResponse) => {
                     try {
                         // console.log(credentialResponse);
-                        await axios.post('http://172.16.101.103:3000/user/google', {
+                        await axios.post(`http://${API_IP}:3000/user/google`, {
                             credentialResponse
                         })
                             .then(res => {

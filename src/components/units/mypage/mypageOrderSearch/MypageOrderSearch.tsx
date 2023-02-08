@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { ChangeEvent, Fragment, useEffect, useState } from 'react'
+import { API_IP } from '../../../../common/utils/ApiIp'
 import { getDate, mdate } from '../../../../common/utils/date/Date'
 import { IItemDataType } from '../Mypage.type'
 import MypageFilterList from '../mypageFilterList/MypageFilterList'
@@ -22,7 +23,7 @@ const MypageOrderSearch = () => {
         try {
             await axios
                 .get
-                (`http://172.16.101.103:3000/order/history?history_start_date=${URL_QUERY_ARRAY_STATE[1][1]}&history_end_date=${URL_QUERY_ARRAY_STATE[0][1]}${URL_QUERY_ARRAY_STATE[2][1] && `&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`,
+                (`http://${API_IP}:3000/order/history?history_start_date=${URL_QUERY_ARRAY_STATE[1][1]}&history_end_date=${URL_QUERY_ARRAY_STATE[0][1]}${`&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`,
                     {
                         headers: {
                             "authorization": `${localStorage.getItem('access_token')}`
@@ -46,27 +47,27 @@ const MypageOrderSearch = () => {
         if (id === "today" && URL_QUERY_ARRAY_STATE) {
             setStartDate(getDate(new Date()))
             setEndDate(mdate(new Date(), 0, 0))
-            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 0, 0)}${URL_QUERY_ARRAY_STATE[2][1] && `&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
+            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 0, 0)}${`&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
         }
         if (id === "ownWeek" && URL_QUERY_ARRAY_STATE) {
             setStartDate(getDate(new Date()))
             setEndDate(mdate(new Date(), 0, 7))
-            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 0, 7)}${URL_QUERY_ARRAY_STATE[2][1] && `&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
+            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 0, 7)}${`&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
         }
         if (id === "ownMonth" && URL_QUERY_ARRAY_STATE) {
             setStartDate(getDate(new Date()))
             setEndDate(mdate(new Date(), 1, 0))
-            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 1, 0)}${URL_QUERY_ARRAY_STATE[2][1] && `&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
+            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 1, 0)}${`&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
         }
         if (id === "threeMonth" && URL_QUERY_ARRAY_STATE) {
             setStartDate(getDate(new Date()))
             setEndDate(mdate(new Date(), 3, 0))
-            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 3, 0)}${URL_QUERY_ARRAY_STATE[2][1] && `&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
+            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 3, 0)}${`&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
         }
         if (id === "sixMonth" && URL_QUERY_ARRAY_STATE) {
             setStartDate(getDate(new Date()))
             setEndDate(mdate(new Date(), 6, 0))
-            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 6, 0)}${URL_QUERY_ARRAY_STATE[2][1] && `&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
+            router.push(`/mypage/order/history/history_start_date=${getDate(new Date())}&history_end_date=${mdate(new Date(), 6, 0)}${`&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
         }
     }
 
@@ -78,7 +79,7 @@ const MypageOrderSearch = () => {
 
     const clickHandler = () => {
         if (URL_QUERY_ARRAY_STATE) {
-            router.push(`/mypage/order/history/history_start_date=${startDate}&history_end_date=${endDate}${URL_QUERY_ARRAY_STATE[2][1] && `&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
+            router.push(`/mypage/order/history/history_start_date=${startDate}&history_end_date=${endDate}${`&order_status=${URL_QUERY_ARRAY_STATE[2][1]}`}`)
         }
     }
 

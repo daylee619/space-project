@@ -2,13 +2,14 @@
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useEffect } from 'react'
+import { API_IP } from '../../../common/utils/ApiIp'
 
 const KakaoRedirect = () => {
     const router = useRouter()
 
     const CODE = router.query.code
     const REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao'
-    const CLIENT_ID = '34a1cbc250ca3bc8b17e02f803303090'
+    const CLIENT_ID = ''
     const API = `grant_type=authorization_code&client_id=${CLIENT_ID}&code=${CODE}&redirect_uri=${REDIRECT_URI}`
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const KakaoRedirect = () => {
                 if (res.statusText === "OK") {
                     const platFormToken = async () => {
                         try {
-                            await axios.post('http://172.16.101.103:3000/user/kakao', {
+                            await axios.post(`http://${API_IP}:3000/user/kakao`, {
                                 access_token: res.data.access_token
                             })
                                 .then(res => {

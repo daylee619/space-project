@@ -8,8 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <>
-        <Navigation />
-        <GoogleOAuthProvider clientId="565812112333-j0gg5kh8v1tqcsmqdatm9magfveqg941.apps.googleusercontent.com">
+        <Navigation
+        />
+        <GoogleOAuthProvider clientId="id" >
           <Component {...pageProps} />
         </GoogleOAuthProvider>
       </>

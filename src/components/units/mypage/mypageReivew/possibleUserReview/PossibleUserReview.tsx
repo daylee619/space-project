@@ -1,5 +1,7 @@
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { API_IP } from '../../../../../common/utils/ApiIp'
 import * as S from './PossibleUserReview.style'
 
 interface IPossibleListDataType {
@@ -11,10 +13,11 @@ interface IPossibleListDataType {
 
 const CreateReviewPossibleList = () => {
     const [listData, setListData] = useState<IPossibleListDataType[]>([])
+    const router = useRouter()
 
     const possibleListDataHandler = async () => {
         try {
-            await axios.get('http://172.16.101.103:3000/review/creation', {
+            await axios.get(`http://${API_IP}:3000/review/creation`, {
                 headers: {
                     "authorization": `${localStorage.getItem('access_token')}`
                 }
@@ -53,7 +56,10 @@ const CreateReviewPossibleList = () => {
                             </S.PostEndDate>
                         </S.ProductContentBox>
                         <S.ReviewBox>
-                            <S.ReviewWrite>리뷰 작성하기</S.ReviewWrite>
+                            <S.ReviewWrite
+                                onClick={async () => await router.push(`/review/create/${el.productId}`)}
+                            >
+                                리뷰 작성하기</S.ReviewWrite>
                             <S.ReviewHide>숨기기</S.ReviewHide>
                         </S.ReviewBox>
                     </S.InContain>
