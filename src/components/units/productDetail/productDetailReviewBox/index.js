@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { DislikeOutlined, LikeOutlined } from "@ant-design/icons"
 import { Rate } from "antd"
 import moment from "moment"
-import { useState } from "react"
+import axios from "axios"
 export default function ProductDetailReviewBox(props) {
   const userNickName = props.reviewData?.map((el) => el.nickname)
   // console.log(userNickName)
@@ -11,6 +11,44 @@ export default function ProductDetailReviewBox(props) {
   const ReviewDateCreated = props.reviewData?.map((el) =>
     moment(el.created_at).format("YYYY.MM.DD")
   )
+
+  const helpfulHandler = async (reviewId) => {
+    try {
+      await axios.post(
+        "api",
+        {
+          review_id: reviewId,
+          state: "helpful",
+        },
+        {
+          headers: {
+            authorization: `${localStorage.getItem("access_token")}`,
+          },
+        }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const unhelpfulHandler = async (reviewId) => {
+    try {
+      await axios.post(
+        "api",
+        {
+          review_id: reviewId,
+          state: "unhelpful",
+        },
+        {
+          headers: {
+            authorization: `${localStorage.getItem("access_token")}`,
+          },
+        }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>

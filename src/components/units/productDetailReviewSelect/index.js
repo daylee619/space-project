@@ -2,16 +2,19 @@ import styled from "@emotion/styled"
 import { RedoOutlined } from "@ant-design/icons"
 import { Rate } from "antd"
 import { useState } from "react"
+import axios from "axios"
 
 export default function ReviewStarDropdown(props) {
   const [starCheck, setStarCheck] = useState([])
+
   const onChangeStar = (checked, value) => {
     if (checked) {
-      setStarCheck([...starCheck, value])
+      setStarCheck((prv) => [...prv, value])
     } else {
       setStarCheck(starCheck.filter((el) => el !== value))
     }
   }
+
   console.log(starCheck)
 
   const b = props.data.scoreCount?.map((el) => el.star)
@@ -22,10 +25,24 @@ export default function ReviewStarDropdown(props) {
   }
 
   const initFilter = () => {
-    // for (let i = 0; i < starCheck.length; i++) {
-    //   starCheck[i].checked = false
-
     setStarCheck([])
+  }
+
+  const postHandler = async () => {
+    try {
+      await axios
+        .post("api", {
+          key: starCheck,
+        })
+        .then((res) => {
+          const { data } = res
+          if (data.message === "COMPLETE") {
+            console.log(data.message)
+          }
+        })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -61,11 +78,12 @@ export default function ReviewStarDropdown(props) {
                 <input
                   type="checkbox"
                   style={{ cursor: "pointer" }}
-                  id="star_five"
+                  id={5}
                   value={5}
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
+                  checked={!!starCheck.includes("5")}
                 />
               </StarList>
               <StarList>
@@ -87,6 +105,7 @@ export default function ReviewStarDropdown(props) {
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
+                  checked={!!starCheck.includes("4")}
                 />
               </StarList>
               <StarList>
@@ -108,6 +127,7 @@ export default function ReviewStarDropdown(props) {
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
+                  checked={!!starCheck.includes("3")}
                 />
               </StarList>
               <StarList>
@@ -129,6 +149,7 @@ export default function ReviewStarDropdown(props) {
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
+                  checked={!!starCheck.includes("2")}
                 />
               </StarList>
               <StarList>
@@ -150,10 +171,11 @@ export default function ReviewStarDropdown(props) {
                   onChange={(e) =>
                     onChangeStar(e.target.checked, e.target.value)
                   }
+                  checked={!!starCheck.includes("1")}
                 />
               </StarList>
             </StarOptionList>
-            <BtnWrapper onClick={onClickStar}>
+            <BtnWrapper onClick={postHandler}>
               <OptionSelectBtn>
                 <span>완료</span>
               </OptionSelectBtn>
