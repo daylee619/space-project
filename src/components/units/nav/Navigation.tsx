@@ -77,7 +77,7 @@ const Navigation = () => {
                             <Fragment key={el.id}>
                                 <S.NavCategory
                                     onPointerEnter={() => { pointerHandler(el.id); }}
-                                    onClick={async () => await router.push(`/${el.name}`)}
+                                    onClick={async () => await router.push(`/productlist/mainCategory=${el.id}&color=&item=&sort=`)}
                                 >
                                     {el.name}
                                 </S.NavCategory>

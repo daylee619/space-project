@@ -60,24 +60,42 @@ export default function ProductFilter() {
   const onClickSearchButton = () => {
     setSearchView((prev) => !prev)
   }
+
+
+  const URL = router.query.url_query
+  const URL_HANDLER = URL?.split('&') ?? []
+  const MAIN_CATEGORY = URL_HANDLER[0]?.split('=') ?? ''
+  const COLOR = URL_HANDLER[1]?.split('=') ?? ''
+  const ITEM = URL_HANDLER[2]?.split('=') ?? ''
+  const SORT = URL_HANDLER[3]?.split('=') ?? ''
+
+
   // 색깔 버튼 선택
   const colorSelecteHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!colorSelect.includes(e.target.value)) {
-      setColorSelect(colorSelect.concat(e.target.value))
-      // router.push(`/`)
+      const ddd = colorSelect.concat(e.target.value)
+      setColorSelect(ddd)
+      router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${ddd}&item=${ITEM[1]}&sort=${SORT[1]}`)
     }
 
     if (colorSelect.includes(e.target.value)) {
-      setColorSelect(colorSelect.filter((el) => e.target.value !== el))
+      const aaa = colorSelect
+      const bbb = aaa.filter(el => e.target.value !== el)
+      setColorSelect(bbb)
+      router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${bbb}&item=${ITEM[1]}&sort=${SORT[1]}`)
     }
   }
   // 아이템 버튼 선택
   const itemSelecteHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!itemSelect.includes(e.target.value)) {
-      setItemSelect(itemSelect.concat(e.target.value))
+      const eee = itemSelect.concat(e.target.value)
+      setItemSelect(eee)
+      router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${eee}&sort=${SORT[1]}`)
     }
     if (itemSelect.includes(e.target.value)) {
-      setItemSelect(itemSelect.filter((el) => e.target.value !== el))
+      const fff = itemSelect.filter(el => e.target.value !== el)
+      setItemSelect(fff)
+      router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${fff}&sort=${SORT[1]}`)
     }
   }
 
@@ -100,7 +118,7 @@ export default function ProductFilter() {
     setText("")
     console.log(text)
   }
-
+  // onClick={() => router.push(`/productlist/${router.query.categoryId}/${}`)}
   return (
     <>
       <ProductFilterUI
