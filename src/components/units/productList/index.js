@@ -24,7 +24,7 @@ export default function ProductList() {
 
   useEffect(() => {
     axios
-      .get(`http://172.20.10.7:3000/product/list?offset=${pagination}&mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${SORT[1]}`)
+      .get(`http://172.16.100.159:3000/product/list?offset=${pagination}&mainCategory=${MAIN_CATEGORY[1] ? MAIN_CATEGORY[1] : ''}&color=${COLOR[1] ? COLOR[1] : ''}&item=${ITEM[1] ? ITEM[1] : ''}&sort=${SORT[1] ? SORT[1] : null}`)
       .then((res) => {
         setData(res.data.result)
       })
@@ -67,7 +67,7 @@ export default function ProductList() {
     try {
       if (!wish.includes(likeid)) {
         setWish(wish.concat(likeid))
-        await axios.post("http://172.16.101.103:3000/like", {
+        await axios.post("http://172.16.100.159:3000/like", {
           likeId: id,
           user: 1,
           productId: 3,
@@ -75,7 +75,7 @@ export default function ProductList() {
       }
       if (wish.includes(likeid)) {
         setWish(wish.filter((el) => likeid !== el))
-        await axios.post("http://172.16.101.103:3000/like", {
+        await axios.post("http://172.16.100.159:3000/like", {
           likeId: id,
           user: 1,
           productId: 3,
