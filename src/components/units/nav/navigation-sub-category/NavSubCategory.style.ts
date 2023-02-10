@@ -4,11 +4,11 @@ export const SubCategoryContain = styled.div`
   position: absolute;
   width: 100%;
   height: 350px;
-  top: 82px;
+  top: 80px;
   left: 0px;
   border-bottom: 1px solid lightgray;
   background-color: white;
-  z-index: 1;
+  z-index: 2;
 `
 
 export const Box = styled.div`
