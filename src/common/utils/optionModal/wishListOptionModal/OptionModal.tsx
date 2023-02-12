@@ -1,10 +1,28 @@
+import axios from 'axios'
 import { Fragment } from 'react'
 import { IOptionPropsType } from '../../../../components/units/mypage/Mypage.type'
+import { API_IP } from '../../ApiIp'
 import * as S from './OptionModal.style'
 
 
 const WishListOptionModal = (props: IOptionPropsType) => {
     const { modalHandler, colorProps, selectStateHandler, selectState, nameProps, idProps } = props
+
+    // wishList Item Option Change
+    // const wishItemOptionChangeHandler = async () => {
+    //     try {
+    //         await axios.post(`http://${API_IP}:3000/wishList`, {
+
+    //         }, {
+    //             headers: {
+    //                 'autorization': localStorage.getItem('access_token')
+    //             }
+    //         })
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+
     return (
         <S.Contain>
             <S.HeaderBox>
@@ -50,7 +68,10 @@ const WishListOptionModal = (props: IOptionPropsType) => {
             </S.ModalContentContain>
             <S.ModalConfirmBox>
                 <S.Addbutton>추가</S.Addbutton>
-                <S.ChangeButton>변경</S.ChangeButton>
+                <S.ChangeButton
+                >
+                    변경
+                </S.ChangeButton>
             </S.ModalConfirmBox>
         </S.Contain>
     )

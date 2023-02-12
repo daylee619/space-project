@@ -16,28 +16,33 @@ import { useRouter } from 'next/router'
 
 const ProductDetail = () => {
   const [data, setData] = useState([])
-  console.log(data)
   const [isShareModal, setIsShareModal] = useState(false)
   const [isShippingModal, setIsShippingModal] = useState(false)
   const [isRefundModal, setIsRefundModal] = useState(false)
   const [isMoreView, setIsMoreView] = useState(false)
   const [isWishModal, setIsWishModal] = useState(false)
+  const [option, setOption] = useState([])
+
+  // product detail wish
+  const [wishCheckMessage, setWishCheckMessage] = useState('')
 
   const router = useRouter()
-  const productId = router.query.productId ?? ""
+  const productId = router.query?.productId
 
   useEffect(() => {
-    axios.get(`http://${API_IP}:3000/product/detail/${productId}`, {
-      headers: {
-        'authorization': `${localStorage.getItem('access_token')}`
-      }
-    }).then((res) => {
-      const { data } = res
-      if (data) {
-        setData(data)
-      }
-    })
-  }, [])
+    if (productId !== undefined) {
+      axios.get(`http://${API_IP}:3000/product/detail/${productId}`, {
+        headers: {
+          'authorization': `${localStorage.getItem('access_token')}`
+        }
+      }).then((res) => {
+        const { data } = res
+        if (data) {
+          setData(data)
+        }
+      })
+    }
+  }, [productId])
   // useEffect(() => {
   //   axios
   //     .get("http://172.30.1.47:3000/product/detail?user=1&productId=1")
@@ -72,7 +77,7 @@ const ProductDetail = () => {
   const [colorIdState, setColorIdState] = useState(0)
   const [sizeNameState, setSizeNameState] = useState("")
 
-  const sizeHandler = (checked, sizeId, sizeName) => {
+  const sizeHandler = (checked, sizeId, sizeName, optionId) => {
     if (!checked) {
       setSizeCheck((prev) => [...prev, sizeId])
       setSizeNameState(sizeName)
@@ -82,6 +87,7 @@ const ProductDetail = () => {
         size_name: sizeName,
         color_id: colorIdState,
         color_name: colorNameState,
+        optionId
       }
       if (
         itemObject.filter(
@@ -159,28 +165,52 @@ const ProductDetail = () => {
 
   const [wish, setWish] = useState([])
 
-  const wishHandler = async (id, likeid) => {
+  // const wishHandler = async (id, likeid) => {
+  //   try {
+  //     if (!wish.includes(likeid)) {
+  //       setWish(wish.concat(likeid))
+  //       await axios.post(
+  //         `http://${API_IP}:3000/like`,
+  //         { productId: id, user: id },
+  //         {
+  //           Headers: {
+  //             authorization: "token",
+  //           },
+  //         }
+  //       )
+  //     }
+  //     if (wish.includes(likeid)) {
+  //       setWish(wish.filter((el) => likeid !== el))
+  //       await axios.post(
+  //         `http://${API_IP}:3000/like`,
+  //         { productId: id, user: id },
+  //         { headers: { authorization: "token" } }
+  //       )
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+  const wishHandler = async (productId) => {
     try {
-      if (!wish.includes(likeid)) {
-        setWish(wish.concat(likeid))
-        await axios.post(
-          `http://${API_IP}:3000/like`,
-          { productId: id, user: id },
-          {
-            Headers: {
-              authorization: "token",
-            },
+      await axios.post(`http://${API_IP}:3000/like`, {
+        productId
+      }, {
+        headers: {
+          "authorization": localStorage.getItem('access_token')
+        }
+      })
+        .then(res => {
+          const { data } = res
+          if (data.message === "CHECK") {
+            openWishModal()
+            setWishCheckMessage(data.message)
           }
-        )
-      }
-      if (wish.includes(likeid)) {
-        setWish(wish.filter((el) => likeid !== el))
-        await axios.post(
-          `http://${API_IP}:3000/like`,
-          { productId: id, user: id },
-          { headers: { authorization: "token" } }
-        )
-      }
+          if (data.message === "UNCHECK") {
+            setWishCheckMessage(data.message)
+          }
+        })
     } catch (error) {
       console.log(error)
     }
@@ -223,14 +253,29 @@ const ProductDetail = () => {
 
   const cartHandler = async () => {
     try {
+      const settingOption = []
+      for (let i = 0; i < itemObject.length; i++) {
+        settingOption.push(
+          {
+            optionId: itemObject[i].optionId,
+            quantity: itemObject[i].count
+          }
+        )
+      }
       await axios.post(`http://${API_IP}:3000/cart`, {
-        // optionId:
-        //   quantity:
+        cartItem: settingOption,
       }, {
         headers: {
           "authorization": `${localStorage.getItem('access_token')}`
         }
       })
+        .then(res => {
+          const { data } = res
+          if (data.message) {
+            console.log(data.message)
+            // router.push('/cart')
+          }
+        })
     } catch (error) {
       console.log(error)
     }
@@ -368,7 +413,7 @@ const ProductDetail = () => {
                         key={item.i}
                         value={item.size}
                         onChange={(e) =>
-                          sizeHandler(e.target.checked, item.sizeId, item.size)
+                          sizeHandler(e.target.checked, item.sizeId, item.size, item.optionId)
                         }
                         disabled={
                           (sizeCheck.length === 1 &&
@@ -464,14 +509,16 @@ const ProductDetail = () => {
           <BuyBtnBox>
             <LikeBtn
               onClick={() =>
-                wishHandler(data.id, data.likeid) && openWishModal()
+                wishHandler(data.id)
               }
             >
-              {wish.length === 1 ? (
+              {wishCheckMessage === "CHECK" &&
                 <HeartFilled style={{ color: "red", fontSize: "18px" }} />
-              ) : (
+              }
+              {
+                wishCheckMessage === "UNCNECK" &&
                 <HeartOutlined style={{ fontSize: "18px" }} />
-              )}
+              }
             </LikeBtn>
             {isWishModal && (
               <WishModal

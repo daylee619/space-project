@@ -7,6 +7,7 @@ export const Contain = styled.div`
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid rgb(230, 230, 230);
+  margin-left: 45px;
 `
 //
 export const ItemCheckBox = styled.div`

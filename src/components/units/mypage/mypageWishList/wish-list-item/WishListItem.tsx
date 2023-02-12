@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { Fragment, useState } from 'react';
+import { API_IP } from '../../../../../common/utils/ApiIp';
 import CartCompleteModal from '../../../../../common/utils/optionModal/wishListOptionModal/CartCompleteModal';
 import WishListOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/OptionModal';
 import PlusOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/PlusOptionModal';
@@ -6,7 +8,7 @@ import { IWishListItemPropsType } from '../../Mypage.type';
 import * as S from './WishListItem.style'
 
 const WishListItem = (props: IWishListItemPropsType) => {
-    const { wishListData, selectStateHandler, selectState } = props
+    const { wishListData, selectStateHandler, selectState, setWishItemDeleteMessage } = props
     const [optionModal, setOptionModal] = useState<number[]>([])
 
 
@@ -21,6 +23,7 @@ const WishListItem = (props: IWishListItemPropsType) => {
 
     const [plusModalState, setPlusModalState] = useState<number[]>([])
 
+
     const plusModalHandler = (id: number) => {
         if (!plusModalState.includes(id)) {
             setPlusModalState(prv => [...prv, id])
@@ -29,6 +32,26 @@ const WishListItem = (props: IWishListItemPropsType) => {
             setPlusModalState(plusModalState.filter(el => el !== id))
         }
 
+    }
+
+    // delete wishList Item
+    const deleteWishItemHandler = async (likeId: number) => {
+        try {
+            setWishItemDeleteMessage('')
+            await axios.delete(`http://${API_IP}:3000/like?likeId=${likeId}`, {
+                headers: {
+                    'authorization': localStorage.getItem('access_token')
+                }
+            })
+                .then(res => {
+                    const { data } = res
+                    if (data) {
+                        setWishItemDeleteMessage(data.message)
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -113,7 +136,11 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                     plusModalHandler={plusModalHandler}
                                 />
                             }
-                            <S.ItemChooseButton>삭제</S.ItemChooseButton>
+                            <S.ItemChooseButton
+                                onClick={async () => { await deleteWishItemHandler(el.id); }}
+                            >
+                                삭제
+                            </S.ItemChooseButton>
                         </S.ItemChoose>
                     </S.Contain>
                 )

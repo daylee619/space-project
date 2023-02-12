@@ -8,7 +8,9 @@ import * as S from './WisthList.style'
 const WishList = () => {
     const [wishListData, setWishListData] = useState<IWishListDataType[]>([])
     const [selectState, setSelectState] = useState<string>('')
-    console.log(wishListData)
+
+    // message state
+    const [wishItemDeleteMessage, setWishItemDeleteMessage] = useState<string>('')
 
     const wishListDataHandler = async () => {
         try {
@@ -31,7 +33,7 @@ const WishList = () => {
 
     useEffect(() => {
         wishListDataHandler()
-    }, [])
+    }, [wishItemDeleteMessage])
 
     return (
         <S.Contain>
@@ -48,10 +50,8 @@ const WishList = () => {
                 <WishListItem
                     wishListData={wishListData}
                     selectStateHandler={selectStateHandler}
-                    // handleSingleCheck={handleSingleCheck}
-                    // handleAllCheck={handleAllCheck}
-                    // checkItems={checkItems}
                     selectState={selectState}
+                    setWishItemDeleteMessage={setWishItemDeleteMessage}
                 />
             }
         </S.Contain>

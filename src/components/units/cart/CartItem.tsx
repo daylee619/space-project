@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ChangeEvent, Fragment, useEffect, useState } from 'react'
+import { ChangeEvent, Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
 import { API_IP } from '../../../common/utils/ApiIp'
 import CartOptionModal from '../../../common/utils/optionModal/OptionModal'
 import * as S from './CartItem.style'
@@ -15,6 +15,7 @@ interface ICartItemType {
     SelectDeleteClick: (e: any) => void,
     addCountHandler: (quantity: number, cartId: number) => void
     minusCountHandler: (quantity: number, cartId: number) => void
+    setOptionChangeMessage: Dispatch<SetStateAction<string>>
 }
 
 interface ICartItemInType {
@@ -49,7 +50,7 @@ interface IOptionsType {
 
 
 const CartItem = (props: ICartItemType) => {
-    const { cartItem, checkedHandler, checkedState, modalHandler, optionModal, colorIdHandler, colorIdState, SelectDeleteClick, addCountHandler, minusCountHandler } = props
+    const { cartItem, checkedHandler, checkedState, modalHandler, optionModal, colorIdHandler, colorIdState, SelectDeleteClick, addCountHandler, minusCountHandler, setOptionChangeMessage } = props
     console.log(cartItem)
     // message state
     const [wishMessage, setWishMessage] = useState<string>('')
@@ -110,6 +111,7 @@ const CartItem = (props: ICartItemType) => {
                                             colorIdHandler={colorIdHandler}
                                             colorIdState={colorIdState}
                                             cartId={Number(el.cartId)}
+                                            setOptionChangeMessage={setOptionChangeMessage}
                                         />
                                     }
                                 </S.ItemInformationBox>

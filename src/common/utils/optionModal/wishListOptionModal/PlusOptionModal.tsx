@@ -1,5 +1,7 @@
+import axios from 'axios'
 import { Fragment, useState } from 'react'
 import { IPlusOptionModalPropsType } from '../../../../components/units/mypage/Mypage.type'
+import { API_IP } from '../../ApiIp'
 import * as S from './PlusOptionModal.style'
 
 const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
@@ -18,6 +20,7 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
         size_name: string,
         color_id: string[],
         color_name: string,
+        optionId: number
     }
 
     const [itemCreate, setItemCreate] = useState<IItemCreateType[]>([])
@@ -38,7 +41,7 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
     }
 
 
-    const sizeHandler = (checked: boolean, id: string, name: string) => {
+    const sizeHandler = (checked: boolean, id: string, name: string, optionId: number) => {
         if (!checked) {
             setSizeId(prv => [...prv, id])
             setSizeName(name)
@@ -47,7 +50,8 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
                 size_name: name,
                 color_id: colorId,
                 color_name: colorName,
-                count: 1
+                count: 1,
+                optionId
             }
             if (itemCreate.filter(el => el.size_id === id && el.color_id === colorId).length === 0) {
                 setItemCreate((prv) => [...prv, itemCreateData])
@@ -77,6 +81,25 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
             if (itemCreate[i].size_id === id && itemCreate[i].color_id === colorId) {
                 itemCreate[i].count++
             }
+        }
+    }
+
+    // wishlist Item in cart function
+    const wishItemInCartHandler = async () => {
+        try {
+            const cartItem = []
+            for (let i = 0; i < itemCreate.length; i++) {
+                cartItem.push({ optionId: itemCreate[i].optionId, quantity: itemCreate[i].count })
+            }
+            await axios.post(`http://${API_IP}:3000/cart`, {
+                cartItem
+            }, {
+                headers: {
+                    'authorization': localStorage.getItem('access_token')
+                }
+            })
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -139,7 +162,7 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
                                                     id={el.sizeId}
                                                     type='checkbox'
                                                     disabled={!sizeId.includes(el.sizeId) && sizeId.length === 1}
-                                                    onChange={(e) => { sizeHandler(e.target.checked, el.sizeId, el.sizeName); }}
+                                                    onChange={(e) => { sizeHandler(e.target.checked, el.sizeId, el.sizeName, el.optionId); }}
                                                 />
                                             </Fragment>
                                         )
@@ -189,7 +212,11 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
             </S.TotalPriceBox>
             <S.ButtonBox>
                 <S.ConfirmOrderButton>바로 구매하기</S.ConfirmOrderButton>
-                <S.ConfirmCartButton>장바구니 담기</S.ConfirmCartButton>
+                <S.ConfirmCartButton
+                    onClick={wishItemInCartHandler}
+                >
+                    장바구니 담기
+                </S.ConfirmCartButton>
             </S.ButtonBox>
         </S.Contain >
     )

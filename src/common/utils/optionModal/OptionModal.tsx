@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ChangeEvent, Fragment, useEffect, useState } from 'react'
+import { ChangeEvent, Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
 import { API_IP } from '../ApiIp'
 import * as S from './OptionModal.style'
 
@@ -9,6 +9,7 @@ interface IOptionPropsType {
     colorIdHandler: (e: ChangeEvent<HTMLSelectElement>) => void,
     colorIdState: string
     cartId: number
+    setOptionChangeMessage: Dispatch<SetStateAction<string>>
 }
 
 interface IColorType {
@@ -24,10 +25,7 @@ interface IOptionsType {
 }
 
 const CartOptionModal = (props: IOptionPropsType) => {
-    const { modalHandler, colorProps, colorIdHandler, colorIdState, cartId } = props
-
-    // itemAdd message
-    const [itemAddMessage, setItemAddMessage] = useState<string>('')
+    const { modalHandler, colorProps, colorIdHandler, colorIdState, cartId, setOptionChangeMessage } = props
 
     // selected state
     const [selectedState, setSelectedState] = useState<number>(0)
@@ -37,10 +35,10 @@ const CartOptionModal = (props: IOptionPropsType) => {
         setSelectedState(optionId)
     }
 
-    // item add function
-    const itemAddHandler = async (cartId: number) => {
+    // item change function
+    const itemChangeHandler = async (cartId: number) => {
         try {
-            setItemAddMessage('')
+            setOptionChangeMessage('')
             await axios.patch(`http://${API_IP}:3000/cart/option?optionId=${selectedState}&cartId=${cartId}`, {}, {
                 headers: {
                     'authorization': `${localStorage.getItem('access_token')}`
@@ -49,7 +47,32 @@ const CartOptionModal = (props: IOptionPropsType) => {
                 .then(res => {
                     const { data } = res
                     if (data.message) {
-                        setItemAddMessage(data.message)
+                        setOptionChangeMessage(data.message)
+                    }
+                })
+                .then(() => { modalHandler(); })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // item add function
+    const itemAddHandler = async () => {
+        try {
+            setOptionChangeMessage('')
+            await axios.post(`http://${API_IP}:3000/cart`, {
+                cartItem: selectedState
+            },
+                {
+                    headers: {
+                        'authorization': localStorage.getItem('access_token')
+                    }
+                }
+            )
+                .then(res => {
+                    const { data } = res
+                    if (data) {
+                        setOptionChangeMessage(data.message)
                     }
                 })
         } catch (error) {
@@ -57,7 +80,6 @@ const CartOptionModal = (props: IOptionPropsType) => {
         }
     }
 
-    useEffect(() => { }, [itemAddMessage])
 
     return (
         <S.Contain>
@@ -107,11 +129,13 @@ const CartOptionModal = (props: IOptionPropsType) => {
                 </S.ModalContentBox>
             </S.ModalContentContain>
             <S.ModalConfirmBox>
-                <S.Addbutton>
+                <S.Addbutton
+                    onClick={itemAddHandler}
+                >
                     추가
                 </S.Addbutton>
                 <S.ChangeButton
-                    onClick={async () => { await itemAddHandler(cartId); }}
+                    onClick={async () => { await itemChangeHandler(cartId); }}
                 >
                     변경
                 </S.ChangeButton>

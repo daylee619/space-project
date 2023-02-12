@@ -39,6 +39,7 @@ interface IOptionsType {
 const Cart = () => {
     // data state
     const [cartItem, setCartItem] = useState<ICartItemInType[]>([])
+    console.log('cartItem : ', cartItem)
     // price data state
     const [totalPrice, setTotalPrice] = useState(0)
     // checked state
@@ -51,6 +52,7 @@ const Cart = () => {
     const [deleteMessage, setDelteMessage] = useState<string>('')
     const [addMessage, setAddMessage] = useState<string>('')
     const [minusMessage, setMinusMessage] = useState<string>('')
+    const [optionChangeMessage, setOptionChangeMessage] = useState<string>('')
 
     const router = useRouter()
 
@@ -77,22 +79,27 @@ const Cart = () => {
 
     // 데이터 받아오기
     const cartItemgetHandler = async () => {
-        await axios.get(`http://${API_IP}:3000/cart`, {
-            headers: {
-                'authorization': `${localStorage.getItem('access_token')}`
-            }
-        })
-            .then(res => {
-                const { data } = res
-                setCartItem(data);
-                setTotalPrice(data.reduce((acc: number, cur: ICartItemInType) => cur.price + acc, 0))
+        try {
+            await axios.get(`http://${API_IP}:3000/cart`, {
+                headers: {
+                    'authorization': `${localStorage.getItem('access_token')}`
+                }
             })
-            .catch(error => { console.log(error); })
+                .then(res => {
+                    const { data } = res
+                    if (data) {
+                        setCartItem(data);
+                        setTotalPrice(data.reduce((acc: number, cur: ICartItemInType) => cur.price + acc, 0))
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
         cartItemgetHandler();
-    }, [deleteMessage, addMessage, minusMessage])
+    }, [deleteMessage, addMessage, minusMessage, optionChangeMessage])
 
 
     // Modal Otion Function
@@ -257,6 +264,7 @@ const Cart = () => {
                                 SelectDeleteClick={SelectDeleteClick}
                                 addCountHandler={addCountHandler}
                                 minusCountHandler={minusCountHandler}
+                                setOptionChangeMessage={setOptionChangeMessage}
                             />
                             <S.CartItemConfirmBox>
                                 <div>

@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export interface IItemDataType {
   orderList: IOrderListType[]
   orderFilter: IOrderFilter[]
@@ -98,16 +100,15 @@ export interface IWishListDataSizeType {
   stock: string
   sizeId: string
   sizeName: string
+  optionId: number
 }
 
 // wish-list-item type
 export interface IWishListItemPropsType {
   wishListData: IWishListDataType[]
   selectStateHandler: (selectValue: string) => void
-  // handleAllCheck: (checked: boolean) => void
-  // handleSingleCheck: (checked: boolean, id: number) => void
-  // checkItems: number[]
   selectState: string
+  setWishItemDeleteMessage: Dispatch<SetStateAction<string>>
 }
 
 // wish-list-option-modal-type
