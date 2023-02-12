@@ -11,18 +11,31 @@ import ShareModal from "../Modal/sharemodal"
 import ShippingModal from "../Modal/shippingmodal"
 import RefundModal from "../Modal/refundmodal"
 import WishModal from "../Modal/wishmodal"
+import { API_IP } from '../../../common/utils/ApiIp'
+import { useRouter } from 'next/router'
 
 const ProductDetail = () => {
   const [data, setData] = useState([])
+  console.log(data)
   const [isShareModal, setIsShareModal] = useState(false)
   const [isShippingModal, setIsShippingModal] = useState(false)
   const [isRefundModal, setIsRefundModal] = useState(false)
   const [isMoreView, setIsMoreView] = useState(false)
   const [isWishModal, setIsWishModal] = useState(false)
 
+  const router = useRouter()
+  const productId = router.query.productId ?? ""
+
   useEffect(() => {
-    axios.get("/data/prodetail.json").then((res) => {
-      setData(res.data)
+    axios.get(`http://${API_IP}:3000/product/detail/${productId}`, {
+      headers: {
+        'authorization': `${localStorage.getItem('access_token')}`
+      }
+    }).then((res) => {
+      const { data } = res
+      if (data) {
+        setData(data)
+      }
     })
   }, [])
   // useEffect(() => {
@@ -151,7 +164,7 @@ const ProductDetail = () => {
       if (!wish.includes(likeid)) {
         setWish(wish.concat(likeid))
         await axios.post(
-          "http://172.30.1.47:3000/like",
+          `http://${API_IP}:3000/like`,
           { productId: id, user: id },
           {
             Headers: {
@@ -163,7 +176,7 @@ const ProductDetail = () => {
       if (wish.includes(likeid)) {
         setWish(wish.filter((el) => likeid !== el))
         await axios.post(
-          "http://172.30.1.47:3000/like",
+          `http://${API_IP}:3000/like`,
           { productId: id, user: id },
           { headers: { authorization: "token" } }
         )
@@ -206,6 +219,21 @@ const ProductDetail = () => {
   }
   const closeWishModal = () => {
     setIsWishModal(false)
+  }
+
+  const cartHandler = async () => {
+    try {
+      await axios.post(`http://${API_IP}:3000/cart`, {
+        // optionId:
+        //   quantity:
+      }, {
+        headers: {
+          "authorization": `${localStorage.getItem('access_token')}`
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -325,7 +353,7 @@ const ProductDetail = () => {
               {data.options?.map(
                 (el) =>
                   colorCheck.includes(el.colorId) &&
-                  el.options.map((item, i) => (
+                  el.options?.map((item, i) => (
                     <Fragment key={i}>
                       <SizeLabel
                         htmlFor={item.sizeId}
@@ -451,7 +479,11 @@ const ProductDetail = () => {
                 close={closeWishModal}
               />
             )}
-            <CartBtn>장바구니</CartBtn>
+            <CartBtn
+              onClick={cartHandler}
+            >
+              장바구니
+            </CartBtn>
             <BuyBtn>구매하기</BuyBtn>
           </BuyBtnBox>
           <ReviewButton>
@@ -501,7 +533,7 @@ export const DetailWrapper = styled.div`
   justify-content: space-around;
   width: 80%;
   padding: 70px;
-  position: absolute;
+  /* position: absolute; */
 `
 
 export const DetailImg = styled.div`

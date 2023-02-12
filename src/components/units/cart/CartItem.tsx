@@ -1,4 +1,6 @@
-import { ChangeEvent, Fragment, MouseEvent } from 'react'
+import axios from 'axios'
+import { ChangeEvent, Fragment, useEffect, useState } from 'react'
+import { API_IP } from '../../../common/utils/ApiIp'
 import CartOptionModal from '../../../common/utils/optionModal/OptionModal'
 import * as S from './CartItem.style'
 
@@ -11,8 +13,8 @@ interface ICartItemType {
     colorIdHandler: (e: ChangeEvent<HTMLSelectElement>) => void,
     colorIdState: string,
     SelectDeleteClick: (e: any) => void,
-    addCountHandler: (e: any) => void
-    minusCountHandler: (e: any) => void
+    addCountHandler: (quantity: number, cartId: number) => void
+    minusCountHandler: (quantity: number, cartId: number) => void
 }
 
 interface ICartItemInType {
@@ -48,6 +50,34 @@ interface IOptionsType {
 
 const CartItem = (props: ICartItemType) => {
     const { cartItem, checkedHandler, checkedState, modalHandler, optionModal, colorIdHandler, colorIdState, SelectDeleteClick, addCountHandler, minusCountHandler } = props
+    console.log(cartItem)
+    // message state
+    const [wishMessage, setWishMessage] = useState<string>('')
+
+    // wishlist add function
+    const wishListHandler = async (productId: number, optionId: number) => {
+        try {
+            setWishMessage('')
+            await axios.post(`http://${API_IP}:3000/like`, {
+                productId,
+                optionId
+            }, {
+                headers: {
+                    'authorization': `${localStorage.getItem('access_token')}`
+                }
+            })
+                .then(res => {
+                    const { data } = res
+                    if (data.message) {
+                        setWishMessage(data.message)
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => { }, [wishMessage])
 
     return (
         <>
@@ -79,6 +109,7 @@ const CartItem = (props: ICartItemType) => {
                                             colorProps={el.color}
                                             colorIdHandler={colorIdHandler}
                                             colorIdState={colorIdState}
+                                            cartId={Number(el.cartId)}
                                         />
                                     }
                                 </S.ItemInformationBox>
@@ -87,7 +118,7 @@ const CartItem = (props: ICartItemType) => {
                                 <S.ItemCountButton
                                     id={el.cartId}
                                     value={el.quantity}
-                                    onClick={minusCountHandler}
+                                    onClick={() => { minusCountHandler(el.quantity, Number(el.cartId)); }}
                                 >
                                     -
                                 </S.ItemCountButton>
@@ -95,7 +126,7 @@ const CartItem = (props: ICartItemType) => {
                                 <S.ItemCountButton
                                     id={el.cartId}
                                     value={el.quantity}
-                                    onClick={addCountHandler}
+                                    onClick={() => { addCountHandler(el.quantity, Number(el.cartId)); }}
                                 >
                                     +
                                 </S.ItemCountButton>
@@ -114,8 +145,12 @@ const CartItem = (props: ICartItemType) => {
                             </S.ItemTotalPrice>
                             <S.ItemChoose>
                                 <S.ItemChooseButton>주문하기</S.ItemChooseButton>
-                                <S.ItemChooseButton>관심상품</S.ItemChooseButton>
-                                <S.ItemChooseButton value={el.cartId} onClick={SelectDeleteClick}>삭제</S.ItemChooseButton>
+                                <S.ItemChooseButton
+                                    onClick={async () => { await wishListHandler(el.productId, Number(el.optionId)); }}
+                                >
+                                    관심상품
+                                </S.ItemChooseButton>
+                                <S.ItemChooseButton value={el.cartId} onClick={() => { SelectDeleteClick(el.cartId); }}>삭제</S.ItemChooseButton>
                             </S.ItemChoose>
                         </S.Contain>
                     </Fragment>

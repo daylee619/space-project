@@ -119,3 +119,9 @@ export const RateBox = styled.div`
   width: 100%;
   margin-bottom: 12px;
 `
+
+export const WarringSpan = styled.span`
+  margin: 15px;
+  color: red;
+  font-size: 12px;
+`

@@ -4,7 +4,7 @@ import { INavSubCategoryPropsType } from '../Navigation.type'
 import * as S from './NavSubCategory.style'
 
 const NavSubCategory = (props: INavSubCategoryPropsType) => {
-    const { subCategoryData, pointerLeaveHandelr } = props
+    const { subCategoryData, pointerLeaveHandelr, mainCategoryId } = props
 
     const [imgState, setImgState] = useState<number>()
 
@@ -27,6 +27,7 @@ const NavSubCategory = (props: INavSubCategoryPropsType) => {
                             {subCategoryData.namingCategoies?.map(item =>
                                 <S.NamingCategory
                                     key={item.namingId}
+                                    onClick={async () => await router.push(`/productlist/mainCategory=${mainCategoryId}&color=&item=&sort=${item.namingName === "ALL" ? '' : item.namingName.toLowerCase()}`)}
                                 >
                                     {item.namingName}
                                 </S.NamingCategory>
@@ -38,6 +39,7 @@ const NavSubCategory = (props: INavSubCategoryPropsType) => {
                                 subCategoryData.subCategories?.map(item =>
                                     <S.SubCategory
                                         key={item.id}
+                                        onClick={async () => await router.push(`/productlist/mainCategory=${mainCategoryId}&color=&item=${item.id}&sort=`)}
                                     >
                                         {item.name}
                                     </S.SubCategory>
@@ -51,7 +53,7 @@ const NavSubCategory = (props: INavSubCategoryPropsType) => {
                         {subCategoryData.productInfo?.map(item =>
                             item !== null
                             &&
-                            <div key={item?.productId}>
+                            <div key={item?.productId} onClick={async () => await router.push(`/productdetail/${item.productId}`)} >
                                 <S.ProductImgBox
                                     onPointerEnter={() => { imgStateHandler(item?.productId); }}
                                 >

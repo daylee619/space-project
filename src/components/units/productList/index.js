@@ -7,9 +7,13 @@ import ProductItem from "../../../common/libraries/productItem/ProductItem"
 import styled from "@emotion/styled"
 import { Pagination } from "antd"
 import { useRouter } from "next/router"
+import { API_IP } from '../../../common/utils/ApiIp'
 export default function ProductList() {
   const [data, setData] = useState([])
+  console.log(data)
   const [pagination, setPagination] = useState(1)
+  const [message, setMessage] = useState('')
+  const [CountList, setCountList] = useState()
 
   const router = useRouter()
   console.log(router.query.url_query)
@@ -24,11 +28,16 @@ export default function ProductList() {
 
   useEffect(() => {
     axios
-      .get(`http://172.16.100.159:3000/product/list?offset=${pagination}&mainCategory=${MAIN_CATEGORY[1] ? MAIN_CATEGORY[1] : ''}&color=${COLOR[1] ? COLOR[1] : ''}&item=${ITEM[1] ? ITEM[1] : ''}&sort=${SORT[1] ? SORT[1] : null}`)
+      .get(`http://${API_IP}:3000/product/list?offset=${pagination}&mainCategory=${MAIN_CATEGORY[1] ? MAIN_CATEGORY[1] : ''}&color=${COLOR[1] ? COLOR[1] : ''}&item=${ITEM[1] ? ITEM[1] : ''}&sort=${SORT[1] ? SORT[1] : null}`)
       .then((res) => {
         setData(res.data.result)
+        console.log(res)
+        setCountList(res.data.productsCountList)
       })
-  }, [router, pagination])
+      .catch((error) =>
+        console.log(error)
+      )
+  }, [router, pagination, message])
 
   // useEffect(() => {
   //   axios.get("/data/prolist.json").then((res) => {
@@ -56,30 +65,52 @@ export default function ProductList() {
   //     console.log(error)
   //   }
 
-  const [countIndex, setCountIndex] = useState()
-  const handleOnClick = (e, idx) => {
-    setCountIndex(idx)
-  }
+
+  // const [countIndex, setCountIndex] = useState()
+  // const handleOnClick = (e, idx) => {
+  //   setCountIndex(idx)
+  // }
+
   const [wish, setWish] = useState([])
   // console.log(wish)
 
-  const wishHandler = async (id, likeid) => {
+  const wishHandler = async (id, productId) => {
     try {
-      if (!wish.includes(likeid)) {
-        setWish(wish.concat(likeid))
-        await axios.post("http://172.16.100.159:3000/like", {
-          likeId: id,
-          user: 1,
-          productId: 3,
+      if (!wish.includes(productId)) {
+        setMessage('')
+        setWish(wish.concat(productId))
+        await axios.post(`http://${API_IP}:3000/like`, {
+          productId: id,
+        }, {
+          headers: {
+            "authorization": `${localStorage.getItem('access_token')}`
+          }
         })
+          .then(res => {
+            const { data } = res
+            if (data.message) {
+              console.log(data.message)
+              setMessage(data.message)
+            }
+          })
       }
-      if (wish.includes(likeid)) {
-        setWish(wish.filter((el) => likeid !== el))
-        await axios.post("http://172.16.100.159:3000/like", {
-          likeId: id,
-          user: 1,
-          productId: 3,
+      if (wish.includes(productId)) {
+        setMessage('')
+        setWish(wish.filter((el) => productId !== el))
+        await axios.post(`http://${API_IP}:3000/like`, {
+          productId: id,
+        }, {
+          headers: {
+            "authorization": `${localStorage.getItem('access_token')}`
+          }
         })
+          .then(res => {
+            const { data } = res
+            if (data.message) {
+              console.log(data.message)
+              setMessage(data.message)
+            }
+          })
       }
     } catch (error) {
       console.log(error)
@@ -91,7 +122,7 @@ export default function ProductList() {
   const optionBox = []
   const size = []
   const optionTotal = []
-  const optionFn = data.forEach((el) =>
+  const optionFn = data?.forEach((el) =>
     el.color.map((item) => {
       optionBox.push(`(${item.colorId})${item.colorName} / Size : `)
       item?.size?.forEach((element) => size.push(element.sizeName))
@@ -213,7 +244,7 @@ export default function ProductList() {
               좋아요
             </MenuCategoryList>
           </MenuCategoryBox>
-          <ItemNumber>872 Items</ItemNumber>
+          <ItemNumber>{CountList?.count} Items</ItemNumber>
         </Category>
         <div
           style={{
@@ -235,12 +266,13 @@ export default function ProductList() {
                 bottom="403px"
                 imgUrl={el.thumbnail}
                 data={optionTotal}
+                productId={el.id}
               />
               <ItemDescription>
                 <ItemTitle>
                   <ItemName>{el.name}</ItemName>
-                  <HeartButton onClick={() => wishHandler(el.id, el.likeid)}>
-                    {wish.includes(el.id) || el.likeid !== null ? (
+                  <HeartButton onClick={() => wishHandler(el.id, el.productId)}>
+                    {el.likeId !== null ? (
                       <HeartFilled style={{ color: "red" }} />
                     ) : (
                       <HeartOutlined />

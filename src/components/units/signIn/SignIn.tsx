@@ -29,6 +29,13 @@ const SignIn = () => {
         }
     }
 
+    // key down
+    const loginForEnter = (key: string) => {
+        if (key === "Enter") {
+            SignInHandler()
+        }
+    }
+
     const SignInHandler = async () => {
         try {
             if (userId && userPassword) {
@@ -69,7 +76,11 @@ const SignIn = () => {
                         <S.SignInErrorMessage>{errorId}</S.SignInErrorMessage>
                     </div>
                     <div>
-                        <S.PasswordInput type="password" onChange={passwordChangeHandler} />
+                        <S.PasswordInput
+                            type="password"
+                            onChange={passwordChangeHandler}
+                            onKeyPress={(e) => { loginForEnter(e.key); }}
+                        />
                         <S.PasswordErrorMessage>{errorPassword}</S.PasswordErrorMessage>
                     </div>
                     <S.LoginButton onClick={SignInHandler}>로그인</S.LoginButton>

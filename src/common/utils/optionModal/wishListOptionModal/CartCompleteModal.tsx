@@ -8,9 +8,11 @@ const CartCompleteModal = (props: IMypageCartConfirmModalPropsType) => {
         <S.Contain>
             <S.Header>
                 <S.HeaderTitle>장바구니 담기</S.HeaderTitle>
-                <S.HeaderX
+                <S.HeaderClose
                     onClick={() => { plusModalHandler(element.id); }}
-                >X</S.HeaderX>
+                >
+                    X
+                </S.HeaderClose>
             </S.Header>
             <S.ContentBox>
                 <S.ContentImg src='' alt='' />

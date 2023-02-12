@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import axios from "axios"
+import { API_IP } from '../../../common/utils/ApiIp'
 import { useEffect, useState } from "react"
 import { RightOutlined } from "@ant-design/icons"
 import { useRouter } from "next/router"
@@ -7,19 +8,19 @@ import { useRouter } from "next/router"
 export default function ProductListRecommend() {
   const [data, setData] = useState([])
   const router = useRouter()
-  useEffect(() => {
-    axios.get("/data/reviewrecommend.json").then((res) => {
-      setData(res.data)
-      console.log(data)
-    })
-  }, [])
   // useEffect(() => {
-  //   axios
-  //     .get("http://172.30.1.47:3000/product/recommend?offset=1")
-  //     .then((res) => {
-  //       setData(res.data)
-  //     })
+  //   axios.get("/data/reviewrecommend.json").then((res) => {
+  //     setData(res.data)
+  //     console.log(data)
+  //   })
   // }, [])
+  useEffect(() => {
+    axios
+      .get(`http://${API_IP}:3000/product/recommend?offset=1`)
+      .then((res) => {
+        setData(res.data)
+      })
+  }, [])
 
   return (
     <ReviewRecommendContainer>

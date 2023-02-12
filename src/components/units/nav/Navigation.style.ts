@@ -139,7 +139,8 @@ export const UserInfoLogIn = styled.div`
 
 export const UserInfoNav = styled.div`
   position: absolute;
-  margin-top: 22px;
+  margin-top: 35px;
+  z-index: 2;
 `
 
 export const UserInfoNavSpanBox = styled.div`

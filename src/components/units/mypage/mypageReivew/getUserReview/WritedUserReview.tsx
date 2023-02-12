@@ -1,8 +1,10 @@
 import * as S from './WritedUserReview.style'
 import { IWritedUserReveiwPropsType } from '../../Mypage.type';
+import { useRouter } from 'next/router';
 
 const WritedUserReview = (props: IWritedUserReveiwPropsType) => {
     const { writedData } = props
+    const router = useRouter()
 
     return (
         <S.Contain>
@@ -14,7 +16,11 @@ const WritedUserReview = (props: IWritedUserReveiwPropsType) => {
                             <S.ReviewInfoTitle>{el.title}</S.ReviewInfoTitle>
                         </S.ReviewInfoTitleBox>
                         <S.ReviewInfoConfirmBox>
-                            <S.ReviewInfoModify>수정</S.ReviewInfoModify>
+                            <S.ReviewInfoModify
+                                onClick={async () => await router.push(`/review/create/${el.id}`)}
+                            >
+                                수정
+                            </S.ReviewInfoModify>
                             <S.ReviewInfoDelete>삭제</S.ReviewInfoDelete>
                         </S.ReviewInfoConfirmBox>
                     </S.ReviewInfoBox>

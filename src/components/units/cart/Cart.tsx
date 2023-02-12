@@ -1,8 +1,9 @@
 import CartItem from './CartItem'
 import * as S from './Cart.style'
-import { ChangeEvent, MouseEvent, MouseEventHandler, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { API_IP } from '../../../common/utils/ApiIp'
 
 
 interface ICartItemInType {
@@ -46,6 +47,10 @@ const Cart = () => {
     const [optionModal, setOptionModal] = useState(false)
     // option color ID state
     const [colorIdState, setColorState] = useState<string>('')
+    // delete message rendaring
+    const [deleteMessage, setDelteMessage] = useState<string>('')
+    const [addMessage, setAddMessage] = useState<string>('')
+    const [minusMessage, setMinusMessage] = useState<string>('')
 
     const router = useRouter()
 
@@ -72,7 +77,11 @@ const Cart = () => {
 
     // 데이터 받아오기
     const cartItemgetHandler = async () => {
-        await axios.get('/data/cart.json')
+        await axios.get(`http://${API_IP}:3000/cart`, {
+            headers: {
+                'authorization': `${localStorage.getItem('access_token')}`
+            }
+        })
             .then(res => {
                 const { data } = res
                 setCartItem(data);
@@ -83,7 +92,7 @@ const Cart = () => {
 
     useEffect(() => {
         cartItemgetHandler();
-    }, [])
+    }, [deleteMessage, addMessage, minusMessage])
 
 
     // Modal Otion Function
@@ -99,30 +108,38 @@ const Cart = () => {
     // chooes check delete
     const SelectCheckDeleteClick = async () => {
         try {
-            await axios.post('api', {
-                cartId: checkedState
-            }, {
+            setDelteMessage('')
+            await axios.delete(`http://${API_IP}:3000/cart?cartId=${checkedState}`, {
                 headers: {
-                    "Content-Type": "application/json",
-                    "userId": "userId"
+                    'authorization': `${localStorage.getItem('access_token')}`
                 }
             })
+                .then(res => {
+                    const { data } = res
+                    if (data.message) {
+                        setDelteMessage(data.message)
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
     }
 
-    const SelectDeleteClick = async (e: { target: { value: string } }) => {
+    const SelectDeleteClick = async (cartId: number) => {
         try {
-            await axios.post('api', {
-                cartId: e.target.value
-            }, {
+            setDelteMessage('')
+            await axios.delete(`http://${API_IP}:3000/cart?cartId=${cartId}`, {
                 headers: {
-                    "Content-Type": "application/json",
-                    "userId": 'UserId'
+                    "authorization": `${localStorage.getItem('access_token')}`
                 }
             }
             )
+                .then(res => {
+                    const { data } = res
+                    if (data.message) {
+                        setDelteMessage(data.message)
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
@@ -131,15 +148,19 @@ const Cart = () => {
     // all cartItem delete
     const AllItemDeleteClick = async () => {
         try {
-            await axios.post('api', {
-                userId: 'userId'
-            }, {
+            setDelteMessage('')
+            await axios.delete(`http://${API_IP}:3000/cart`, {
                 headers: {
-                    "Content-Type": "application",
-                    "userId": 'userId'
+                    'authorization': `${localStorage.getItem('access_token')}`
                 }
             }
             )
+                .then(res => {
+                    const { data } = res
+                    if (data.message) {
+                        setDelteMessage(data.message)
+                    }
+                })
         } catch (error) {
             console.log(error)
             console.error(error)
@@ -147,34 +168,40 @@ const Cart = () => {
     }
 
     // Count Add & Minus
-    const addCountHandler = async (e: { target: { value: string, id: string } }) => {
+    const addCountHandler = async (quantity: number, cartId: number) => {
         try {
-            await axios.post('api', {
-                quantity: Number(e.target.value) + 1,
-                cartId: e.target.id,
-            }, {
+            setAddMessage('')
+            await axios.patch(`http://${API_IP}:3000/cart/quantity?quantity=${quantity + 1}&cartId=${cartId}`, {}, {
                 headers: {
-                    "Content-Type": "application",
-                    "userId": "userId"
+                    "authorization": `${localStorage.getItem('access_token')}`
                 }
             })
+                .then(res => {
+                    const { data } = res
+                    if (data.message) {
+                        setAddMessage(data.message)
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
     }
 
-    const minusCountHandler = async (e: any) => {
+    const minusCountHandler = async (quantity: number, cartId: number) => {
         try {
-            if (Number(e.target.value) > 1) {
-                await axios.post('api', {
-                    quantity: Number(e.target.value) - 1,
-                    cartId: e.target.id,
-                }, {
+            if (quantity > 1) {
+                setMinusMessage('')
+                await axios.patch(`http://${API_IP}:3000/cart/quantity?quantity=${quantity - 1}&cartId=${cartId}`, {}, {
                     headers: {
-                        "Content-Type": "application",
-                        "userId": "userId"
+                        "authorization": `${localStorage.getItem('access_token')}`
                     }
                 })
+                    .then(res => {
+                        const { data } = res
+                        if (data.message) {
+                            setMinusMessage(data.message)
+                        }
+                    })
             }
         } catch (error) {
             console.log(error)

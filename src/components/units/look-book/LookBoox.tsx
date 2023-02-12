@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { API_IP } from '../../../common/utils/ApiIp'
 import { ILookBookListDataType } from './LookBook.type'
 import LookBookDetail from './lookBook_Detail/LookBookDetail'
 import * as S from './LookBoox.style'
@@ -12,7 +13,7 @@ const LookBook = () => {
 
     const lookBookDataHandler = async () => {
         try {
-            await axios.get('/data/look_book_list.json')
+            await axios.get(`http://${API_IP}:3000/lookbook?offset=${0}`)
                 .then(res => {
                     const { data } = res
                     setLookBookData(data)
@@ -74,6 +75,7 @@ const LookBook = () => {
                                 &&
                                 <LookBookDetail
                                     cloesHandler={cloesHandler}
+                                    lookbook={el.id}
                                     clickModal={clickModal}
                                 />
                             }

@@ -2,6 +2,7 @@ import ProductFilterUI from "./ProductFilter.presenter"
 import { ChangeEvent, useState, useEffect } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
+import { API_IP } from '../../../common/utils/ApiIp'
 
 // 리팩토링 다시
 
@@ -22,7 +23,7 @@ export default function ProductFilter() {
 
   const getData = async () => {
     try {
-      await axios.get("/data/res.json").then((res) => {
+      await axios.get(`http://${API_IP}:3000/product/filter`).then((res) => {
         setData(res.data)
       })
     } catch (error) {

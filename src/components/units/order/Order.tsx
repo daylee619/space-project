@@ -8,6 +8,7 @@ import OrderItem from './orderItem/OrderItem'
 import OrderInfo from './orderInfor/OrderInfo'
 import OrderPaymentMethod from './orderPaymentMethod/OrderPaymentMethod'
 import { IOrderInfoType, IOrderPostDataType } from './Order.type'
+import { API_IP } from '../../../common/utils/ApiIp'
 
 
 const Order = () => {
@@ -31,7 +32,13 @@ const Order = () => {
 
     const dataHandler = async () => {
         try {
-            await axios.get('/data/orderPage.json')
+            await axios.post(`http://${API_IP}:3000/order/by-cart`, {
+                cartId: []
+            }, {
+                headers: {
+                    "authorization": `${localStorage.getItem('access_token')}`
+                }
+            })
                 .then(res => {
                     const { data } = res
                     setOrderData(data)

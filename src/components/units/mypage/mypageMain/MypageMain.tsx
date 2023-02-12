@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { API_IP } from '../../../../common/utils/ApiIp'
 import { IMainDataType } from '../Mypage.type'
 import MypageFilterList from '../mypageFilterList/MypageFilterList'
 import * as S from './MypageMain.style'

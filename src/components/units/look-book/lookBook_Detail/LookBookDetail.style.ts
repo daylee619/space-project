@@ -117,3 +117,8 @@ export const ShadowBox = styled.div`
     cursor: pointer;
   }
 `
+
+export const ThumbnailImg = styled.img`
+  width: 450px;
+  height: 100%;
+`

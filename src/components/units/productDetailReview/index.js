@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons"
 import ProductDetailReviewBox from "../productDetail/productDetailReviewBox"
 import ReviewStarDropdown from "../productDetailReviewSelect"
+import { API_IP } from '../../../common/utils/ApiIp'
 
 export default function ReviewByProduct() {
   const [data, setData] = useState([])
@@ -16,14 +17,14 @@ export default function ReviewByProduct() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    axios.get("/data/reviewScore.json").then((res) => {
+    axios.get(`http://${API_IP}:3000/review/score/${ProductId}`).then((res) => {
       setData(res.data)
       // console.log(data)
     })
   }, [])
 
   useEffect(() => {
-    axios.get("/data/reviewByproduct.json").then((res) => {
+    axios.get(`http://${API_IP}:3000/review/product/${ProductId}`).then((res) => {
       setReviewData(res.data)
       console.log(reviewData)
     })
