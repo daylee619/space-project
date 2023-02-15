@@ -17,7 +17,7 @@ const LookBookDetail = (props: ILookBookDetailPropsType) => {
     // data get 나중에 clickModal 로 받아온 id 값 전달하여 데이터 받아오기
     const lookBookDatailDataHandler = async () => {
         try {
-            await axios.get(`http://${API_IP}:3000/lookbook/list/${lookbook}`)
+            await axios.get(`http://${API_IP}:3000/lookbook/detail/${lookbook}`)
                 .then(res => {
                     const { data } = res
                     setLookBookDetailData(data)

@@ -8,12 +8,16 @@ import styled from "@emotion/styled"
 import { Pagination } from "antd"
 import { useRouter } from "next/router"
 import { API_IP } from '../../../common/utils/ApiIp'
+
 export default function ProductList() {
   const [data, setData] = useState([])
-  console.log(data)
+  // console.log('data : ', data)
   const [pagination, setPagination] = useState(1)
   const [message, setMessage] = useState('')
   const [CountList, setCountList] = useState()
+
+  // title State
+  const [title, setTitle] = useState('')
 
   const router = useRouter()
   console.log(router.query.url_query)
@@ -23,21 +27,46 @@ export default function ProductList() {
   const COLOR = URL_HANDLER[1]?.split('=') ?? ''
   const ITEM = URL_HANDLER[2]?.split('=') ?? ''
   const SORT = URL_HANDLER[3]?.split('=') ?? ''
+  const SUB = URL_HANDLER[4]?.split('=') ?? ''
+  const SEARCH = URL_HANDLER[5]?.split('=') ?? ''
+
+
+  // title handler function
+  const titleHandler = () => {
+    if (MAIN_CATEGORY[1] === '1') {
+      setTitle('ALL')
+    }
+    if (MAIN_CATEGORY[1] === '2') {
+      setTitle('WOMEN')
+    }
+    if (MAIN_CATEGORY[1] === '3') {
+      setTitle('MEN')
+    }
+    if (MAIN_CATEGORY[1] === '4') {
+      setTitle('KIDS')
+    }
+  }
 
   // const router = useRouter()
 
   useEffect(() => {
     axios
-      .get(`http://${API_IP}:3000/product/list?offset=${pagination}&mainCategory=${MAIN_CATEGORY[1] ? MAIN_CATEGORY[1] : ''}&color=${COLOR[1] ? COLOR[1] : ''}&item=${ITEM[1] ? ITEM[1] : ''}&sort=${SORT[1] ? SORT[1] : null}`)
+      .get(`http://${API_IP}:3000/product/list?offset=${pagination}&mainCategory=${MAIN_CATEGORY[1] ? MAIN_CATEGORY[1] : ''}&color=${COLOR[1] ? COLOR[1] : ''}&item=${ITEM[1] ? ITEM[1] : ''}&sort=${SORT[1] ? SORT[1] : null}&subCategory=${SUB[1] ? SUB[1] : ''}&name=${SEARCH[1] ? SEARCH[1] : ''}`, {
+        headers: {
+          'authorization': localStorage.getItem('access_token')
+        }
+      })
       .then((res) => {
+        console.log('response : ', res)
         setData(res.data.result)
-        console.log(res)
         setCountList(res.data.productsCountList)
       })
       .catch((error) =>
         console.log(error)
       )
-  }, [router, pagination, message])
+    titleHandler()
+  }, [URL, pagination, message])
+
 
   // useEffect(() => {
   //   axios.get("/data/prolist.json").then((res) => {
@@ -88,9 +117,8 @@ export default function ProductList() {
         })
           .then(res => {
             const { data } = res
-            if (data.message) {
-              console.log(data.message)
-              setMessage(data.message)
+            if (data) {
+              setMessage(data)
             }
           })
       }
@@ -205,41 +233,41 @@ export default function ProductList() {
   return (
     <ProductListWrapper>
       <ProductListBox>
-        <MenuTitle>Women</MenuTitle>
+        <MenuTitle>{title}</MenuTitle>
         <Category>
           <MenuCategoryBox>
             <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`new`}`)}
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`new`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
             >
               신상품
             </MenuCategoryList>
             <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`name`}`)}
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`name`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
             >
               상품명
             </MenuCategoryList>
             <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`low`}`)}
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`low`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
             >
               낮은가격
             </MenuCategoryList>
             <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`high`}`)}
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`high`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
             >
               높은가격
             </MenuCategoryList>
             <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`best`}`)}
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`best`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
             >
               인기상품
             </MenuCategoryList>
             <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`review`}`)}
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`review`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
             >
               사용후기
             </MenuCategoryList>
             <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`like`}`)}
+              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`like`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
             >
               좋아요
             </MenuCategoryList>
@@ -272,7 +300,7 @@ export default function ProductList() {
                 <ItemTitle>
                   <ItemName>{el.name}</ItemName>
                   <HeartButton onClick={() => wishHandler(el.id, el.productId)}>
-                    {el.likeId !== null ? (
+                    {el.likeId?.length > 0 ? (
                       <HeartFilled style={{ color: "red" }} />
                     ) : (
                       <HeartOutlined />

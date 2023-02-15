@@ -1,57 +1,16 @@
 import axios from 'axios'
-import { ChangeEvent, Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Fragment, useEffect, useState } from 'react'
 import { API_IP } from '../../../common/utils/ApiIp'
 import CartOptionModal from '../../../common/utils/optionModal/OptionModal'
 import * as S from './CartItem.style'
-
-interface ICartItemType {
-    cartItem: ICartItemInType[]
-    checkedHandler: (event: ChangeEvent<HTMLInputElement>, id: string) => void,
-    checkedState: string[],
-    modalHandler: () => void,
-    optionModal: boolean,
-    colorIdHandler: (e: ChangeEvent<HTMLSelectElement>) => void,
-    colorIdState: string,
-    SelectDeleteClick: (e: any) => void,
-    addCountHandler: (quantity: number, cartId: number) => void
-    minusCountHandler: (quantity: number, cartId: number) => void
-    setOptionChangeMessage: Dispatch<SetStateAction<string>>
-}
-
-interface ICartItemInType {
-    cartId: string,
-    optionId: number,
-    quantity: number,
-    sizeName: string,
-    colorName: string,
-    productId: number,
-    name: string,
-    price: number,
-    size: ISizeType,
-    color: IColorType[],
-    imgUrl: string
-}
-
-interface ISizeType {
-    name: string
-}
-
-interface IColorType {
-    colorId: number,
-    colorName: string,
-    options: IOptionsType[]
-}
-
-interface IOptionsType {
-    size: string,
-    stock: string,
-    optionId: string
-}
-
+import { ICartItemType } from './CartItem.type'
 
 const CartItem = (props: ICartItemType) => {
     const { cartItem, checkedHandler, checkedState, modalHandler, optionModal, colorIdHandler, colorIdState, SelectDeleteClick, addCountHandler, minusCountHandler, setOptionChangeMessage } = props
-    console.log(cartItem)
+
+    const router = useRouter()
+
     // message state
     const [wishMessage, setWishMessage] = useState<string>('')
 
@@ -78,11 +37,16 @@ const CartItem = (props: ICartItemType) => {
         }
     }
 
+    // cartItem move in order
+    const cartItemMoveHandler = (cartId: number) => {
+        router.push(`/order/optionId=&quantity=&cartItem=${cartId}`)
+    }
+
     useEffect(() => { }, [wishMessage])
 
     return (
         <>
-            {cartItem.map((el: ICartItemInType) => {
+            {cartItem.map((el) => {
                 return (
                     <Fragment key={el.cartId}>
                         <S.Contain>
@@ -146,7 +110,11 @@ const CartItem = (props: ICartItemType) => {
                                 <S.ItemTotalPriceText>{el.price}</S.ItemTotalPriceText>
                             </S.ItemTotalPrice>
                             <S.ItemChoose>
-                                <S.ItemChooseButton>주문하기</S.ItemChooseButton>
+                                <S.ItemChooseButton
+                                    onClick={() => { cartItemMoveHandler(Number(el.cartId)); }}
+                                >
+                                    주문하기
+                                </S.ItemChooseButton>
                                 <S.ItemChooseButton
                                     onClick={async () => { await wishListHandler(el.productId, Number(el.optionId)); }}
                                 >

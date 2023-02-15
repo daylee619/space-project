@@ -7,27 +7,45 @@ import * as S from './MypageItem.style'
 
 
 const MypageItem = (props: IMypageItemPropsType) => {
-    const { itemData, mainData } = props
+    const { itemData, mainData, setOrderItemDeleteMessage, setMessage } = props
     const [reder, setRender] = useState()
 
-    const deleteHandler = async (orderProductId: number) => {
+    const AlldeleteHandler = async (orderId: number) => {
         try {
-            await axios.delete(`http://${API_IP}:3000/order/${orderProductId}`)
+            setOrderItemDeleteMessage('')
+            setMessage('')
+            await axios.delete(`http://${API_IP}:3000/order/all/${orderId}`, {
+                headers: {
+                    'authorization': localStorage.getItem('access_token')
+                }
+            })
                 .then(res => {
                     const { data } = res
                     setRender(data)
+                    setOrderItemDeleteMessage(data.message)
+                    setMessage(data.message)
                 })
         } catch (error) {
             console.log(error)
         }
     }
 
-    const AlldeleteHandler = async (orderId: number) => {
+    // mypage 주문상품 단일 취소
+    const productOrderDeleteHandler = async (orderProductId: number) => {
         try {
-            await axios.delete(`http://172.30.1.37:3000/order/all/${orderId}`)
+            setOrderItemDeleteMessage('')
+            setMessage('')
+            await axios.delete(`http://${API_IP}:3000/order/${orderProductId}`, {
+                headers: {
+                    'authorization': localStorage.getItem('access_token')
+                }
+            })
                 .then(res => {
                     const { data } = res
-                    setRender(data)
+                    if (data) {
+                        setOrderItemDeleteMessage(data.message)
+                        setMessage(data.message)
+                    }
                 })
         } catch (error) {
             console.log(error)
@@ -84,7 +102,9 @@ const MypageItem = (props: IMypageItemPropsType) => {
                             <S.OrderNumber>[{el.order_number}]</S.OrderNumber>
                             <S.AllDelete
                                 onClick={async () => { await AlldeleteHandler(el.id); }}
-                            >전체 삭제</S.AllDelete>
+                            >
+                                전체 취소
+                            </S.AllDelete>
                         </S.OrderDate>
                         <S.Div>
                             {
@@ -115,12 +135,39 @@ const MypageItem = (props: IMypageItemPropsType) => {
                                         </S.OrderState>
                                         <S.OrderChagne>
                                             <S.Button
-                                                disabled={el?.orderStatus.includes("취소")}
-                                                onClick={async () => { await deleteHandler(item.orderProductId); }}
+                                                disabled={
+                                                    item.shipment_status === "구매취소"
+                                                    ||
+                                                    item.shipment_status === "구매확정"
+                                                    ||
+                                                    item.shipment_status === "환불요청"
+                                                    ||
+                                                    item.shipment_status === "환불완료"
+                                                    ||
+                                                    item.shipment_status === "배송중"
+                                                    ||
+                                                    item.shipment_status === "배송완료"
+                                                }
+                                                onClick={async () => { await productOrderDeleteHandler(item.orderProductId); }}
                                             >
                                                 취소
                                             </S.Button>
-                                            <S.Button disabled={item?.shipment_status.includes('환불')}>환불</S.Button>
+                                            <S.Button
+                                                onClick={async () => { await productOrderDeleteHandler(item.orderProductId); }}
+                                                disabled={
+                                                    item.shipment_status === "구매취소"
+                                                    ||
+                                                    item.shipment_status === "구매확정"
+                                                    ||
+                                                    item.shipment_status === "환불요청"
+                                                    ||
+                                                    item.shipment_status === "환불완료"
+                                                    ||
+                                                    item.shipment_status === "배송준비중"
+                                                }
+                                            >
+                                                환불
+                                            </S.Button>
                                         </S.OrderChagne>
                                     </S.ItemDiv>
                                 )

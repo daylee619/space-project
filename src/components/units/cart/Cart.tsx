@@ -4,37 +4,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { API_IP } from '../../../common/utils/ApiIp'
-
-
-interface ICartItemInType {
-    cartId: string,
-    optionId: number,
-    quantity: number,
-    sizeName: string,
-    colorName: string,
-    productId: number,
-    name: string,
-    price: number,
-    size: ISizeType,
-    color: IColorType[],
-    imgUrl: string
-}
-
-interface ISizeType {
-    name: string
-}
-
-interface IColorType {
-    colorId: number,
-    colorName: string,
-    options: IOptionsType[]
-}
-
-interface IOptionsType {
-    size: string,
-    stock: string,
-    optionId: string
-}
+import { ICartItemInType } from './Cart.type'
 
 const Cart = () => {
     // data state
@@ -89,18 +59,17 @@ const Cart = () => {
                     const { data } = res
                     if (data) {
                         setCartItem(data);
-                        setTotalPrice(data.reduce((acc: number, cur: ICartItemInType) => cur.price + acc, 0))
+                        let price: number = 0
+                        for (let i = 0; i < data.length; i++) {
+                            price = price + (data[i].quantity * data[i].price)
+                        }
+                        setTotalPrice(price)
                     }
                 })
         } catch (error) {
             console.log(error)
         }
     }
-
-    useEffect(() => {
-        cartItemgetHandler();
-    }, [deleteMessage, addMessage, minusMessage, optionChangeMessage])
-
 
     // Modal Otion Function
     const modalHandler = () => {
@@ -215,6 +184,22 @@ const Cart = () => {
         }
     }
 
+    // select cartItem order function
+    const selectOrderHandler = () => {
+        router.push(`/order/optionId=&quantity=&cartItem=${checkedState}`)
+    }
+
+    // all cartItem order function
+    const allCartItemOrderHandler = () => {
+        const idArray: string[] = []
+        cartItem.forEach((el: ICartItemInType) => idArray.push(el.cartId))
+        router.push(`/order/optionId=&quantity=&cartItem=${idArray}`)
+    }
+
+    useEffect(() => {
+        cartItemgetHandler();
+    }, [deleteMessage, addMessage, minusMessage, optionChangeMessage])
+
     return (
         <S.Contain>
             <S.ContainIn>
@@ -307,11 +292,17 @@ const Cart = () => {
                     </>
                 }
                 <S.ConfirmBox>
-                    <S.ChoiseConfirm>선택상품주문</S.ChoiseConfirm>
+                    <S.ChoiseConfirm
+                        onClick={selectOrderHandler}
+                    >
+                        선택상품주문
+                    </S.ChoiseConfirm>
                     <S.KeepGoingConfirm>쇼핑계속하기</S.KeepGoingConfirm>
                     <S.AllChoiseConfirm
-                        onClick={async () => await router.push('/order')}
-                    >전체상품주문</S.AllChoiseConfirm>
+                        onClick={allCartItemOrderHandler}
+                    >
+                        전체상품주문
+                    </S.AllChoiseConfirm>
                 </S.ConfirmBox>
             </S.ContainIn>
         </S.Contain>

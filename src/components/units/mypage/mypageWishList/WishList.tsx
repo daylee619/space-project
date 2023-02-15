@@ -7,10 +7,13 @@ import * as S from './WisthList.style'
 
 const WishList = () => {
     const [wishListData, setWishListData] = useState<IWishListDataType[]>([])
+    console.log('wishListData : ', wishListData)
     const [selectState, setSelectState] = useState<string>('')
 
     // message state
     const [wishItemDeleteMessage, setWishItemDeleteMessage] = useState<string>('')
+    const [optionChangeMesssage, setOptionChangeMessage] = useState<string>('')
+    const [alreadyOptionMessage, setAlreadyOptionMessage] = useState<string>('')
 
     const wishListDataHandler = async () => {
         try {
@@ -33,7 +36,7 @@ const WishList = () => {
 
     useEffect(() => {
         wishListDataHandler()
-    }, [wishItemDeleteMessage])
+    }, [wishItemDeleteMessage, optionChangeMesssage])
 
     return (
         <S.Contain>
@@ -52,6 +55,9 @@ const WishList = () => {
                     selectStateHandler={selectStateHandler}
                     selectState={selectState}
                     setWishItemDeleteMessage={setWishItemDeleteMessage}
+                    setOptionChangeMessage={setOptionChangeMessage}
+                    setAlreadyOptionMessage={setAlreadyOptionMessage}
+                    alreadyOptionMessage={alreadyOptionMessage}
                 />
             }
         </S.Contain>

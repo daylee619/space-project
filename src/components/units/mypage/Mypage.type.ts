@@ -48,11 +48,15 @@ export interface IOrderFilter {
 export interface IMypageItemPropsType {
   itemData?: IItemDataType
   mainData?: IMainDataType
+  setOrderItemDeleteMessage: Dispatch<SetStateAction<string>>
+  setMessage: Dispatch<SetStateAction<string>>
 }
 
 export interface IMypageFilterListPropsType {
   itemData?: IItemDataType
   mainData?: IMainDataType
+  setOrderItemDeleteMessage: Dispatch<SetStateAction<string>>
+  setMessage: Dispatch<SetStateAction<string>>
 }
 
 export interface IMainDataType {
@@ -91,7 +95,7 @@ export interface IWishListDataType {
 }
 
 export interface IWishListDataColorType {
-  size: IWishListDataSizeType[] | null
+  options: IWishListDataSizeType[] | null
   colorId: string
   colorName: string
 }
@@ -99,7 +103,7 @@ export interface IWishListDataColorType {
 export interface IWishListDataSizeType {
   stock: string
   sizeId: string
-  sizeName: string
+  size: string
   optionId: number
 }
 
@@ -109,6 +113,9 @@ export interface IWishListItemPropsType {
   selectStateHandler: (selectValue: string) => void
   selectState: string
   setWishItemDeleteMessage: Dispatch<SetStateAction<string>>
+  setOptionChangeMessage: Dispatch<SetStateAction<string>>
+  setAlreadyOptionMessage: Dispatch<SetStateAction<string>>
+  alreadyOptionMessage: string
 }
 
 // wish-list-option-modal-type
@@ -119,6 +126,8 @@ export interface IOptionPropsType {
   selectState: string
   nameProps: string
   idProps: number
+  productId: number
+  setOptionChangeMessage: Dispatch<SetStateAction<string>>
 }
 
 export interface IMypageUserModifyDefaultDataType {

@@ -16,6 +16,7 @@ import { useRouter } from 'next/router'
 
 const ProductDetail = () => {
   const [data, setData] = useState([])
+  console.log('detail : ', data)
   const [isShareModal, setIsShareModal] = useState(false)
   const [isShippingModal, setIsShippingModal] = useState(false)
   const [isRefundModal, setIsRefundModal] = useState(false)
@@ -42,7 +43,7 @@ const ProductDetail = () => {
         }
       })
     }
-  }, [productId])
+  }, [productId, wishCheckMessage])
   // useEffect(() => {
   //   axios
   //     .get("http://172.30.1.47:3000/product/detail?user=1&productId=1")
@@ -194,6 +195,7 @@ const ProductDetail = () => {
 
   const wishHandler = async (productId) => {
     try {
+      setWishCheckMessage('')
       await axios.post(`http://${API_IP}:3000/like`, {
         productId
       }, {
@@ -203,12 +205,12 @@ const ProductDetail = () => {
       })
         .then(res => {
           const { data } = res
-          if (data.message === "CHECK") {
+          if (data === "SUCCESS") {
             openWishModal()
-            setWishCheckMessage(data.message)
+            setWishCheckMessage(data)
           }
-          if (data.message === "UNCHECK") {
-            setWishCheckMessage(data.message)
+          if (data === "DELETE") {
+            setWishCheckMessage(data)
           }
         })
     } catch (error) {
@@ -262,24 +264,39 @@ const ProductDetail = () => {
           }
         )
       }
-      await axios.post(`http://${API_IP}:3000/cart`, {
-        cartItem: settingOption,
-      }, {
-        headers: {
-          "authorization": `${localStorage.getItem('access_token')}`
-        }
-      })
-        .then(res => {
-          const { data } = res
-          if (data.message) {
-            console.log(data.message)
-            // router.push('/cart')
+      if (itemObject.length !== 0) {
+        await axios.post(`http://${API_IP}:3000/cart`, {
+          cartItem: settingOption,
+        }, {
+          headers: {
+            "authorization": `${localStorage.getItem('access_token')}`
           }
         })
+          .then(res => {
+            const { data } = res
+            if (data.message) {
+              console.log(data.message)
+              // router.push('/cart')
+            }
+          })
+      } else {
+        alert('필수 옵션을 선택해주세요.')
+      }
     } catch (error) {
       console.log(error)
     }
   }
+
+  const orederHandler = () => {
+    const optionId = []
+    const quantity = []
+    for (let i = 0; i < itemObject.length; i++) {
+      optionId.push(itemObject[i].optionId)
+      quantity.push(itemObject[i].count)
+    }
+    router.push(`/order/optionId=${optionId}&quantity=${quantity}&cartItem=`)
+  }
+
 
   return (
     <div>
@@ -512,11 +529,14 @@ const ProductDetail = () => {
                 wishHandler(data.id)
               }
             >
-              {wishCheckMessage === "CHECK" &&
+              {
+                (wishCheckMessage === "SUCCESS" || data.likeId)
+                &&
                 <HeartFilled style={{ color: "red", fontSize: "18px" }} />
               }
               {
-                wishCheckMessage === "UNCNECK" &&
+                (wishCheckMessage === "DELETE" || !data.likeId)
+                &&
                 <HeartOutlined style={{ fontSize: "18px" }} />
               }
             </LikeBtn>
@@ -531,7 +551,11 @@ const ProductDetail = () => {
             >
               장바구니
             </CartBtn>
-            <BuyBtn>구매하기</BuyBtn>
+            <BuyBtn
+              onClick={orederHandler}
+            >
+              구매하기
+            </BuyBtn>
           </BuyBtnBox>
           <ReviewButton>
             REVIEW EVENT <div>리뷰 작성 시 최대 10,000원 적립</div>
@@ -986,6 +1010,7 @@ export const ShippingeInfo = styled.button`
   &:hover {
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
+  }
 `
 export const CancelInfo = styled.button`
   display: flex;
@@ -998,4 +1023,5 @@ export const CancelInfo = styled.button`
   &:hover {
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
+  }
 `

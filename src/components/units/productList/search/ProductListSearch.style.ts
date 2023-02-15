@@ -3,9 +3,8 @@ import { SearchOutlined, CloseOutlined } from "@ant-design/icons"
 
 export const Contain = styled.div`
   width: 100%;
-  height: 400px;
-  position: absolute;
-  border: 1px solid black;
+  height: 300px;
+  border: 1px solid lightgray;
   left: 0;
   top: 79px;
   background-color: white;

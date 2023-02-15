@@ -1,8 +1,11 @@
 import { CloseOutlined } from "@ant-design/icons"
 import styled from "@emotion/styled"
 import exp from "constants"
+import { useRouter } from 'next/router'
 
 export default function WishModal(props) {
+  const router = useRouter()
+
   return (
     <>
       <WishWrapper>
@@ -31,8 +34,16 @@ export default function WishModal(props) {
               <div>지금 관심상품을 확인하시겠습니까?</div>
             </WishProductCheckWrapper>
             <CheckWrapper>
-              <ContinueShopping>쇼핑 계속하기</ContinueShopping>
-              <CheckWishProduct>관심상품 확인</CheckWishProduct>
+              <ContinueShopping
+                onClick={props.close}
+              >
+                쇼핑 계속하기
+              </ContinueShopping>
+              <CheckWishProduct
+                onClick={() => router.push('/mypage/wish-list')}
+              >
+                관심상품 확인
+              </CheckWishProduct>
             </CheckWrapper>
           </div>
         )}
@@ -91,6 +102,10 @@ export const ContinueShopping = styled.div`
   color: #222;
   background-color: #fff;
   margin-right: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 export const CheckWishProduct = styled.div`
   width: 96px;
@@ -102,4 +117,8 @@ export const CheckWishProduct = styled.div`
   text-align: center;
   white-space: nowrap;
   color: #fff;
+
+  &:hover {
+    cursor: pointer;
+  }
 `

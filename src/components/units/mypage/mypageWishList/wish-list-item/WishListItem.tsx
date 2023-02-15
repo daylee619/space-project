@@ -8,7 +8,7 @@ import { IWishListItemPropsType } from '../../Mypage.type';
 import * as S from './WishListItem.style'
 
 const WishListItem = (props: IWishListItemPropsType) => {
-    const { wishListData, selectStateHandler, selectState, setWishItemDeleteMessage } = props
+    const { wishListData, selectStateHandler, selectState, setWishItemDeleteMessage, setOptionChangeMessage, setAlreadyOptionMessage, alreadyOptionMessage } = props
     const [optionModal, setOptionModal] = useState<number[]>([])
 
 
@@ -54,6 +54,42 @@ const WishListItem = (props: IWishListItemPropsType) => {
         }
     }
 
+    // already option in wishItem -> In cart
+    const alreadyOptionWishItemIncart = async (optionId: number) => {
+        try {
+            if (optionId !== null) {
+                setAlreadyOptionMessage('')
+                const cartItem = []
+                cartItem.push(
+                    {
+                        optionId,
+                        quantity: 1
+                    }
+                )
+                await axios.post(`http://${API_IP}:3000/cart`, {
+                    cartItem
+                }, {
+                    headers: {
+                        'authorization': localStorage.getItem('access_token')
+                    }
+                })
+                    .then(res => {
+                        const { data } = res
+                        if (data.message === 'success') {
+                            setAlreadyOptionMessage(data.message)
+                        }
+                    })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // already option in wishItem -> In Order
+    const alreadyOptionWishItemInOrder = (optionId: number) => {
+
+    }
+
     return (
         <>
             {
@@ -93,6 +129,8 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                         selectState={selectState}
                                         nameProps={el.name}
                                         idProps={el.id}
+                                        productId={el.productId}
+                                        setOptionChangeMessage={setOptionChangeMessage}
                                     />
                                 }
                             </S.ItemInformationBox>
@@ -110,8 +148,24 @@ const WishListItem = (props: IWishListItemPropsType) => {
                             <S.ItemTotalPriceText>{el.price}</S.ItemTotalPriceText>
                         </S.ItemTotalPrice>
                         <S.ItemChoose>
-                            <S.ItemChooseButton>주문하기</S.ItemChooseButton>
-                            <S.ItemChooseButton onClick={() => { plusModalHandler(el.id); }}>장바구니</S.ItemChooseButton>
+                            <S.ItemChooseButton
+                                onClick={() => {
+                                    plusModalHandler(el.id);
+                                    alreadyOptionWishItemInOrder(el.optionId)
+                                }
+                                }
+                            >
+                                주문하기
+                            </S.ItemChooseButton>
+                            <S.ItemChooseButton
+                                onClick={() => {
+                                    plusModalHandler(el.id);
+                                    alreadyOptionWishItemIncart(el.optionId)
+                                }
+                                }
+                            >
+                                장바구니
+                            </S.ItemChooseButton>
                             {
                                 (
                                     plusModalState.includes(el.id)
@@ -129,6 +183,8 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                     plusModalState.includes(el.id)
                                     &&
                                     el.optionId !== null
+                                    &&
+                                    alreadyOptionMessage === "success"
                                 )
                                 &&
                                 <CartCompleteModal

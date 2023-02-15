@@ -63,7 +63,12 @@ export const DisplayBox = styled.div``
 // content-color-css
 export const ContentColorbox = styled.div`
   display: flex;
-  margin-bottom: 25px;
+`
+
+export const ContentColorInBox = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+  position: relative;
 `
 
 export const ColorTitle = styled.span`
@@ -90,16 +95,21 @@ export const ColorLabel = styled.label`
   width: 50px;
   height: 20px;
   margin-right: 5px;
+  border-radius: 2px;
   border: ${(props: IcssType) =>
     props.check.includes(props.colorId)
       ? "2px solid gray"
       : "1px solid lightgray"};
   background-color: ${(props: IcssType) =>
-    props.check.includes(props.colorId) ? "gray" : "lightgray"};
+    props.check.includes(props.colorId) ? "lightgray" : "rgb(240,240,240)"};
   font-size: 11px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const ColorCheckBox = styled.input`
@@ -115,6 +125,13 @@ export const ColorText = styled.span`
 // content-size-css
 export const ContentSizeBox = styled.div`
   display: flex;
+  position: relative;
+  margin-bottom: 50px;
+`
+
+export const ContentSizeInBox = styled.div`
+  display: flex;
+  position: absolute;
 `
 
 export const SizeTitle = styled.span`
@@ -136,23 +153,33 @@ export const SizeLabel = styled.label`
   width: 50px;
   height: 20px;
   margin-right: 5px;
+  border-radius: 2px;
+  position: relative;
   border: ${(props: ISizeCssType) =>
     props.check.includes(props.sizeId)
       ? "2px solid gray"
       : "1px solid lightgray"};
   background-color: ${(props: ISizeCssType) =>
-    props.check.includes(props.sizeId) ? "gray" : "lightgray"};
+    props.check.includes(props.sizeId) ? "lightgray" : "rgb(240,240,240)"};
   font-size: 11px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+export const defaultLabelBox = styled.div`
+  display: flex;
 `
 
 export const SizeDefaultLabel = styled.label`
   width: 50px;
   height: 20px;
   margin-right: 5px;
-  font-size: 11px;
+  font-size: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

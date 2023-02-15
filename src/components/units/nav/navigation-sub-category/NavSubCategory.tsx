@@ -17,6 +17,33 @@ const NavSubCategory = (props: INavSubCategoryPropsType) => {
         setImgState(0)
     }
 
+    // namingCategory pageNation function
+    const namingCategoryPageNation = (namingId: number, namingName: string) => {
+        if (namingId === 1) {
+            router.push('/launchingCalendar')
+        }
+        else if (namingId === 2) {
+            router.push('/lookbook')
+        }
+        // 나중에 지울거
+        else if (namingId === 3) {
+            router.push('/')
+        }
+        else if (namingId === 4) {
+            router.push('/')
+        }
+        else if (namingId === 5) {
+            router.push('/')
+        }
+        //
+        else if (namingId === 6) {
+            router.push('/event')
+        }
+        else {
+            router.push(`/productlist/mainCategory=${mainCategoryId}&color=&item=&sort=${namingName === "ALL" ? '' : namingName.toLowerCase()}&subCategory=&name=`)
+        }
+    }
+
     return (
         <>
             {/* <S.Shadow /> */}
@@ -27,7 +54,7 @@ const NavSubCategory = (props: INavSubCategoryPropsType) => {
                             {subCategoryData.namingCategoies?.map(item =>
                                 <S.NamingCategory
                                     key={item.namingId}
-                                    onClick={async () => await router.push(`/productlist/mainCategory=${mainCategoryId}&color=&item=&sort=${item.namingName === "ALL" ? '' : item.namingName.toLowerCase()}`)}
+                                    onClick={() => { namingCategoryPageNation(item.namingId, item.namingName); }}
                                 >
                                     {item.namingName}
                                 </S.NamingCategory>
@@ -39,7 +66,7 @@ const NavSubCategory = (props: INavSubCategoryPropsType) => {
                                 subCategoryData.subCategories?.map(item =>
                                     <S.SubCategory
                                         key={item.id}
-                                        onClick={async () => await router.push(`/productlist/mainCategory=${mainCategoryId}&color=&item=${item.id}&sort=`)}
+                                        onClick={async () => await router.push(`/productlist/mainCategory=${mainCategoryId}&color=&item=&sort=&subCategory=${item.id}&name=`)}
                                     >
                                         {item.name}
                                     </S.SubCategory>

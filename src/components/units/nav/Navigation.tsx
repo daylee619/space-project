@@ -11,7 +11,7 @@ import { INavigationData } from './Navigation.type'
 
 const Navigation = () => {
     const [navigationData, setNavigationData] = useState<INavigationData[]>([])
-    // console.log('navigation : ', navigationData)
+    console.log('navigation : ', navigationData)
     const [categoryState, setCategoryState] = useState<number>()
     const [userPointerState, setUserPointerState] = useState<boolean>(false)
     const [serachModal, setSearchModal] = useState<boolean>(false)
@@ -81,7 +81,7 @@ const Navigation = () => {
                             <Fragment key={el.id}>
                                 <S.NavCategory
                                     onPointerEnter={() => { pointerHandler(el.id); }}
-                                    onClick={async () => await router.push(el.path === 'productList' ? `/productlist/mainCategory=${el.id}&color=&item=&sort=` : `/${el.path}`)}
+                                    onClick={async () => await router.push(el.path === 'productList' ? `/productlist/mainCategory=${el.id}&color=&item=&sort=&subCategory=&name=` : `/${el.path}`)}
                                 >
                                     {el.name}
                                 </S.NavCategory>
