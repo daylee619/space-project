@@ -3,59 +3,166 @@ import * as S from './Order.style'
 import Orderer from './orderer/Orderer'
 import OrderPost from './orederPost/OrderPost'
 import axios from 'axios'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import OrderItem from './orderItem/OrderItem'
 import OrderInfo from './orderInfor/OrderInfo'
 import OrderPaymentMethod from './orderPaymentMethod/OrderPaymentMethod'
-import { IOrderInfoType, IOrderPostDataType } from './Order.type'
-
+import { IOrderDataType, IOrderInfoType } from './Order.type'
+import { API_IP } from '../../../common/utils/ApiIp'
+import { useRouter } from 'next/router'
 
 const Order = () => {
-    const [orderData, setOrderData] = useState<any>([])
+    const [orderData, setOrderData] = useState<IOrderDataType>()
     const [totalPrice, setTotalPrice] = useState(0)
 
-    const [orderPostData, setOrderPostData] = useState<IOrderPostDataType>(
-        {
-            writer: '',
-            email: '',
-            phone_number: '',
-            post_writer: '',
-            post_zip_code: '',
-            post_address: '',
-            post_detail_address: '',
-            post_phone_number: '',
-            message_state: '',
-            post_message: ''
-        }
-    )
+    // post state
+    const [name, setName] = useState<string>('')
+    const [phone, setPhone] = useState<string>('')
+    const [zipCode, setZipCode] = useState<string>('')
+    const [address, setAddress] = useState<string>('')
+    const [detailAddress, setDetailAddress] = useState<string>('')
+
+    // router methode
+    const router = useRouter()
+
+    // URL 처리 scope
+    const URL = router?.query?.cartId?.toString()
+    const URL_ARRAY: string[] = URL !== undefined ? URL?.split('&') : []
+    const optionIdArray: string[] = URL_ARRAY[0]?.split('=')
+    const optionId: string[] = optionIdArray !== undefined ? optionIdArray[1]?.split(',') : []
+    const quantityArray: string[] = URL_ARRAY[1]?.split('=')
+    const quantity: string[] = quantityArray !== undefined ? quantityArray[1]?.split(',') : []
+    const cartItemArray: string[] = URL_ARRAY[2]?.split('=')
+    const cartId: string[] = quantityArray !== undefined ? cartItemArray[1]?.split(',') : []
+
+    interface IPostOptionDataType {
+        optionId: string
+        quantity: string
+    }
 
     const dataHandler = async () => {
         try {
-            await axios.get('/data/orderPage.json')
+            const postOptionData: IPostOptionDataType[] = []
+            for (let i = 0; i < optionId.length; i++) {
+                if (optionId[i] !== undefined && quantity[i] !== undefined) {
+                    postOptionData.push(
+                        {
+                            optionId: optionId[i],
+                            quantity: quantity[i]
+                        }
+                    )
+                }
+            }
+            await axios.post(`http://${API_IP}:3000/order`, {
+                cartIdList: cartId[0] === '' ? null : cartId,
+                optionIdList: postOptionData[0].optionId === '' ? null : postOptionData
+            }, {
+                headers: {
+                    "authorization": `${localStorage.getItem('access_token')}`
+                }
+            })
                 .then(res => {
                     const { data } = res
-                    setOrderData(data)
-                    const priceData = { ...data }
-                    let price = 0
-                    const temp = priceData.orderInfo?.map((el: IOrderInfoType) => el.priceByProduct)
-                    temp?.forEach((el: string) => { setTotalPrice(price += Number(el)); })
+                    if (data) {
+                        setOrderData(data)
+                        const priceData = { ...data }
+                        let price = 0
+                        const temp = priceData.orderInfo?.map((el: IOrderInfoType) => el.priceByProduct)
+                        temp?.forEach((el: string) => { setTotalPrice(price += Number(el)); })
+                    }
                 })
         } catch (error) {
             console.log(error)
         }
     }
 
-    const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setOrderPostData({ ...orderPostData, [e.target.name]: e.target.value })
+    // change function
+    const nameChangehandler = (value: string) => {
+        setName(value)
     }
 
-    const selectHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-        setOrderPostData({ ...orderPostData, [e.target.name]: e.target.value })
+    const phoneChangeHandler = (value: string) => {
+        setPhone(value)
+    }
+
+    const zipCodeChangeHandler = (zipCode: string) => {
+        setZipCode(zipCode)
+    }
+
+    const addressChangeHandler = (address: string) => {
+        setAddress(address)
+    }
+
+    const detailAddressChangeHandler = (detailAddress: string) => {
+        setDetailAddress(detailAddress)
+    }
+
+    // 결제하기
+    const payHandler = async () => {
+        try {
+            const postOptionData: IPostOptionDataType[] = []
+            for (let i = 0; i < optionId.length; i++) {
+                if (optionId[i] !== undefined && quantity[i] !== undefined) {
+                    postOptionData.push(
+                        {
+                            optionId: optionId[i],
+                            quantity: quantity[i]
+                        }
+                    )
+                }
+            }
+            if (postOptionData[0].optionId === '') {
+                await axios.post(`http://${API_IP}:3000/order/by-cart`, {
+                    address,
+                    detail_address: detailAddress,
+                    zip_code: zipCode,
+                    phone: phone || orderData?.userInfo?.phone,
+                    name: name || orderData?.userInfo?.name,
+                    price: totalPrice,
+                    cartInfo: cartId
+                }, {
+                    headers: {
+                        'authorization': localStorage.getItem('access_token')
+                    }
+                })
+                    .then(res => {
+                        const { data } = res
+                        if (data) {
+                            alert('주문이 완료되었습니다')
+                            router.push('/')
+                        }
+                    })
+            } else {
+                await axios.post(`http://${API_IP}:3000/order/by-optionId`, {
+                    address,
+                    detail_address: detailAddress,
+                    zip_code: zipCode,
+                    phone: phone || orderData?.userInfo?.phone,
+                    name: name || orderData?.userInfo?.name,
+                    price: totalPrice,
+                    optionsInfo: postOptionData
+                }, {
+                    headers: {
+                        'authorization': localStorage.getItem('access_token')
+                    }
+                })
+                    .then(res => {
+                        const { data } = res
+                        if (data) {
+                            alert('주문이 완료되었습니다')
+                            router.push('/')
+                        }
+                    })
+            }
+        } catch (error) {
+            console.log(error)
+            alert('주문에 실패하셨습니다. 다시 시도해주세요.')
+        }
     }
 
     useEffect(() => {
         dataHandler()
-    }, [])
+    }, [router?.query?.cartId, zipCode])
 
     return (
         <S.Contain>
@@ -75,8 +182,8 @@ const Order = () => {
                         <OrderContent title='주문자' >
                             <Orderer
                                 orderData={orderData}
-                                orderPostData={orderPostData}
-                                changeHandler={changeHandler}
+                                nameChangehandler={nameChangehandler}
+                                phoneChangeHandler={phoneChangeHandler}
                             />
                         </OrderContent>
                     </S.ItemBox>
@@ -86,9 +193,11 @@ const Order = () => {
                         <OrderContent title='배송방법' >
                             <OrderPost
                                 orderData={orderData}
-                                orderPostData={orderPostData}
-                                changeHandler={changeHandler}
-                                selectHandler={selectHandler}
+                                zipCodeChangeHandler={zipCodeChangeHandler}
+                                addressChangeHandler={addressChangeHandler}
+                                detailAddressChangeHandler={detailAddressChangeHandler}
+                                phone={phone}
+                                name={name}
                             />
                         </OrderContent>
                     </S.ItemBox>
@@ -110,11 +219,15 @@ const Order = () => {
                 <S.ItemContain>
                     <S.ItemBox>
                         <OrderContent title='결제수단' >
-                            <OrderPaymentMethod />
+                            <OrderPaymentMethod
+                                points={orderData?.userInfo?.points}
+                            />
                         </OrderContent>
                     </S.ItemBox>
                 </S.ItemContain>
-                <S.ConfirmBox>
+                <S.ConfirmBox
+                    onClick={payHandler}
+                >
                     {`${totalPrice}원 결제하기`}
                 </S.ConfirmBox>
             </S.ContainInContain>

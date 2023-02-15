@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css"
 import axios from "axios"
 import styled from "@emotion/styled"
 import ProductItem from "../../../../../common/libraries/ProductItem"
+import { API_IP } from '../../../../../common/utils/ApiIp'
 export default function PauseOnHover() {
   const settings = {
     dots: false,
@@ -42,7 +43,7 @@ export default function PauseOnHover() {
   // console.log(data)
 
   useEffect(() => {
-    axios.get("http://172.16.101.103:3000/product/new").then((res) => {
+    axios.get(`http://${API_IP}:3000/product/new`).then((res) => {
       setData(res.data)
     })
   }, [])

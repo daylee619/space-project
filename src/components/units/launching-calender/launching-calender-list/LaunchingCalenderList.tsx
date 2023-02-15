@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { API_IP } from '../../../../common/utils/ApiIp'
 import * as S from "./LaunchingCalenderList.style"
 
 interface ILaunchingCalenderListDataType {
@@ -12,11 +13,12 @@ interface ILaunchingCalenderListDataType {
 
 const LaunchingCalenderList = () => {
     const [lanchingCalenderData, setLanchingCalenderData] = useState<ILaunchingCalenderListDataType[]>([])
+    console.log(lanchingCalenderData)
     const router = useRouter()
 
     const lanchingCalenderDataHandler = async () => {
         try {
-            await axios.get('/data/calender.json')
+            await axios.get(`http://${API_IP}:3000/calendar?offset=${0}`)
                 .then(res => {
                     const { data } = res
                     setLanchingCalenderData(data)
@@ -43,7 +45,7 @@ const LaunchingCalenderList = () => {
                     lanchingCalenderData.map(el =>
                         <S.ItemBox
                             key={el.id}
-                            onClick={async () => await router.push(`/LAUNCHING_CALENDER/detail/${el.id}`)}
+                            onClick={async () => await router.push(`/launchingCalendar/detail/${el.id}`)}
                         >
                             <S.CalenderImg src={el.thumbnail} alt={el.title} />
                             <S.Date>{el.created_at}</S.Date>

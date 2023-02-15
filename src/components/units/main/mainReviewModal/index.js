@@ -12,11 +12,12 @@ import {
 import { Rate } from "antd"
 import moment from "moment"
 import styled from "@emotion/styled"
+import { API_IP } from '../../../../common/utils/ApiIp'
 
 export default function MainReviewModal(props) {
   const [data, setData] = useState([])
   useEffect(() => {
-    axios.get("/data/reviewMainModal.json").then((res) => {
+    axios.get(`http://${API_IP}:3000/review/main/${reviewId}`).then((res) => {
       setData(res.data)
       //   console.log(data)
     })

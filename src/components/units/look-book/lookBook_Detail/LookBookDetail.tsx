@@ -1,21 +1,23 @@
 import { Carousel } from 'antd';
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
+import { API_IP } from '../../../../common/utils/ApiIp';
 import { ILookBookDetailDataType, ILookBookDetailPropsType } from '../LookBook.type';
 import * as S from './LookBookDetail.style'
 
 
 
 const LookBookDetail = (props: ILookBookDetailPropsType) => {
-    const { cloesHandler, clickModal } = props
+    const { cloesHandler, clickModal, lookbook } = props
 
     const [lookBookDetailData, setLookBookDetailData] = useState<ILookBookDetailDataType[]>([])
+    console.log(lookBookDetailData)
     const [pointerState, setPointerState] = useState<number>()
 
     // data get 나중에 clickModal 로 받아온 id 값 전달하여 데이터 받아오기
     const lookBookDatailDataHandler = async () => {
         try {
-            await axios.get('/data/look_book_detail.json')
+            await axios.get(`http://${API_IP}:3000/lookbook/detail/${lookbook}`)
                 .then(res => {
                     const { data } = res
                     setLookBookDetailData(data)
@@ -42,10 +44,10 @@ const LookBookDetail = (props: ILookBookDetailPropsType) => {
             <S.ShadowBox onClick={cloesHandler} />
             <S.Contain>
                 <div>
-                    <Carousel autoplay style={{ width: '450px' }}>
+                    {/* <Carousel autoplay style={{ width: '450px' }}>
                         {
                             lookBookDetailData.map(el =>
-                                el.lookbook.map(item =>
+                                el?.lookbook?.map(item =>
                                     <div key={item.productId}>
                                         <S.CarouselImg src={item.image} />
                                     </div>
@@ -53,6 +55,12 @@ const LookBookDetail = (props: ILookBookDetailPropsType) => {
                             )
                         }
                     </Carousel>
+                    <img src={el.thumbnail} */}
+                    {
+                        lookBookDetailData.map((el, index) =>
+                            <S.ThumbnailImg src={el.thumbnail} key={index} />
+                        )
+                    }
                 </div>
                 <S.Cloes
                     onClick={cloesHandler}
@@ -78,7 +86,7 @@ const LookBookDetail = (props: ILookBookDetailPropsType) => {
                         <S.ConectImgBox>
                             {
                                 lookBookDetailData.map(el =>
-                                    el.lookbook.map(item =>
+                                    el?.lookbook?.map(item =>
                                         <S.ProductContain key={item.productId}>
                                             <S.Box>
                                                 <S.ConectImg src={item.image} onPointerEnter={() => { pointerStateHandler(item.productId); }} />

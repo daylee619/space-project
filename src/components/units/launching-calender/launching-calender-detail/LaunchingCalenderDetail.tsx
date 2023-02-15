@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import * as S from './LaunchingCalenderDetail.style'
 import { LikeOutlined, HeartTwoTone } from '@ant-design/icons'
 import { useRouter } from 'next/router'
+import { API_IP } from '../../../../common/utils/ApiIp'
 
 interface ICalenderDetailDataType {
     id: number
@@ -15,12 +16,14 @@ interface ICalenderDetailDataType {
 
 const LaunchingCalenderDetail = () => {
     const [detailData, setDetailData] = useState<ICalenderDetailDataType[]>([])
-    const [message, setMessage] = useState([])
+    const [message, setMessage] = useState('')
     const router = useRouter()
+    const calendarId = router.query.calenderId && router.query.calenderId
+    console.log(calendarId)
 
     const CalenderDetailData = async () => {
         try {
-            await axios.get('/data/calenderDetail.json')
+            await axios.get(`http://${API_IP}:3000/calendar/detail/${calendarId}`)
                 .then(res => {
                     const { data } = res
                     setDetailData(data)
@@ -30,25 +33,24 @@ const LaunchingCalenderDetail = () => {
         }
     }
 
-    useEffect(() => {
-        CalenderDetailData()
-    }, [message])
-
 
 
     const CountUp = async () => {
         try {
-            await axios.post('api', {
-                id: router.query.calenderId
-            })
+            setMessage('')
+            await axios.post(`http://${API_IP}:3000/like/calendar/${calendarId}`)
                 .then(res => {
                     const { data } = res
-                    setMessage(data)
+                    setMessage(data.message)
                 })
         } catch (error) {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        CalenderDetailData()
+    }, [message])
 
     return (
         <S.OutContain>

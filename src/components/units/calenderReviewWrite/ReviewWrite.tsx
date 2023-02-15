@@ -1,36 +1,31 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { API_IP } from '../../../common/utils/ApiIp'
+import CalenderReviewList from '../calenderReviewList/CalenderReviewList'
 import * as S from './ReviewWrite.style'
 
 
 const CalenderReviewWrite = () => {
-    const [userData, setUserData] = useState()
     const [comment, setComment] = useState('')
+    const [message, setMessage] = useState<string | undefined>('')
     const router = useRouter()
 
-    const userInfoData = async () => {
+    const commentConfirmHandler = async () => {
         try {
-            await axios.get('api', {
+            await axios.post(`http://${API_IP}:3000/review/calendar`, {
+                calendarId: router.query.calenderId,
+                comment
+            }, {
                 headers: {
-                    'authurrization': localStorage.getItem('access_token')
+                    "authorization": `${localStorage.getItem('access_token')}`
                 }
             })
                 .then(res => {
                     const { data } = res
-                    setUserData(data)
+                    setMessage(data.message)
+                    setComment('')
                 })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const commentConfirmHandler = async () => {
-        try {
-            await axios.post('api', {
-                calenderId: router.query.calenderId,
-                comment
-            })
         } catch (error) {
             console.log(error)
         }
@@ -40,32 +35,21 @@ const CalenderReviewWrite = () => {
         setComment(comment)
     }
 
-    useEffect(() => {
-        userInfoData()
-    }, [])
-
     return (
-        <S.Contain>
-            <S.CommentText>
-                댓글 달기
-            </S.CommentText>
-            <S.CommentBox>
-                <S.UserInfoBox>
-                    <S.UserIdBox>
-                        <S.UserIdLael>이름</S.UserIdLael>
-                        <S.UserIdInput type='text' value={userData?.id} />
-                    </S.UserIdBox>
-                    <S.PasswordBox>
-                        <S.PasswordLael>비밀번호</S.PasswordLael>
-                        <S.PasswordInput type='password' value={userData?.password} />
-                    </S.PasswordBox>
-                </S.UserInfoBox>
-                <S.CommentCreateBox>
-                    <S.CommentCreate onChange={(e) => { commentChangeHandler(e.target.value); }} />
-                    <S.CommentConfirm onClick={commentConfirmHandler}>등록</S.CommentConfirm>
-                </S.CommentCreateBox>
-            </S.CommentBox>
-        </S.Contain>
+        <>
+            <S.Contain>
+                <S.CommentText>
+                    댓글 달기
+                </S.CommentText>
+                <S.CommentBox>
+                    <S.CommentCreateBox>
+                        <S.CommentCreate value={comment} onChange={(e) => { commentChangeHandler(e.target.value); }} />
+                        <S.CommentConfirm onClick={commentConfirmHandler}>등록</S.CommentConfirm>
+                    </S.CommentCreateBox>
+                </S.CommentBox>
+            </S.Contain>
+            <CalenderReviewList message={message} />
+        </>
     )
 }
 

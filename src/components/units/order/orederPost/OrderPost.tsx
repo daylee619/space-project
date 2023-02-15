@@ -13,12 +13,15 @@ const OrderPost = (props: IOrderPostPropsType) => {
             </S.RadioBox> */}
             <div>
                 <Address
-                    changeHandler={props.changeHandler}
-                    orderPostData={props.orderPostData}
                     orderData={props.orderData}
+                    zipCodeChangeHandler={props.zipCodeChangeHandler}
+                    addressChangeHandler={props.addressChangeHandler}
+                    detailAddressChangeHandler={props.detailAddressChangeHandler}
+                    phone={props.phone}
+                    name={props.name}
                 />
                 <S.SelectContain>
-                    <S.PostMessageSelect name='message_state' onChange={props.selectHandler}>
+                    <S.PostMessageSelect name='message_state'>
                         <option>-- 메시지 선택 (선택사항) --</option>
                         <option value='배송전에 미리 연락바랍니다'>배송전에 미리 연락바랍니다.</option>
                         <option value='부재 시 경비실에 맡겨주세요'>부재 시 경비실에 맡겨주세요.</option>
@@ -27,9 +30,9 @@ const OrderPost = (props: IOrderPostPropsType) => {
                         <option value='택배함에 보관해 주세요'>택배함에 보관해 주세요.</option>
                         <option value='직접입력'>직접입력</option>
                     </S.PostMessageSelect>
-                    {props.orderPostData.message_state === '직접입력' &&
+                    {/* {props.orderPostData.message_state === '직접입력' &&
                         <S.SelfInput type='text' name='post_message' onChange={props.changeHandler} />
-                    }
+                    } */}
                 </S.SelectContain>
             </div>
         </S.Contain>

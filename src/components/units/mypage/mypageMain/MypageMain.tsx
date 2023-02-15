@@ -1,11 +1,19 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { API_IP } from '../../../../common/utils/ApiIp'
 import { IMainDataType } from '../Mypage.type'
 import MypageFilterList from '../mypageFilterList/MypageFilterList'
 import * as S from './MypageMain.style'
 
-const MypageMain = () => {
+interface IMypageMainPropsType {
+    setMessage: Dispatch<SetStateAction<string>>
+}
+
+const MypageMain = (props: IMypageMainPropsType) => {
     const [mainData, setMainData] = useState<IMainDataType>()
+    console.log(mainData)
+    // message state
+    const [orderItemDeleteMessage, setOrderItemDeleteMessage] = useState<string>('')
 
     const mainDataGetHandler = async () => {
         try {
@@ -25,7 +33,7 @@ const MypageMain = () => {
 
     useEffect(() => {
         mainDataGetHandler()
-    }, [])
+    }, [orderItemDeleteMessage])
 
     return (
         <S.Contain>
@@ -55,19 +63,48 @@ const MypageMain = () => {
                     <S.TitleName>취소/교환/반품</S.TitleName>
                     <S.Box>
                         {
-                            mainData?.orderCountByStatus.map(el => <S.Count key={el.orderStatusId}>{el.orderStatusId === 7 && el.countStatus ? el.countStatus : '0'} </S.Count>)
+                            mainData?.orderCountByStatus.map(el =>
+                                <S.Count
+                                    key={el.orderStatusId}
+                                >
+                                    {
+                                        (el.orderStatusId === 7)
+                                            ?
+                                            el.countStatus
+                                            :
+                                            0
+                                    }
+                                </S.Count>)
                         }
                         <S.Desh> / </S.Desh>
                         {
-                            mainData?.orderCountByStatus.map(el => <S.Count key={el.orderStatusId}> {el.orderStatusId === 3 && el.countStatus ? el.countStatus : '0'}</S.Count>)
+                            mainData?.orderCountByStatus.map(el =>
+                                <S.Count
+                                    key={el.orderStatusId}
+                                >
+                                    {
+                                        (el.orderStatusId === 8 && el.countStatus)
+                                            ?
+                                            el.countStatus
+                                            :
+                                            0
+                                    }
+                                </S.Count>)
                         }
                         <S.Desh> / </S.Desh>
-                        <S.Desh> 0 </S.Desh>
+                        <S.Desh> 00 </S.Desh>
                     </S.Box>
                 </S.TextBox>
             </S.OrderStateBox>
             <div>
-                <MypageFilterList mainData={mainData} />
+
+            </div>
+            <div>
+                <MypageFilterList
+                    mainData={mainData}
+                    setOrderItemDeleteMessage={setOrderItemDeleteMessage}
+                    setMessage={props.setMessage}
+                />
             </div>
         </S.Contain>
     )

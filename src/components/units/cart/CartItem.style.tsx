@@ -17,7 +17,7 @@ export const ItemCheckBox = styled.div`
 export const ItemItemInforMation = styled.div`
     width: 40%;
     display: flex;
-    justify-content: center;
+    margin-left: 30px;
 `
 
 export const ItemCount = styled.div`

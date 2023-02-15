@@ -11,20 +11,39 @@ import ShareModal from "../Modal/sharemodal"
 import ShippingModal from "../Modal/shippingmodal"
 import RefundModal from "../Modal/refundmodal"
 import WishModal from "../Modal/wishmodal"
+import { API_IP } from '../../../common/utils/ApiIp'
+import { useRouter } from 'next/router'
 
 const ProductDetail = () => {
   const [data, setData] = useState([])
+  console.log('detail : ', data)
   const [isShareModal, setIsShareModal] = useState(false)
   const [isShippingModal, setIsShippingModal] = useState(false)
   const [isRefundModal, setIsRefundModal] = useState(false)
   const [isMoreView, setIsMoreView] = useState(false)
   const [isWishModal, setIsWishModal] = useState(false)
+  const [option, setOption] = useState([])
+
+  // product detail wish
+  const [wishCheckMessage, setWishCheckMessage] = useState('')
+
+  const router = useRouter()
+  const productId = router.query?.productId
 
   useEffect(() => {
-    axios.get("/data/prodetail.json").then((res) => {
-      setData(res.data)
-    })
-  }, [])
+    if (productId !== undefined) {
+      axios.get(`http://${API_IP}:3000/product/detail/${productId}`, {
+        headers: {
+          'authorization': `${localStorage.getItem('access_token')}`
+        }
+      }).then((res) => {
+        const { data } = res
+        if (data) {
+          setData(data)
+        }
+      })
+    }
+  }, [productId, wishCheckMessage])
   // useEffect(() => {
   //   axios
   //     .get("http://172.30.1.47:3000/product/detail?user=1&productId=1")
@@ -59,7 +78,7 @@ const ProductDetail = () => {
   const [colorIdState, setColorIdState] = useState(0)
   const [sizeNameState, setSizeNameState] = useState("")
 
-  const sizeHandler = (checked, sizeId, sizeName) => {
+  const sizeHandler = (checked, sizeId, sizeName, optionId) => {
     if (!checked) {
       setSizeCheck((prev) => [...prev, sizeId])
       setSizeNameState(sizeName)
@@ -69,6 +88,7 @@ const ProductDetail = () => {
         size_name: sizeName,
         color_id: colorIdState,
         color_name: colorNameState,
+        optionId
       }
       if (
         itemObject.filter(
@@ -146,28 +166,53 @@ const ProductDetail = () => {
 
   const [wish, setWish] = useState([])
 
-  const wishHandler = async (id, likeid) => {
+  // const wishHandler = async (id, likeid) => {
+  //   try {
+  //     if (!wish.includes(likeid)) {
+  //       setWish(wish.concat(likeid))
+  //       await axios.post(
+  //         `http://${API_IP}:3000/like`,
+  //         { productId: id, user: id },
+  //         {
+  //           Headers: {
+  //             authorization: "token",
+  //           },
+  //         }
+  //       )
+  //     }
+  //     if (wish.includes(likeid)) {
+  //       setWish(wish.filter((el) => likeid !== el))
+  //       await axios.post(
+  //         `http://${API_IP}:3000/like`,
+  //         { productId: id, user: id },
+  //         { headers: { authorization: "token" } }
+  //       )
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+  const wishHandler = async (productId) => {
     try {
-      if (!wish.includes(likeid)) {
-        setWish(wish.concat(likeid))
-        await axios.post(
-          "http://172.30.1.47:3000/like",
-          { productId: id, user: id },
-          {
-            Headers: {
-              authorization: "token",
-            },
+      setWishCheckMessage('')
+      await axios.post(`http://${API_IP}:3000/like`, {
+        productId
+      }, {
+        headers: {
+          "authorization": localStorage.getItem('access_token')
+        }
+      })
+        .then(res => {
+          const { data } = res
+          if (data === "SUCCESS") {
+            openWishModal()
+            setWishCheckMessage(data)
           }
-        )
-      }
-      if (wish.includes(likeid)) {
-        setWish(wish.filter((el) => likeid !== el))
-        await axios.post(
-          "http://172.30.1.47:3000/like",
-          { productId: id, user: id },
-          { headers: { authorization: "token" } }
-        )
-      }
+          if (data === "DELETE") {
+            setWishCheckMessage(data)
+          }
+        })
     } catch (error) {
       console.log(error)
     }
@@ -207,6 +252,51 @@ const ProductDetail = () => {
   const closeWishModal = () => {
     setIsWishModal(false)
   }
+
+  const cartHandler = async () => {
+    try {
+      const settingOption = []
+      for (let i = 0; i < itemObject.length; i++) {
+        settingOption.push(
+          {
+            optionId: itemObject[i].optionId,
+            quantity: itemObject[i].count
+          }
+        )
+      }
+      if (itemObject.length !== 0) {
+        await axios.post(`http://${API_IP}:3000/cart`, {
+          cartItem: settingOption,
+        }, {
+          headers: {
+            "authorization": `${localStorage.getItem('access_token')}`
+          }
+        })
+          .then(res => {
+            const { data } = res
+            if (data.message) {
+              console.log(data.message)
+              // router.push('/cart')
+            }
+          })
+      } else {
+        alert('필수 옵션을 선택해주세요.')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const orederHandler = () => {
+    const optionId = []
+    const quantity = []
+    for (let i = 0; i < itemObject.length; i++) {
+      optionId.push(itemObject[i].optionId)
+      quantity.push(itemObject[i].count)
+    }
+    router.push(`/order/optionId=${optionId}&quantity=${quantity}&cartItem=`)
+  }
+
 
   return (
     <div>
@@ -325,7 +415,7 @@ const ProductDetail = () => {
               {data.options?.map(
                 (el) =>
                   colorCheck.includes(el.colorId) &&
-                  el.options.map((item, i) => (
+                  el.options?.map((item, i) => (
                     <Fragment key={i}>
                       <SizeLabel
                         htmlFor={item.sizeId}
@@ -340,7 +430,7 @@ const ProductDetail = () => {
                         key={item.i}
                         value={item.size}
                         onChange={(e) =>
-                          sizeHandler(e.target.checked, item.sizeId, item.size)
+                          sizeHandler(e.target.checked, item.sizeId, item.size, item.optionId)
                         }
                         disabled={
                           (sizeCheck.length === 1 &&
@@ -436,14 +526,19 @@ const ProductDetail = () => {
           <BuyBtnBox>
             <LikeBtn
               onClick={() =>
-                wishHandler(data.id, data.likeid) && openWishModal()
+                wishHandler(data.id)
               }
             >
-              {wish.length === 1 ? (
+              {
+                (wishCheckMessage === "SUCCESS" || data.likeId)
+                &&
                 <HeartFilled style={{ color: "red", fontSize: "18px" }} />
-              ) : (
+              }
+              {
+                (wishCheckMessage === "DELETE" || !data.likeId)
+                &&
                 <HeartOutlined style={{ fontSize: "18px" }} />
-              )}
+              }
             </LikeBtn>
             {isWishModal && (
               <WishModal
@@ -451,8 +546,16 @@ const ProductDetail = () => {
                 close={closeWishModal}
               />
             )}
-            <CartBtn>장바구니</CartBtn>
-            <BuyBtn>구매하기</BuyBtn>
+            <CartBtn
+              onClick={cartHandler}
+            >
+              장바구니
+            </CartBtn>
+            <BuyBtn
+              onClick={orederHandler}
+            >
+              구매하기
+            </BuyBtn>
           </BuyBtnBox>
           <ReviewButton>
             REVIEW EVENT <div>리뷰 작성 시 최대 10,000원 적립</div>
@@ -501,7 +604,7 @@ export const DetailWrapper = styled.div`
   justify-content: space-around;
   width: 80%;
   padding: 70px;
-  position: absolute;
+  /* position: absolute; */
 `
 
 export const DetailImg = styled.div`
@@ -907,6 +1010,7 @@ export const ShippingeInfo = styled.button`
   &:hover {
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
+  }
 `
 export const CancelInfo = styled.button`
   display: flex;
@@ -919,4 +1023,5 @@ export const CancelInfo = styled.button`
   &:hover {
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
+  }
 `

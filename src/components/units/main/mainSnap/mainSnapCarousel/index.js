@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import axios from "axios"
 import React, { useEffect, useState } from "react"
 import Slider from "react-slick"
+import { API_IP } from '../../../../../common/utils/ApiIp'
 
 export default function PauseOnHover() {
   const settings = {
@@ -22,7 +23,7 @@ export default function PauseOnHover() {
   // }, [])
 
   useEffect(() => {
-    axios.get("http://172.16.101.103:3000/snap/main").then((res) => {
+    axios.get(`http://${API_IP}:3000/snap/main`).then((res) => {
       setData(res.data)
     })
   }, [])

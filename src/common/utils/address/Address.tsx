@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DaumPostcodeEmbed from 'react-daum-postcode'
 import { IAddressPropsType } from '../../../components/units/order/Order.type'
 import * as S from './Address.style'
@@ -6,6 +6,7 @@ import * as S from './Address.style'
 const Address = (props: IAddressPropsType) => {
     const [addressSearch, setAddressSearch] = useState(false)
     const [postData, setPostData] = useState<any>(null)
+    console.log(postData)
     const searchStateHandler = () => {
         setAddressSearch(prv => !prv)
     }
@@ -14,6 +15,10 @@ const Address = (props: IAddressPropsType) => {
         setPostData(data)
         setAddressSearch(prv => !prv)
     }
+    useEffect(() => {
+        props.zipCodeChangeHandler(postData?.zonecode)
+        props.addressChangeHandler(postData?.address)
+    }, [postData])
 
     return (
         <>
@@ -22,16 +27,16 @@ const Address = (props: IAddressPropsType) => {
                 <S.UserInput
                     type='text'
                     name='post_writer'
-                    defaultValue={props.orderData.userInfo?.name}
-                    onChange={props.changeHandler}
+                    value={props.name ? props.name : props.orderData?.userInfo?.name}
+                    readOnly
                 />
             </S.UserBox>
             <S.ZipCodeBox>
                 <S.ZipCodeLabel>주소</S.ZipCodeLabel>
                 <S.ZipCode
-                    defaultValue={props.orderData.userInfo?.zip_code}
+                    value={postData?.zonecode ?? ""}
                     name='post_zip_code'
-                    onChange={props.changeHandler}
+                    readOnly
                 />
                 <S.AddressSearchButton onClick={searchStateHandler}>주소검색</S.AddressSearchButton>
                 {
@@ -47,7 +52,7 @@ const Address = (props: IAddressPropsType) => {
                             </S.PostTitleX>
                         </S.PostTitleBox>
                         <div>
-                            <DaumPostcodeEmbed onComplete={postDataHandler} />
+                            <DaumPostcodeEmbed onComplete={(data) => { postDataHandler(data); }} />
                         </div>
                     </S.DaumPostBox>
                 }
@@ -55,32 +60,23 @@ const Address = (props: IAddressPropsType) => {
             <S.DefAddressInput
                 type='text'
                 name='post_address'
-                value={(postData?.address ? postData.address : props.orderData.userInfo?.address) || ''}
+                value={postData?.address ?? ""}
                 placeholder='기본주소'
-                onChange={props.changeHandler}
+                readOnly
             />
             <S.NewAddressInput
                 type='text'
                 placeholder='상세 주소'
                 name='post_detail_address'
-                // value={props.orderPostData.post_detail_address ? props.orderPostData.post_detail_address : props.orderData.userInfo?.detail_address}
-                defaultValue={props.orderData.userInfo?.detail_address}
-                onChange={props.changeHandler} />
+                onChange={(e) => { props.detailAddressChangeHandler(e.target.value); }}
+            />
             <S.PhoneContain>
                 <S.PhoneLabel htmlFor='phone'>휴대전화</S.PhoneLabel>
-                {/* <S.PhoneSelect id='phone'>
-                    <option value='010' defaultChecked>010</option>
-                    <option value='011'>011</option>
-                    <option value='016'>016</option>
-                </S.PhoneSelect>
-                <S.PhoneSign>-</S.PhoneSign>
-                <S.PhoneMiddleInput type='text' />
-                <S.PhoneSign>-</S.PhoneSign> */}
                 <S.PhoneEndInput
                     type='text'
                     name='post_phone_number'
-                    defaultValue={props.orderData.userInfo?.phone}
-                    onChange={props.changeHandler}
+                    value={props.phone ? props.phone : props.orderData?.userInfo?.phone}
+                    readOnly
                 />
             </S.PhoneContain>
         </>

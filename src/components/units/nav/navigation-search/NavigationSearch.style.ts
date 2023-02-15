@@ -7,10 +7,11 @@ export const Contain = styled.div`
   position: absolute;
   border: 1px solid black;
   left: 0;
-  top: 80px;
+  top: 79px;
   background-color: white;
   display: flex;
   justify-content: center;
+  z-index: 2;
 `
 
 export const InContain = styled.div`
@@ -52,6 +53,10 @@ export const Search = styled.input`
 
 export const SearchSign = styled(SearchOutlined)`
   font-size: 40px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Cloese = styled(CloseOutlined)`

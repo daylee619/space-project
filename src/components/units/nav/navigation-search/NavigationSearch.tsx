@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import { INavigationSearchPropsType } from '../Navigation.type'
 import * as S from './NavigationSearch.style'
@@ -7,21 +8,17 @@ const NavigationSearch = (props: INavigationSearchPropsType) => {
     const { searchModalHandler } = props
     const [searchInput, setSearchInput] = useState('')
 
+    const router = useRouter()
+
     const searchHandler = (key: string) => {
         if (key === 'Enter') {
             search()
         }
     }
 
-    const search = async () => {
-        try {
-            console.log('ee')
-            await axios.post('api', {
-                value: searchInput
-            })
-        } catch (error) {
-            console.log(error)
-        }
+    const search = () => {
+        router.push(`/productlist/mainCategory=&color=&item=&sort=&subCategory=&name=${searchInput}`)
+        searchModalHandler()
     }
 
     const searchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +40,9 @@ const NavigationSearch = (props: INavigationSearchPropsType) => {
                                 onChange={searchInputHandler}
                                 onKeyPress={(e) => { searchHandler(e.key); }}
                             />
-                            <S.SearchSign />
+                            <S.SearchSign
+                                onClick={search}
+                            />
                         </S.SearchConfirmBox>
                     </S.SearchConfirmContain>
                 </S.SearchBox>

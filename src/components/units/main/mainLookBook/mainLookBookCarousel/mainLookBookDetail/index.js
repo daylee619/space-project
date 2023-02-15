@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { CloseOutlined } from "@ant-design/icons"
 
 import MainLookBookDetailCarousel from "../mainLookBookDetailCarousel"
+import { API_IP } from '../../../../../../common/utils/ApiIp'
 
 // carousel을 클릭해서 들어가 볼 수 있는 portal창
 
@@ -11,7 +12,7 @@ export default function MainLookBookDetail(props) {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    axios.get("/data/mainLookbookDetail.json").then((res) => {
+    axios.get(`http://${API_IP}:3000/lookbook/main/${lookbookId}`).then((res) => {
       setData(res.data)
     })
   }, [])

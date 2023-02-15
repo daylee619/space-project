@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { API_IP } from '../../../../common/utils/ApiIp'
 // import ProductItem from "src/common/libraries/productItem/ProductItem.tsx"
 import MainTab from "../../mainTab"
 
@@ -8,7 +9,7 @@ export default function MainWeeklyBest() {
   const [data, setData] = useState([])
   const [like, setLike] = useState([])
   useEffect(() => {
-    axios.get("http://172.16.101.103:3000/product/best").then((res) => {
+    axios.get(`http://${API_IP}:3000/product/best`).then((res) => {
       setData(res.data)
     })
   }, [])
@@ -184,10 +185,10 @@ export default function MainWeeklyBest() {
         optionFn={optionFn}
         likeHartHandler={likeHartHandler}
         like={like}
-        // onClickLike={onClickLike}
-        // b={b}
-        // likeIndex={likeIndex}
-        // setLikeIndex={setLikeIndex}
+      // onClickLike={onClickLike}
+      // b={b}
+      // likeIndex={likeIndex}
+      // setLikeIndex={setLikeIndex}
       />
     </MainWrapper>
   )

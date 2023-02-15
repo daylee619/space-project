@@ -24,4 +24,5 @@ export interface ILookBookType {
 export interface ILookBookDetailPropsType {
   cloesHandler: () => void
   clickModal: number
+  lookbook: number
 }

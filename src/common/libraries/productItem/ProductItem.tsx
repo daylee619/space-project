@@ -1,6 +1,7 @@
 import { MenuOutlined } from "@ant-design/icons"
 import { keyframes } from "@emotion/react"
 import styled from "@emotion/styled"
+import { useRouter } from 'next/router'
 import { useState } from "react"
 
 interface IProductItemProps {
@@ -10,11 +11,14 @@ interface IProductItemProps {
   imgUrl?: string
   data?: string[] | undefined
   bottom?: string
+  productId?: number
 }
 
 const ProductItem = (props: IProductItemProps) => {
   // 전달 받는 값
-  const { imgWidth, imgHeight, menuWidth, imgUrl, data, bottom } = props
+  const { imgWidth, imgHeight, menuWidth, imgUrl, data, bottom, productId } = props
+
+  const router = useRouter()
 
   const [imgHoverState, setImgHoverState] = useState(false)
   const [menu, setMenu] = useState(false)
@@ -43,7 +47,7 @@ const ProductItem = (props: IProductItemProps) => {
           imgHeight={imgHeight}
           onMouseEnter={bolHandler}
           src={imgUrl}
-          alt="alt"
+          alt="img"
         />
         {imgHoverState && (
           <Div
@@ -51,6 +55,7 @@ const ProductItem = (props: IProductItemProps) => {
             imgWidth={imgWidth}
             imgHeight={imgHeight}
             bottom={bottom}
+            onClick={async () => await router.push(`/productdetail/${productId}`)}
           >
             <MenuIcon onClick={clickHandler} />
             {menu && (
@@ -114,6 +119,10 @@ const Div = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 const MenuIcon = styled(MenuOutlined)`

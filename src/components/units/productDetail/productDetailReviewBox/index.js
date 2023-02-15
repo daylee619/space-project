@@ -3,6 +3,7 @@ import { DislikeOutlined, LikeOutlined } from "@ant-design/icons"
 import { Rate } from "antd"
 import moment from "moment"
 import axios from "axios"
+import { API_IP } from '../../../../common/utils/ApiIp'
 export default function ProductDetailReviewBox(props) {
   const userNickName = props.reviewData?.map((el) => el.nickname)
   // console.log(userNickName)
@@ -15,7 +16,7 @@ export default function ProductDetailReviewBox(props) {
   const helpfulHandler = async (reviewId) => {
     try {
       await axios.post(
-        "api",
+        `http://${API_IP}:3000`,
         {
           review_id: reviewId,
           state: "helpful",
@@ -34,7 +35,7 @@ export default function ProductDetailReviewBox(props) {
   const unhelpfulHandler = async (reviewId) => {
     try {
       await axios.post(
-        "api",
+        `http://${API_IP}:3000`,
         {
           review_id: reviewId,
           state: "unhelpful",

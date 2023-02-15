@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export interface IItemDataType {
   orderList: IOrderListType[]
   orderFilter: IOrderFilter[]
@@ -46,11 +48,15 @@ export interface IOrderFilter {
 export interface IMypageItemPropsType {
   itemData?: IItemDataType
   mainData?: IMainDataType
+  setOrderItemDeleteMessage: Dispatch<SetStateAction<string>>
+  setMessage: Dispatch<SetStateAction<string>>
 }
 
 export interface IMypageFilterListPropsType {
   itemData?: IItemDataType
   mainData?: IMainDataType
+  setOrderItemDeleteMessage: Dispatch<SetStateAction<string>>
+  setMessage: Dispatch<SetStateAction<string>>
 }
 
 export interface IMainDataType {
@@ -89,7 +95,7 @@ export interface IWishListDataType {
 }
 
 export interface IWishListDataColorType {
-  size: IWishListDataSizeType[] | null
+  options: IWishListDataSizeType[] | null
   colorId: string
   colorName: string
 }
@@ -97,17 +103,19 @@ export interface IWishListDataColorType {
 export interface IWishListDataSizeType {
   stock: string
   sizeId: string
-  sizeName: string
+  size: string
+  optionId: number
 }
 
 // wish-list-item type
 export interface IWishListItemPropsType {
   wishListData: IWishListDataType[]
   selectStateHandler: (selectValue: string) => void
-  // handleAllCheck: (checked: boolean) => void
-  // handleSingleCheck: (checked: boolean, id: number) => void
-  // checkItems: number[]
   selectState: string
+  setWishItemDeleteMessage: Dispatch<SetStateAction<string>>
+  setOptionChangeMessage: Dispatch<SetStateAction<string>>
+  setAlreadyOptionMessage: Dispatch<SetStateAction<string>>
+  alreadyOptionMessage: string
 }
 
 // wish-list-option-modal-type
@@ -118,6 +126,8 @@ export interface IOptionPropsType {
   selectState: string
   nameProps: string
   idProps: number
+  productId: number
+  setOptionChangeMessage: Dispatch<SetStateAction<string>>
 }
 
 export interface IMypageUserModifyDefaultDataType {

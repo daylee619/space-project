@@ -9,7 +9,7 @@ const KakaoRedirect = () => {
 
     const CODE = router.query.code
     const REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao'
-    const CLIENT_ID = ''
+    const CLIENT_ID = 'aa450a92889c4d6d150b3bb844fa6f37'
     const API = `grant_type=authorization_code&client_id=${CLIENT_ID}&code=${CODE}&redirect_uri=${REDIRECT_URI}`
 
     useEffect(() => {

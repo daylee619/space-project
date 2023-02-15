@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { Fragment, useState } from 'react';
+import { API_IP } from '../../../../../common/utils/ApiIp';
 import CartCompleteModal from '../../../../../common/utils/optionModal/wishListOptionModal/CartCompleteModal';
 import WishListOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/OptionModal';
 import PlusOptionModal from '../../../../../common/utils/optionModal/wishListOptionModal/PlusOptionModal';
@@ -6,7 +8,7 @@ import { IWishListItemPropsType } from '../../Mypage.type';
 import * as S from './WishListItem.style'
 
 const WishListItem = (props: IWishListItemPropsType) => {
-    const { wishListData, selectStateHandler, selectState } = props
+    const { wishListData, selectStateHandler, selectState, setWishItemDeleteMessage, setOptionChangeMessage, setAlreadyOptionMessage, alreadyOptionMessage } = props
     const [optionModal, setOptionModal] = useState<number[]>([])
 
 
@@ -21,6 +23,7 @@ const WishListItem = (props: IWishListItemPropsType) => {
 
     const [plusModalState, setPlusModalState] = useState<number[]>([])
 
+
     const plusModalHandler = (id: number) => {
         if (!plusModalState.includes(id)) {
             setPlusModalState(prv => [...prv, id])
@@ -28,6 +31,62 @@ const WishListItem = (props: IWishListItemPropsType) => {
         if (plusModalState.includes(id)) {
             setPlusModalState(plusModalState.filter(el => el !== id))
         }
+
+    }
+
+    // delete wishList Item
+    const deleteWishItemHandler = async (likeId: number) => {
+        try {
+            setWishItemDeleteMessage('')
+            await axios.delete(`http://${API_IP}:3000/like?likeId=${likeId}`, {
+                headers: {
+                    'authorization': localStorage.getItem('access_token')
+                }
+            })
+                .then(res => {
+                    const { data } = res
+                    if (data) {
+                        setWishItemDeleteMessage(data.message)
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // already option in wishItem -> In cart
+    const alreadyOptionWishItemIncart = async (optionId: number) => {
+        try {
+            if (optionId !== null) {
+                setAlreadyOptionMessage('')
+                const cartItem = []
+                cartItem.push(
+                    {
+                        optionId,
+                        quantity: 1
+                    }
+                )
+                await axios.post(`http://${API_IP}:3000/cart`, {
+                    cartItem
+                }, {
+                    headers: {
+                        'authorization': localStorage.getItem('access_token')
+                    }
+                })
+                    .then(res => {
+                        const { data } = res
+                        if (data.message === 'success') {
+                            setAlreadyOptionMessage(data.message)
+                        }
+                    })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // already option in wishItem -> In Order
+    const alreadyOptionWishItemInOrder = (optionId: number) => {
 
     }
 
@@ -70,6 +129,8 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                         selectState={selectState}
                                         nameProps={el.name}
                                         idProps={el.id}
+                                        productId={el.productId}
+                                        setOptionChangeMessage={setOptionChangeMessage}
                                     />
                                 }
                             </S.ItemInformationBox>
@@ -87,8 +148,24 @@ const WishListItem = (props: IWishListItemPropsType) => {
                             <S.ItemTotalPriceText>{el.price}</S.ItemTotalPriceText>
                         </S.ItemTotalPrice>
                         <S.ItemChoose>
-                            <S.ItemChooseButton>주문하기</S.ItemChooseButton>
-                            <S.ItemChooseButton onClick={() => { plusModalHandler(el.id); }}>장바구니</S.ItemChooseButton>
+                            <S.ItemChooseButton
+                                onClick={() => {
+                                    plusModalHandler(el.id);
+                                    alreadyOptionWishItemInOrder(el.optionId)
+                                }
+                                }
+                            >
+                                주문하기
+                            </S.ItemChooseButton>
+                            <S.ItemChooseButton
+                                onClick={() => {
+                                    plusModalHandler(el.id);
+                                    alreadyOptionWishItemIncart(el.optionId)
+                                }
+                                }
+                            >
+                                장바구니
+                            </S.ItemChooseButton>
                             {
                                 (
                                     plusModalState.includes(el.id)
@@ -106,6 +183,8 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                     plusModalState.includes(el.id)
                                     &&
                                     el.optionId !== null
+                                    &&
+                                    alreadyOptionMessage === "success"
                                 )
                                 &&
                                 <CartCompleteModal
@@ -113,7 +192,11 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                     plusModalHandler={plusModalHandler}
                                 />
                             }
-                            <S.ItemChooseButton>삭제</S.ItemChooseButton>
+                            <S.ItemChooseButton
+                                onClick={async () => { await deleteWishItemHandler(el.id); }}
+                            >
+                                삭제
+                            </S.ItemChooseButton>
                         </S.ItemChoose>
                     </S.Contain>
                 )

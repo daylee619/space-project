@@ -4,6 +4,7 @@ export interface INavigationData {
   subCategories: ISubCategories[] | null
   namingCategoies: INamingCategories[] | null
   productInfo: IProductInfoType[] | null[]
+  path: string
 }
 
 interface IProductInfoType {
@@ -26,6 +27,7 @@ interface INamingCategories {
 export interface INavSubCategoryPropsType {
   subCategoryData: INavigationData
   pointerLeaveHandelr: () => void
+  mainCategoryId: number
 }
 
 export interface INavigationSearchPropsType {

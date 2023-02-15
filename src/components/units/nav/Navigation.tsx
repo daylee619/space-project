@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { Fragment, useEffect, useState } from 'react'
+import { API_IP } from '../../../common/utils/ApiIp'
 import NavigationSearch from './navigation-search/NavigationSearch'
 import NavSubCategory from './navigation-sub-category/NavSubCategory'
 import * as S from "./Navigation.style"
@@ -10,6 +11,7 @@ import { INavigationData } from './Navigation.type'
 
 const Navigation = () => {
     const [navigationData, setNavigationData] = useState<INavigationData[]>([])
+    console.log('navigation : ', navigationData)
     const [categoryState, setCategoryState] = useState<number>()
     const [userPointerState, setUserPointerState] = useState<boolean>(false)
     const [serachModal, setSearchModal] = useState<boolean>(false)
@@ -19,10 +21,12 @@ const Navigation = () => {
 
     const navigationDataHandler = async () => {
         try {
-            await axios.get('/data/navigation.json')
+            await axios.get(`http://${API_IP}:3000/category`)
                 .then(res => {
                     const { data } = res
-                    setNavigationData(data)
+                    if (data) {
+                        setNavigationData(data)
+                    }
                 })
         } catch (error) {
             console.log(error)
@@ -77,7 +81,7 @@ const Navigation = () => {
                             <Fragment key={el.id}>
                                 <S.NavCategory
                                     onPointerEnter={() => { pointerHandler(el.id); }}
-                                    onClick={async () => await router.push(`/productlist/mainCategory=${el.id}&color=&item=&sort=`)}
+                                    onClick={async () => await router.push(el.path === 'productList' ? `/productlist/mainCategory=${el.id}&color=&item=&sort=&subCategory=&name=` : `/${el.path}`)}
                                 >
                                     {el.name}
                                 </S.NavCategory>
@@ -94,6 +98,7 @@ const Navigation = () => {
                                         <NavSubCategory
                                             subCategoryData={el}
                                             pointerLeaveHandelr={pointerLeaveHandelr}
+                                            mainCategoryId={el.id}
                                         />
                                     </>
                                 }

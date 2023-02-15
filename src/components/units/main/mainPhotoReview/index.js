@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { API_IP } from '../../../../common/utils/ApiIp'
 import ModalPortal from "../../../Portal"
 import MainReviewModal from "../mainReviewModal"
 import ReviewModal from "../reviewmodal"
@@ -14,10 +15,11 @@ export default function MainPhotoReview() {
   // }, [])
 
   useEffect(() => {
-    axios.get("http://172.16.101.103:3000/review/main").then((res) => {
-      setData(res.data)
-    }, [])
-  })
+    axios.get(`http://${API_IP}:3000/review/main`)
+      .then((res) => {
+        setData(res.data)
+      })
+  }, [])
 
   // console.log(data)
   const [modalOn, setModalOn] = useState(false)

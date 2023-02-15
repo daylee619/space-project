@@ -3,6 +3,7 @@ import { RedoOutlined } from "@ant-design/icons"
 import { Rate } from "antd"
 import { useState } from "react"
 import axios from "axios"
+import { API_IP } from '../../../common/utils/ApiIp'
 
 export default function ReviewStarDropdown(props) {
   const [starCheck, setStarCheck] = useState([])
@@ -31,7 +32,7 @@ export default function ReviewStarDropdown(props) {
   const postHandler = async () => {
     try {
       await axios
-        .post("api", {
+        .post(`http://${API_IP}:3000`, {
           key: starCheck,
         })
         .then((res) => {

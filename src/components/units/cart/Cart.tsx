@@ -1,43 +1,15 @@
 import CartItem from './CartItem'
 import * as S from './Cart.style'
-import { ChangeEvent, MouseEvent, MouseEventHandler, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-
-
-interface ICartItemInType {
-    cartId: string,
-    optionId: number,
-    quantity: number,
-    sizeName: string,
-    colorName: string,
-    productId: number,
-    name: string,
-    price: number,
-    size: ISizeType,
-    color: IColorType[],
-    imgUrl: string
-}
-
-interface ISizeType {
-    name: string
-}
-
-interface IColorType {
-    colorId: number,
-    colorName: string,
-    options: IOptionsType[]
-}
-
-interface IOptionsType {
-    size: string,
-    stock: string,
-    optionId: string
-}
+import { API_IP } from '../../../common/utils/ApiIp'
+import { ICartItemInType } from './Cart.type'
 
 const Cart = () => {
     // data state
     const [cartItem, setCartItem] = useState<ICartItemInType[]>([])
+    console.log('cartItem : ', cartItem)
     // price data state
     const [totalPrice, setTotalPrice] = useState(0)
     // checked state
@@ -46,6 +18,11 @@ const Cart = () => {
     const [optionModal, setOptionModal] = useState(false)
     // option color ID state
     const [colorIdState, setColorState] = useState<string>('')
+    // delete message rendaring
+    const [deleteMessage, setDelteMessage] = useState<string>('')
+    const [addMessage, setAddMessage] = useState<string>('')
+    const [minusMessage, setMinusMessage] = useState<string>('')
+    const [optionChangeMessage, setOptionChangeMessage] = useState<string>('')
 
     const router = useRouter()
 
@@ -72,19 +49,27 @@ const Cart = () => {
 
     // 데이터 받아오기
     const cartItemgetHandler = async () => {
-        await axios.get('/data/cart.json')
-            .then(res => {
-                const { data } = res
-                setCartItem(data);
-                setTotalPrice(data.reduce((acc: number, cur: ICartItemInType) => cur.price + acc, 0))
+        try {
+            await axios.get(`http://${API_IP}:3000/cart`, {
+                headers: {
+                    'authorization': `${localStorage.getItem('access_token')}`
+                }
             })
-            .catch(error => { console.log(error); })
+                .then(res => {
+                    const { data } = res
+                    if (data) {
+                        setCartItem(data);
+                        let price: number = 0
+                        for (let i = 0; i < data.length; i++) {
+                            price = price + (data[i].quantity * data[i].price)
+                        }
+                        setTotalPrice(price)
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+        }
     }
-
-    useEffect(() => {
-        cartItemgetHandler();
-    }, [])
-
 
     // Modal Otion Function
     const modalHandler = () => {
@@ -99,30 +84,38 @@ const Cart = () => {
     // chooes check delete
     const SelectCheckDeleteClick = async () => {
         try {
-            await axios.post('api', {
-                cartId: checkedState
-            }, {
+            setDelteMessage('')
+            await axios.delete(`http://${API_IP}:3000/cart?cartId=${checkedState}`, {
                 headers: {
-                    "Content-Type": "application/json",
-                    "userId": "userId"
+                    'authorization': `${localStorage.getItem('access_token')}`
                 }
             })
+                .then(res => {
+                    const { data } = res
+                    if (data.message) {
+                        setDelteMessage(data.message)
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
     }
 
-    const SelectDeleteClick = async (e: { target: { value: string } }) => {
+    const SelectDeleteClick = async (cartId: number) => {
         try {
-            await axios.post('api', {
-                cartId: e.target.value
-            }, {
+            setDelteMessage('')
+            await axios.delete(`http://${API_IP}:3000/cart?cartId=${cartId}`, {
                 headers: {
-                    "Content-Type": "application/json",
-                    "userId": 'UserId'
+                    "authorization": `${localStorage.getItem('access_token')}`
                 }
             }
             )
+                .then(res => {
+                    const { data } = res
+                    if (data.message) {
+                        setDelteMessage(data.message)
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
@@ -131,15 +124,19 @@ const Cart = () => {
     // all cartItem delete
     const AllItemDeleteClick = async () => {
         try {
-            await axios.post('api', {
-                userId: 'userId'
-            }, {
+            setDelteMessage('')
+            await axios.delete(`http://${API_IP}:3000/cart`, {
                 headers: {
-                    "Content-Type": "application",
-                    "userId": 'userId'
+                    'authorization': `${localStorage.getItem('access_token')}`
                 }
             }
             )
+                .then(res => {
+                    const { data } = res
+                    if (data.message) {
+                        setDelteMessage(data.message)
+                    }
+                })
         } catch (error) {
             console.log(error)
             console.error(error)
@@ -147,39 +144,61 @@ const Cart = () => {
     }
 
     // Count Add & Minus
-    const addCountHandler = async (e: { target: { value: string, id: string } }) => {
+    const addCountHandler = async (quantity: number, cartId: number) => {
         try {
-            await axios.post('api', {
-                quantity: Number(e.target.value) + 1,
-                cartId: e.target.id,
-            }, {
+            setAddMessage('')
+            await axios.patch(`http://${API_IP}:3000/cart/quantity?quantity=${quantity + 1}&cartId=${cartId}`, {}, {
                 headers: {
-                    "Content-Type": "application",
-                    "userId": "userId"
+                    "authorization": `${localStorage.getItem('access_token')}`
                 }
             })
+                .then(res => {
+                    const { data } = res
+                    if (data.message) {
+                        setAddMessage(data.message)
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
     }
 
-    const minusCountHandler = async (e: any) => {
+    const minusCountHandler = async (quantity: number, cartId: number) => {
         try {
-            if (Number(e.target.value) > 1) {
-                await axios.post('api', {
-                    quantity: Number(e.target.value) - 1,
-                    cartId: e.target.id,
-                }, {
+            if (quantity > 1) {
+                setMinusMessage('')
+                await axios.patch(`http://${API_IP}:3000/cart/quantity?quantity=${quantity - 1}&cartId=${cartId}`, {}, {
                     headers: {
-                        "Content-Type": "application",
-                        "userId": "userId"
+                        "authorization": `${localStorage.getItem('access_token')}`
                     }
                 })
+                    .then(res => {
+                        const { data } = res
+                        if (data.message) {
+                            setMinusMessage(data.message)
+                        }
+                    })
             }
         } catch (error) {
             console.log(error)
         }
     }
+
+    // select cartItem order function
+    const selectOrderHandler = () => {
+        router.push(`/order/optionId=&quantity=&cartItem=${checkedState}`)
+    }
+
+    // all cartItem order function
+    const allCartItemOrderHandler = () => {
+        const idArray: string[] = []
+        cartItem.forEach((el: ICartItemInType) => idArray.push(el.cartId))
+        router.push(`/order/optionId=&quantity=&cartItem=${idArray}`)
+    }
+
+    useEffect(() => {
+        cartItemgetHandler();
+    }, [deleteMessage, addMessage, minusMessage, optionChangeMessage])
 
     return (
         <S.Contain>
@@ -230,6 +249,7 @@ const Cart = () => {
                                 SelectDeleteClick={SelectDeleteClick}
                                 addCountHandler={addCountHandler}
                                 minusCountHandler={minusCountHandler}
+                                setOptionChangeMessage={setOptionChangeMessage}
                             />
                             <S.CartItemConfirmBox>
                                 <div>
@@ -272,11 +292,17 @@ const Cart = () => {
                     </>
                 }
                 <S.ConfirmBox>
-                    <S.ChoiseConfirm>선택상품주문</S.ChoiseConfirm>
+                    <S.ChoiseConfirm
+                        onClick={selectOrderHandler}
+                    >
+                        선택상품주문
+                    </S.ChoiseConfirm>
                     <S.KeepGoingConfirm>쇼핑계속하기</S.KeepGoingConfirm>
                     <S.AllChoiseConfirm
-                        onClick={async () => await router.push('/order')}
-                    >전체상품주문</S.AllChoiseConfirm>
+                        onClick={allCartItemOrderHandler}
+                    >
+                        전체상품주문
+                    </S.AllChoiseConfirm>
                 </S.ConfirmBox>
             </S.ContainIn>
         </S.Contain>

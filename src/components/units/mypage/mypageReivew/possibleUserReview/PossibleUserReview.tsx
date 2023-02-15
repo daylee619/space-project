@@ -1,7 +1,4 @@
-import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { API_IP } from '../../../../../common/utils/ApiIp'
 import * as S from './PossibleUserReview.style'
 
 interface IPossibleListDataType {
@@ -11,29 +8,14 @@ interface IPossibleListDataType {
     productId: number
 }
 
-const CreateReviewPossibleList = () => {
-    const [listData, setListData] = useState<IPossibleListDataType[]>([])
+interface ICreateReviewPossibleListPropsType {
+    listData: IPossibleListDataType[]
+}
+
+const CreateReviewPossibleList = (props: ICreateReviewPossibleListPropsType) => {
+    const { listData } = props
+
     const router = useRouter()
-
-    const possibleListDataHandler = async () => {
-        try {
-            await axios.get(`http://${API_IP}:3000/review/creation`, {
-                headers: {
-                    "authorization": `${localStorage.getItem('access_token')}`
-                }
-            })
-                .then(res => {
-                    const { data } = res
-                    setListData(data)
-                })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        possibleListDataHandler()
-    }, [])
 
     return (
         <S.Contain>

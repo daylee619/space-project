@@ -4,7 +4,7 @@ import MypageItem from '../mypageItem/MypageItem'
 import * as S from './MypageFilterList.style'
 
 const MypageFilterList = (props: IMypageFilterListPropsType) => {
-    const { itemData, mainData } = props
+    const { itemData, mainData, setOrderItemDeleteMessage, setMessage } = props
 
     return (
         <>
@@ -24,7 +24,12 @@ const MypageFilterList = (props: IMypageFilterListPropsType) => {
                 </S.OrderList>
             } */}
             {
-                <MypageItem itemData={itemData} mainData={mainData} />
+                <MypageItem
+                    itemData={itemData}
+                    mainData={mainData}
+                    setOrderItemDeleteMessage={setOrderItemDeleteMessage}
+                    setMessage={setMessage}
+                />
             }
         </>
     )

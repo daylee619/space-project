@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import { API_IP } from '../../../common/utils/ApiIp'
+import { ID_REG_EX, PASSWORD_REG_EX } from '../../../common/utils/RegEx'
 import GoogleSignIn from '../googleSignIn/GoogleSignIn'
 import KakaoSignIn from '../kakaoSignIn/KakaoSignIn'
 import * as S from './SignIn.style'
@@ -29,15 +30,24 @@ const SignIn = () => {
         }
     }
 
+    // key down
+    const loginForEnter = (key: string) => {
+        if (key === "Enter") {
+            SignInHandler()
+        }
+    }
+
     const SignInHandler = async () => {
         try {
-            if (userId && userPassword) {
+            console.log('1')
+            if (userId && userPassword && ID_REG_EX.test(userId) && PASSWORD_REG_EX.test(userPassword)) {
+                console.log('2')
                 await axios.post(`http://${API_IP}:3000/user/login`, {
                     email: userId,
                     password: userPassword
                 })
                     .then(res => {
-                        console.log(res)
+                        console.log('3')
                         if (res.data.access_token) {
                             localStorage.setItem('access_token', res.data.access_token)
                         }
@@ -45,17 +55,24 @@ const SignIn = () => {
                     .then(async () =>
                         await router.push('/')
                     )
-
-            }
-            if (!userId) {
-                setErrorId("ID를 입력해 주세요.")
-            }
-            if (!userPassword) {
-                setErrorPassword("Password를 입력해 주세요.")
+                console.log('4')
+                if (!userId) {
+                    console.log('sss')
+                    setErrorId("ID를 입력해 주세요.")
+                }
+                if (!userPassword) {
+                    setErrorPassword("Password를 입력해 주세요.")
+                }
+                if (!ID_REG_EX.test(userId)) {
+                    alert('아이디를 다시 확인해 주세요')
+                }
+                if (!PASSWORD_REG_EX.test(userPassword)) {
+                    alert('비밀번호를 다시 확인해 주세요')
+                }
             }
         } catch (error) {
-            console.log(error.message)
             console.error(error)
+            alert(error)
         }
     }
 
@@ -69,7 +86,11 @@ const SignIn = () => {
                         <S.SignInErrorMessage>{errorId}</S.SignInErrorMessage>
                     </div>
                     <div>
-                        <S.PasswordInput type="password" onChange={passwordChangeHandler} />
+                        <S.PasswordInput
+                            type="password"
+                            onChange={passwordChangeHandler}
+                            onKeyPress={(e) => { loginForEnter(e.key); }}
+                        />
                         <S.PasswordErrorMessage>{errorPassword}</S.PasswordErrorMessage>
                     </div>
                     <S.LoginButton onClick={SignInHandler}>로그인</S.LoginButton>

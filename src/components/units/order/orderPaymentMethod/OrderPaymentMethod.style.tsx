@@ -21,3 +21,15 @@ export const Point = styled.div`
         cursor: pointer;
     }
 `
+
+export const Points = styled.div`
+    margin: 25px 0 20px 15px;
+    font-size: 25px;
+`
+
+export const PointsNumber = styled.span`
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 20px;
+`

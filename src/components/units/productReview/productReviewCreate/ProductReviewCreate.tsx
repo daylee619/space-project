@@ -1,8 +1,17 @@
 import { Rate } from 'antd';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, Fragment, useEffect, useState } from 'react';
+import { API_IP } from '../../../../common/utils/ApiIp';
 import * as S from './ProductReviewCreate.style'
+
+interface IDefaultDataStateType {
+    reviewId: number,
+    thumbnail: string,
+    content: string,
+    star: number
+}
+
 
 const ProductReviewCreate = () => {
     const [showImages, setShowImages] = useState<string[]>([]);
@@ -10,7 +19,9 @@ const ProductReviewCreate = () => {
     const [singlePostImage, setSinglePostImage] = useState<File>()
     const [reviewComment, setReivewComment] = useState<string>('')
     const [rateCount, setRateCount] = useState<number>(0)
-    console.log(rateCount)
+
+    // 수정하기 기본 state
+    const [defaultDataState, setDefaultDataState] = useState<IDefaultDataStateType>()
 
     const router = useRouter()
 
@@ -64,15 +75,15 @@ const ProductReviewCreate = () => {
     // confirm post handler 
     const confirmHandler = async () => {
         try {
-            await axios.post('http://172.30.1.37:3000/review/product', {
+            await axios.post(`http://${API_IP}:3000/review/product`, {
                 productId: router.query.productId,
                 content: reviewComment,
                 star: rateCount,
-                thumbnail: singlePostImage
+                file: singlePostImage
             }, {
                 headers: {
-                    'Content-Type': "multipart/form-data",
-                    "authorization": localStorage.getItem('access_token')
+                    "authorization": `${localStorage.getItem('access_token')}`,
+                    "Content-Type": "multipart/form-data"
                 }
             })
                 .then(res => {
@@ -85,6 +96,55 @@ const ProductReviewCreate = () => {
             console.log(error)
         }
     }
+
+    // modify handler
+    const modifyHandler = async () => {
+        try {
+            await axios.patch(`http://${API_IP}:3000/review/product`, {
+                reviewId: router.query.productId,
+                content: reviewComment || defaultDataState?.content,
+                star: rateCount || defaultDataState?.star,
+                file: singlePostImage ?? defaultDataState?.thumbnail
+            }, {
+                headers: {
+                    "authorization": `${localStorage.getItem('access_token')}`,
+                    "Content-Type": "multipart/form-data"
+                }
+            }
+            )
+                .then(res => {
+                    const { data } = res
+                    if (data.message === 'REVIEW_UPDATED')
+                        router.push('/mypage/my_review')
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // 수정하였을 경우 기본 데이터
+    const defaultDataHandler = async () => {
+        try {
+            await axios.get(`http://${API_IP}:3000/review/${router.query.productId}`, {
+                headers: {
+                    'authorization': localStorage.getItem('access_token')
+                }
+            })
+                .then(res => {
+                    const { data } = res
+                    if (data) {
+                        setDefaultDataState(data)
+                        setShowImages([data.thumbnail])
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        defaultDataHandler()
+    }, [])
 
     return (
         <S.Contain>
@@ -110,18 +170,33 @@ const ProductReviewCreate = () => {
                             )
                         }
                     </S.ReivewImgBox>
+                    <S.WarringSpan>* 사진은 보이시는 사진중 첫번째 사진만 리뷰에서 보여집니다.</S.WarringSpan>
                     <S.RateBox>
-                        <Rate onChange={(value) => { setRateCount(value); }} />
+                        <Rate
+                            onChange={(value) => { setRateCount(value); }}
+                            value={rateCount || defaultDataState?.star}
+                        />
                     </S.RateBox>
                     <S.ReivewCreateBox>
                         <S.ReviewCreate
+                            defaultValue={defaultDataState?.content}
                             onChange={reivewCommentHandler}
                         />
-                        <S.ReviewConfirm
-                            onClick={confirmHandler}
-                        >
-                            등록
-                        </S.ReviewConfirm>
+                        {
+                            defaultDataState
+                                ?
+                                <S.ReviewConfirm
+                                    onClick={modifyHandler}
+                                >
+                                    수정
+                                </S.ReviewConfirm>
+                                :
+                                <S.ReviewConfirm
+                                    onClick={confirmHandler}
+                                >
+                                    등록
+                                </S.ReviewConfirm>
+                        }
                     </S.ReivewCreateBox>
                     <S.FileUploadBox>
                         <S.FileUploadLabel

@@ -25,7 +25,7 @@ export const HeaderTitle = styled.div`
   color: white;
 `
 
-export const HeaderX = styled.div`
+export const HeaderClose = styled.div`
   font-size: 13px;
   color: white;
 

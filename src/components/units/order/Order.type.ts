@@ -2,25 +2,34 @@ import { ChangeEvent } from "react"
 
 export interface IOrderInfoType {
   cartId: number
+  color: string
   name: string
-  thumbnail: string
   priceByProduct: string
   quantity: number
-  color: string
   size: string
+  thumbnail: string
+}
+
+export interface IOrderItemPropsDataType {
+  orderData?: IOrderDataType
 }
 
 export interface IOrderPostPropsType {
-  changeHandler: (e: ChangeEvent<HTMLInputElement>) => void
-  selectHandler: (e: ChangeEvent<HTMLSelectElement>) => void
-  orderPostData: IOrderPostDataType
-  orderData: IOrderDataType
+  orderData?: IOrderDataType
+  zipCodeChangeHandler: (zipCode: string) => void
+  addressChangeHandler: (address: string) => void
+  detailAddressChangeHandler: (detailAddress: string) => void
+  phone: string
+  name: string
 }
 
 export interface IAddressPropsType {
-  changeHandler: (e: ChangeEvent<HTMLInputElement>) => void
-  orderPostData: IOrderPostDataType
-  orderData: IOrderDataType
+  orderData?: IOrderDataType
+  zipCodeChangeHandler: (zipCode: string) => void
+  addressChangeHandler: (address: string) => void
+  detailAddressChangeHandler: (detailAddress: string) => void
+  phone: string
+  name: string
 }
 
 export interface IOrderPostDataType {
@@ -37,9 +46,9 @@ export interface IOrderPostDataType {
 }
 
 export interface IOrderItemPropsType {
-  orderData: IOrderDataType
-  orderPostData: IOrderPostDataType
-  changeHandler: (e: ChangeEvent<HTMLInputElement>) => void
+  orderData?: IOrderDataType
+  nameChangehandler: (value: string) => void
+  phoneChangeHandler: (value: string) => void
 }
 
 export interface IOrderDataType {
@@ -48,11 +57,11 @@ export interface IOrderDataType {
 }
 
 export interface IUserInfoType {
-  name: string
+  address?: null
+  detail_address?: null
   email: string
+  name: string
   phone: string
   points: string
-  address?: string
-  detail_address?: string
-  zip_code?: string
+  zip_code?: null
 }
