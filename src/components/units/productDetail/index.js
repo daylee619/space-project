@@ -11,37 +11,41 @@ import ShareModal from "../Modal/sharemodal"
 import ShippingModal from "../Modal/shippingmodal"
 import RefundModal from "../Modal/refundmodal"
 import WishModal from "../Modal/wishmodal"
-import { API_IP } from '../../../common/utils/ApiIp'
-import { useRouter } from 'next/router'
+import CartModal from "../Modal/cartmodal/cartmodal.tsx"
+import { API_IP } from "../../../common/utils/ApiIp"
+import { useRouter } from "next/router"
 
 const ProductDetail = () => {
   const [data, setData] = useState([])
-  console.log('detail : ', data)
+  console.log("detail : ", data)
   const [isShareModal, setIsShareModal] = useState(false)
   const [isShippingModal, setIsShippingModal] = useState(false)
   const [isRefundModal, setIsRefundModal] = useState(false)
   const [isMoreView, setIsMoreView] = useState(false)
   const [isWishModal, setIsWishModal] = useState(false)
-  const [option, setOption] = useState([])
+  // const [option, setOption] = useState([])
+  const [isCartModal, setIsCartModal] = useState(false)
 
   // product detail wish
-  const [wishCheckMessage, setWishCheckMessage] = useState('')
+  const [wishCheckMessage, setWishCheckMessage] = useState("")
 
   const router = useRouter()
   const productId = router.query?.productId
 
   useEffect(() => {
     if (productId !== undefined) {
-      axios.get(`http://${API_IP}:3000/product/detail/${productId}`, {
-        headers: {
-          'authorization': `${localStorage.getItem('access_token')}`
-        }
-      }).then((res) => {
-        const { data } = res
-        if (data) {
-          setData(data)
-        }
-      })
+      axios
+        .get(`http://${API_IP}:3000/product/detail/${productId}`, {
+          headers: {
+            authorization: `${localStorage.getItem("access_token")}`,
+          },
+        })
+        .then((res) => {
+          const { data } = res
+          if (data) {
+            setData(data)
+          }
+        })
     }
   }, [productId, wishCheckMessage])
   // useEffect(() => {
@@ -88,7 +92,7 @@ const ProductDetail = () => {
         size_name: sizeName,
         color_id: colorIdState,
         color_name: colorNameState,
-        optionId
+        optionId,
       }
       if (
         itemObject.filter(
@@ -195,15 +199,20 @@ const ProductDetail = () => {
 
   const wishHandler = async (productId) => {
     try {
-      setWishCheckMessage('')
-      await axios.post(`http://${API_IP}:3000/like`, {
-        productId
-      }, {
-        headers: {
-          "authorization": localStorage.getItem('access_token')
-        }
-      })
-        .then(res => {
+      setWishCheckMessage("")
+      await axios
+        .post(
+          `http://${API_IP}:3000/like`,
+          {
+            productId,
+          },
+          {
+            headers: {
+              authorization: localStorage.getItem("access_token"),
+            },
+          }
+        )
+        .then((res) => {
           const { data } = res
           if (data === "SUCCESS") {
             openWishModal()
@@ -252,35 +261,43 @@ const ProductDetail = () => {
   const closeWishModal = () => {
     setIsWishModal(false)
   }
+  const openCartModal = () => {
+    setIsCartModal(true)
+  }
+  const closeCartModal = () => {
+    setIsCartModal(false)
+  }
 
   const cartHandler = async () => {
     try {
       const settingOption = []
       for (let i = 0; i < itemObject.length; i++) {
-        settingOption.push(
-          {
-            optionId: itemObject[i].optionId,
-            quantity: itemObject[i].count
-          }
-        )
+        settingOption.push({
+          optionId: itemObject[i].optionId,
+          quantity: itemObject[i].count,
+        })
       }
       if (itemObject.length !== 0) {
-        await axios.post(`http://${API_IP}:3000/cart`, {
-          cartItem: settingOption,
-        }, {
-          headers: {
-            "authorization": `${localStorage.getItem('access_token')}`
-          }
-        })
-          .then(res => {
+        await axios
+          .post(
+            `http://${API_IP}:3000/cart`,
+            {
+              cartItem: settingOption,
+            },
+            {
+              headers: {
+                authorization: `${localStorage.getItem("access_token")}`,
+              },
+            }
+          )
+          .then((res) => {
             const { data } = res
-            if (data.message) {
-              console.log(data.message)
-              // router.push('/cart')
+            if (data.message === "success") {
+              openCartModal()
             }
           })
       } else {
-        alert('필수 옵션을 선택해주세요.')
+        alert("필수 옵션을 선택해주세요.")
       }
     } catch (error) {
       console.log(error)
@@ -296,7 +313,6 @@ const ProductDetail = () => {
     }
     router.push(`/order/optionId=${optionId}&quantity=${quantity}&cartItem=`)
   }
-
 
   return (
     <div>
@@ -430,7 +446,12 @@ const ProductDetail = () => {
                         key={item.i}
                         value={item.size}
                         onChange={(e) =>
-                          sizeHandler(e.target.checked, item.sizeId, item.size, item.optionId)
+                          sizeHandler(
+                            e.target.checked,
+                            item.sizeId,
+                            item.size,
+                            item.optionId
+                          )
                         }
                         disabled={
                           (sizeCheck.length === 1 &&
@@ -524,21 +545,13 @@ const ProductDetail = () => {
             </PriceTotalNumber>
           </PriceTotal>
           <BuyBtnBox>
-            <LikeBtn
-              onClick={() =>
-                wishHandler(data.id)
-              }
-            >
-              {
-                (wishCheckMessage === "SUCCESS" || data.likeId)
-                &&
+            <LikeBtn onClick={() => wishHandler(data.id)}>
+              {(wishCheckMessage === "SUCCESS" || data.likeId) && (
                 <HeartFilled style={{ color: "red", fontSize: "18px" }} />
-              }
-              {
-                (wishCheckMessage === "DELETE" || !data.likeId)
-                &&
+              )}
+              {(wishCheckMessage === "DELETE" || !data.likeId) && (
                 <HeartOutlined style={{ fontSize: "18px" }} />
-              }
+              )}
             </LikeBtn>
             {isWishModal && (
               <WishModal
@@ -547,15 +560,19 @@ const ProductDetail = () => {
               />
             )}
             <CartBtn
-              onClick={cartHandler}
+              onClick={() => {
+                cartHandler()
+              }}
             >
               장바구니
             </CartBtn>
-            <BuyBtn
-              onClick={orederHandler}
-            >
-              구매하기
-            </BuyBtn>
+            {isCartModal && (
+              <CartModal
+                isCartModal={isCartModal}
+                close={closeCartModal}
+              />
+            )}
+            <BuyBtn onClick={orederHandler}>구매하기</BuyBtn>
           </BuyBtnBox>
           <ReviewButton>
             REVIEW EVENT <div>리뷰 작성 시 최대 10,000원 적립</div>
