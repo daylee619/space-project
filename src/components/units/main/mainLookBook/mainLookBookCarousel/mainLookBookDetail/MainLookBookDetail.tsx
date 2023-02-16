@@ -1,10 +1,10 @@
-import styled from "@emotion/styled"
+import * as S from "./MainLookBookDetail.styles"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { CloseOutlined } from "@ant-design/icons"
 
-import MainLookBookDetailCarousel from "../mainLookBookDetailCarousel"
-import { API_IP } from '../../../../../../common/utils/ApiIp'
+import MainLookBookDetailCarousel from "../mainLookBookDetailCarousel/MainLookBookDetailCarousel"
+import { API_IP } from "../../../../../../common/utils/ApiIp"
 
 // carousel을 클릭해서 들어가 볼 수 있는 portal창
 
@@ -12,21 +12,23 @@ export default function MainLookBookDetail(props) {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    axios.get(`http://${API_IP}:3000/lookbook/main/${lookbookId}`).then((res) => {
-      setData(res.data)
-    })
+    axios
+      .get(`http://${API_IP}:3000/lookbook/main/${lookbookId}`)
+      .then((res) => {
+        setData(res.data)
+      })
   }, [])
 
   return (
     <>
-      <MainLookBookDetailWrapper>
+      <S.MainLookBookDetailWrapper>
         <MainLookBookDetailCarousel
           data={data}
           style={{ display: "flex", float: "left", width: "50%" }}
         />
         {data.map((el) => (
-          <DetailWrapper key={el.id}>
-            <DetailContent>
+          <S.DetailWrapper key={el.id}>
+            <S.DetailContent>
               <div
                 style={{
                   display: "flex",
@@ -71,7 +73,7 @@ export default function MainLookBookDetail(props) {
               >
                 {el.content}
               </div>
-            </DetailContent>
+            </S.DetailContent>
             <div style={{ width: "100%" }}>
               <div>연관상품</div>
               <div
@@ -118,32 +120,9 @@ export default function MainLookBookDetail(props) {
                 ))}
               </div>
             </div>
-          </DetailWrapper>
+          </S.DetailWrapper>
         ))}
-      </MainLookBookDetailWrapper>
+      </S.MainLookBookDetailWrapper>
     </>
   )
 }
-
-export const MainLookBookDetailWrapper = styled.div`
-  display: flex;
-  width: 90%;
-`
-export const DetailWrapper = styled.div`
-  float: right;
-  /* padding: 70px 0 0 5%; */
-  margin: 23px;
-  width: 45%;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-`
-
-export const DetailContent = styled.div`
-  /* position: absolute; */
-  width: 90%;
-  /* height: 300px; */
-  overflow: hidden;
-  margin-bottom: 50px;
-`

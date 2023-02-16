@@ -402,9 +402,9 @@ const ProductDetail = () => {
                       colorCheck.length === 1 &&
                       !colorCheck.includes(el.colorId)
                     }
-                    onChange={(e) =>
+                    onChange={(e) => {
                       changeHandler(e.target.checked, el.colorId, el.colorName)
-                    }
+                    }}
                   />
                 </Fragment>
               ))}
@@ -445,14 +445,14 @@ const ProductDetail = () => {
                         id={item.sizeId}
                         key={item.i}
                         value={item.size}
-                        onChange={(e) =>
+                        onChange={(e) => {
                           sizeHandler(
                             e.target.checked,
                             item.sizeId,
                             item.size,
                             item.optionId
                           )
-                        }
+                        }}
                         disabled={
                           (sizeCheck.length === 1 &&
                             !sizeCheck.includes(item.sizeId)) ||
@@ -509,7 +509,9 @@ const ProductDetail = () => {
 
               <div>
                 <MinusBtn
-                  onClick={() => soloMinusCountHandler(el.color_id, el.size_id)}
+                  onClick={() => {
+                    soloMinusCountHandler(el.color_id, el.size_id)
+                  }}
                 >
                   -
                 </MinusBtn>
@@ -518,14 +520,18 @@ const ProductDetail = () => {
                   value={el.count}
                 />
                 <PlusBtn
-                  onClick={() => soloCountHandler(el.color_id, el.size_id)}
+                  onClick={() => {
+                    soloCountHandler(el.color_id, el.size_id)
+                  }}
                 >
                   +
                 </PlusBtn>
               </div>
 
               <CloseBtn
-                onClick={() => deleteItem(index, el.size_id, el.color_id)}
+                onClick={() => {
+                  deleteItem(index, el.size_id, el.color_id)
+                }}
               >
                 <CloseOutlined
                   style={{
@@ -545,7 +551,11 @@ const ProductDetail = () => {
             </PriceTotalNumber>
           </PriceTotal>
           <BuyBtnBox>
-            <LikeBtn onClick={() => wishHandler(data.id)}>
+            <LikeBtn
+              onClick={async () => {
+                await wishHandler(data.id)
+              }}
+            >
               {(wishCheckMessage === "SUCCESS" || data.likeId) && (
                 <HeartFilled style={{ color: "red", fontSize: "18px" }} />
               )}

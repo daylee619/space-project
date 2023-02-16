@@ -2,7 +2,7 @@
 
 import React from "react"
 import styled from "@emotion/styled"
-import MainReviewModal from "./mainReviewModal"
+import MainReviewModal from "./mainReviewModal/MainReviewModal"
 
 const ReviewModal = ({ onClose }) => {
   return (

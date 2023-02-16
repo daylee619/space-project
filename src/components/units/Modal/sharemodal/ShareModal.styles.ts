@@ -1,32 +1,4 @@
 import styled from "@emotion/styled"
-
-export default function ShareModal(props) {
-  // const { isModal, setIsModal, ModalHandler } = props
-  return (
-    <>
-      <div>
-        {props.isModal ? (
-          <ShareModalBox>
-            <ShareTop>
-              <div> 공유하기</div>
-
-              <ShareBtn onClick={props.close}>
-                <ShareImg src="https://spao.com/morenvyimg/top_search_close.png" />
-              </ShareBtn>
-            </ShareTop>
-            <IconWrapper>
-              <img src="https://spao.com/web/upload/14831880685f0ff18b9bbd6.gif" />
-              <img src="https://spao.com/web/upload/9867773015f0ff18b9bb1c.gif" />
-              <img src="https://spao.com/morenvyimg/icon_sns_ka.png" />
-              <img src="https://spao.com/morenvyimg/icon_sns_url.png" />
-            </IconWrapper>
-          </ShareModalBox>
-        ) : null}
-      </div>
-    </>
-  )
-}
-
 export const ShareModalBox = styled.div`
   z-index: 9999;
   position: fixed;

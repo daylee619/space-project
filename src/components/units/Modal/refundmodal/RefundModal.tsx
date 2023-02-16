@@ -1,19 +1,18 @@
-import styled from "@emotion/styled"
-
+import * as S from "./RefundModal.styles"
 export default function RefundModal(props) {
   return (
     <div>
-      <RefundWrapper>
+      <S.RefundWrapper>
         {props.isRefundModal ? (
           <div>
-            <RefundTitleTop>
-              <RefundTilte>취소/반품/교환/환불 안내</RefundTilte>
-              <RufundTitleButton onClick={props.close}>
+            <S.RefundTitleTop>
+              <S.RefundTilte>취소/반품/교환/환불 안내</S.RefundTilte>
+              <S.RufundTitleButton onClick={props.close}>
                 <img src="https://spao.com/morenvyimg/top_search_close.png" />
-              </RufundTitleButton>
-            </RefundTitleTop>
-            <NoticeWrapper>
-              <StoreNotice>
+              </S.RufundTitleButton>
+            </S.RefundTitleTop>
+            <S.NoticeWrapper>
+              <S.StoreNotice>
                 <p>※ 매장픽업</p>
                 ◎ 픽업상품 보관 기간
                 <br /> - 매장 보관기간은 결제일 기준 +4 일까지 보관이 가능하고
@@ -33,28 +32,28 @@ export default function RefundModal(props) {
                 가능하며 , 반드시 픽업한 매장에서만 가능합니다
                 <br /> - 부분반품은 불가능하며 , 매장에서 전체반품 후 구매해
                 주시길 바랍니다.
-              </StoreNotice>
-              <NoticeBox>
+              </S.StoreNotice>
+              <S.NoticeBox>
                 ※공지사항※ <br />
                 현재 시스템 점검 중으로 픽업 서비스는 임시 중단된 상황입니다.
                 <br />
                 이용 시 참고 부탁 드립니다. 감사합니다.
-              </NoticeBox>
-              <NomalShip>※ 일반 택배 배송</NomalShip>
+              </S.NoticeBox>
+              <S.NomalShip>※ 일반 택배 배송</S.NomalShip>
               <div>
-                <Cancel>주문 취소</Cancel> 주문취소는 입금대기/입금완료에서
+                <S.Cancel>주문 취소</S.Cancel> 주문취소는 입금대기/입금완료에서
                 가능합니다.
                 <br />
                 가구 등 주문제작상품의 경우에는 상품준비중 단계부터 불가능하며
                 상품 수령 후, 반품 신청을 하실 수 있습니다.
               </div>
-              <ShippingFee>
+              <S.ShippingFee>
                 <p>반품/교환 배송비 안내</p> 2,500원 예상 (편도기준) (배송
                 프로모션 진행 시 프로모션 상황에 따라서 변경이 될 수 있습니다.)
                 반품/교환 배송비는 고객 변심의 경우에만 발생됩니다. 구매 후
                 반품/교환 시 예상금액과 차이가 있을 수 있습니다.
-              </ShippingFee>
-              <ReturnNotice>
+              </S.ShippingFee>
+              <S.ReturnNotice>
                 <p>반품/교환안내</p> 반품/교환은 상품 수령일 7일 이내에
                 신청해주셔야 하며, 단순 고객변심으로 인한 왕복 배송비는
                 고객님께서 부담하셔야 합니다. <br />
@@ -75,8 +74,8 @@ export default function RefundModal(props) {
                 택배사에서 추가 배송비를 요구할 수 있습니다.
                 <br /> 정해진 반품장소가 아닌 곳으로 보내질 경우 수취거부로 인해
                 왕복 배송비가 부과될 수 있습니다.
-              </ReturnNotice>
-              <NonExchange>
+              </S.ReturnNotice>
+              <S.NonExchange>
                 <p>반품/교환 불가 안내</p> 고객님이 상품 포장을 개봉하여 사용
                 또는 설치 완료되어 상품의 가치가 훼손된 경우
                 <br /> (단, 내용 확인을 위한 포장 개봉의 경우는 예외,
@@ -103,103 +102,11 @@ export default function RefundModal(props) {
                 재정경제부고시,소비자피해보상규정에 의함
                 <br /> (단, 온라인 단독 상품의 경우 오프라인 매장 교환이
                 불가합니다.)
-              </NonExchange>
-            </NoticeWrapper>
+              </S.NonExchange>
+            </S.NoticeWrapper>
           </div>
         ) : null}
-      </RefundWrapper>
+      </S.RefundWrapper>
     </div>
   )
 }
-export const RefundWrapper = styled.div`
-  position: fixed;
-  left: 179px;
-  top: 122px;
-  z-index: 9999;
-  opacity: 1;
-  padding: 0 50px 50px 50px;
-  width: 500px;
-  height: 400px;
-  overflow: scroll;
-  background-color: #fff;
-`
-export const RefundTitleTop = styled.div`
-  display: flex;
-  justify-content: center;
-  position: relative;
-  height: 60px;
-  line-height: 80px;
-  border-bottom: 1px solid #e5e5e5;
-  font-weight: 500;
-`
-export const RefundTilte = styled.div`
-  font-size: 18px;
-`
-export const RufundTitleButton = styled.button`
-  background-color: transparent;
-  border: none;
-
-  img {
-    width: 10px;
-    cursor: pointer;
-  }
-`
-export const NoticeWrapper = styled.div`
-  font-size: 10px;
-  line-height: 20px;
-  position: relative;
-  top: 0;
-  left: 0;
-  margin-top: 30px;
-  color: #1a1a1a;
-`
-export const StoreNotice = styled.div`
-  color: rgb(51, 51, 51);
-  font-weight: bold;
-
-  p {
-    color: rgb(255, 0, 0);
-    font-weight: bold;
-  }
-`
-export const NoticeBox = styled.div`
-  margin-top: 25px;
-  color: rgb(255, 0, 0);
-  font-weight: bold;
-`
-export const NomalShip = styled.div`
-  color: rgb(255, 0, 0);
-  font-weight: bold;
-  margin-top: 30px;
-`
-export const Cancel = styled.div`
-  color: rgb(51, 51, 51);
-  font-weight: bold;
-`
-export const ShippingFee = styled.div`
-  margin-top: 20px;
-
-  p {
-    color: rgb(51, 51, 51);
-    font-weight: bold;
-  }
-`
-export const ReturnNotice = styled.div`
-  margin-top: 20px;
-  p {
-    color: rgb(51, 51, 51);
-    font-weight: bold;
-  }
-  span {
-    color: rgb(255, 0, 0);
-    font-weight: bold;
-  }
-`
-export const NonExchange = styled.div`
-  margin-top: 20px;
-
-  p {
-    color: rgb(51, 51, 51);
-    font-weight: bold;
-  }
-`

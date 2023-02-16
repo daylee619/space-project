@@ -1,8 +1,9 @@
-import CartModal from '../../src/components/units/Modal/cartmodal/cartmodal';
+import CartModal from "../../src/components/units/Modal/cartmodal/CartModal"
 
 export default function Test() {
-
-
-    return (<><CartModal /></>)
-
+  return (
+    <>
+      <CartModal />
+    </>
+  )
 }

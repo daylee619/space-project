@@ -8,8 +8,8 @@ import {
   DownOutlined,
 } from "@ant-design/icons"
 import ProductDetailReviewBox from "../productDetail/productDetailReviewBox"
-import ReviewStarDropdown from "../productDetailReviewSelect"
-import { API_IP } from '../../../common/utils/ApiIp'
+import ReviewStarDropdown from "../productDetailReviewSelect/ProductDetailReviewSelect"
+import { API_IP } from "../../../common/utils/ApiIp"
 
 export default function ReviewByProduct() {
   const [data, setData] = useState([])
@@ -24,10 +24,12 @@ export default function ReviewByProduct() {
   }, [])
 
   useEffect(() => {
-    axios.get(`http://${API_IP}:3000/review/product/${ProductId}`).then((res) => {
-      setReviewData(res.data)
-      console.log(reviewData)
-    })
+    axios
+      .get(`http://${API_IP}:3000/review/product/${ProductId}`)
+      .then((res) => {
+        setReviewData(res.data)
+        console.log(reviewData)
+      })
   }, [])
 
   const onClickStarHandler = () => {

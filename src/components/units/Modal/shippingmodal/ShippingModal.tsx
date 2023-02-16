@@ -1,19 +1,19 @@
-import styled from "@emotion/styled"
+import * as S from "./ShippingModal.styles"
 
 export default function ShippingModal(props) {
   return (
     <>
-      <ShippingWrapper>
+      <S.ShippingWrapper>
         {props.isShippingModal ? (
-          <ShippingModalBox>
-            <ShippingTitleTop>
+          <S.ShippingModalBox>
+            <S.ShippingTitleTop>
               <div>배송안내</div>
-              <CloseButton onClick={props.close}>
+              <S.CloseButton onClick={props.close}>
                 <CloseImg src=" https://spao.com/morenvyimg/top_search_close.png" />
-              </CloseButton>
-            </ShippingTitleTop>
+              </S.CloseButton>
+            </S.ShippingTitleTop>
 
-            <ShipNoticeWrapper>
+            <S.ShipNoticeWrapper>
               <div>
                 배송 방법 : 택배 <br />
                 배송 지역 : 전국지역 <br />
@@ -29,15 +29,15 @@ export default function ShippingModal(props) {
                 상품 종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
                 <br />
               </div>
-              <SeparatedDelivery>
+              <S.SeparatedDelivery>
                 [분리 배송 안내]
                 <br /> 주문하신 상품이 2개 이상인 경우 빠른 배송을 위하여 분리
                 배송 될 수 있습니다.
                 <br />
                 재고 상황에 따라 물류센터 및 오프라인 매장에서 출고됨을 안내
                 드립니다.
-              </SeparatedDelivery>
-              <StorePickup>
+              </S.SeparatedDelivery>
+              <S.StorePickup>
                 <span>[매장픽업]</span> <br />
                 1. 강남, 홍대, 성신여대에서 픽업 가능(추후 확대 예정) 합니다.
                 <br /> 2. 픽업가능한 시간을 문자로 안내해 드립니다. (결제 후
@@ -58,87 +58,22 @@ export default function ShippingModal(props) {
                 토요일 자동 반품)
                 <br /> 9. 반품은 수령 후 +7일이내 픽업한 매장에서만 가능합니다.
                 <br />
-              </StorePickup>
-              <PickupNotice>* 문의는 픽업 매장으로 확인 바랍니다.</PickupNotice>
+              </S.StorePickup>
+              <S.PickupNotice>
+                * 문의는 픽업 매장으로 확인 바랍니다.
+              </S.PickupNotice>
               <br />
               <br />
-              <NoticeWrapper>
+              <S.NoticeWrapper>
                 ※공지사항※ <br />
                 현재 시스템 점검 중으로 픽업 서비스는 임시 중단된 상황입니다.
                 <br />
                 이용 시 참고 부탁 드립니다. 감사합니다.
-              </NoticeWrapper>
-            </ShipNoticeWrapper>
-          </ShippingModalBox>
+              </S.NoticeWrapper>
+            </S.ShipNoticeWrapper>
+          </S.ShippingModalBox>
         ) : null}
-      </ShippingWrapper>
+      </S.ShippingWrapper>
     </>
   )
 }
-
-export const ShippingWrapper = styled.div`
-  position: fixed;
-  left: 179px;
-  z-index: 9999;
-  top: 50.5px;
-  opacity: 1;
-`
-export const ShippingModalBox = styled.div`
-  width: 550px;
-  position: relative;
-  padding: 0 50px 50px 50px;
-  background-color: #fff;
-  overflow: scroll;
-  height: 350px;
-  
-  }
-`
-export const ShippingTitleTop = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: 18px;
-  /* height: 80px; */
-  line-height: 50px;
-  font-weight: 500;
-  border-bottom: 1px solid #e5e5e5;
-`
-export const CloseButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  /* margin-left: 200px; */
-`
-export const CloseImg = styled.img`
-  width: 10px;
-  cursor: pointer;
-  display: flex;
-`
-export const ShipNoticeWrapper = styled.div`
-  font-size: 10px;
-  position: relative;
-  top: 30px;
-  left: 0;
-  height: 500px;
-  line-height: 18px;
-`
-export const SeparatedDelivery = styled.div`
-  margin-top: 20px;
-`
-export const StorePickup = styled.div`
-  margin-top: 20px;
-
-  span {
-    color: rgb(255, 0, 0);
-    font-weight: bold;
-  }
-`
-export const PickupNotice = styled.div`
-  color: rgb(255, 0, 0);
-  font-weight: bold;
-  margin-top: 20px;
-`
-export const NoticeWrapper = styled.div`
-  color: rgb(255, 0, 0);
-  font-weight: bold;
-  padding-bottom: 30px;
-`
