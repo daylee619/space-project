@@ -84,10 +84,17 @@ const SignUp = () => {
                     }
                 }
             )
-                .then(res => { console.log(res); })
-                .then(data => { console.log(data); })
+                .then(res => {
+                    console.log(res);
+                    alert('회원가입에 성공하셨습니다.')
+                    router.push('/sign-in')
+                })
         } catch (error) {
             console.log(error)
+            alert(
+                `회원가입에 실패하셨습니다. 
+다시 시도해주세요`
+            )
         }
     }
 
@@ -138,7 +145,11 @@ const SignUp = () => {
                 >
                     취소
                 </S.ConfirmButton>
-                <S.ConfirmButton onClick={filePostHandler}>회원가입</S.ConfirmButton>
+                <S.ConfirmButton
+                    onClick={filePostHandler}
+                >
+                    회원가입
+                </S.ConfirmButton>
             </S.BottomBox>
         </S.Contain>
     )

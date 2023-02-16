@@ -18,8 +18,7 @@ const LaunchingCalenderDetail = () => {
     const [detailData, setDetailData] = useState<ICalenderDetailDataType[]>([])
     const [message, setMessage] = useState('')
     const router = useRouter()
-    const calendarId = router.query.calenderId && router.query.calenderId
-    console.log(calendarId)
+    const calendarId = router.query.calenderId ?? ''
 
     const CalenderDetailData = async () => {
         try {
@@ -50,7 +49,7 @@ const LaunchingCalenderDetail = () => {
 
     useEffect(() => {
         CalenderDetailData()
-    }, [message])
+    }, [message, calendarId])
 
     return (
         <S.OutContain>

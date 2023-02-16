@@ -225,11 +225,18 @@ const Order = () => {
                         </OrderContent>
                     </S.ItemBox>
                 </S.ItemContain>
-                <S.ConfirmBox
-                    onClick={payHandler}
-                >
-                    {`${totalPrice}원 결제하기`}
-                </S.ConfirmBox>
+                <S.ConfirmContain>
+                    <S.Cancel
+                        onClick={async () => await router.push('/cart')}
+                    >
+                        취소
+                    </S.Cancel>
+                    <S.ConfirmBox
+                        onClick={payHandler}
+                    >
+                        {`${totalPrice}원 결제하기`}
+                    </S.ConfirmBox>
+                </S.ConfirmContain>
             </S.ContainInContain>
         </S.Contain>
     )

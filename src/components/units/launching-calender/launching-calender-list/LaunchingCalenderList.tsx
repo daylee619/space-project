@@ -13,7 +13,6 @@ interface ILaunchingCalenderListDataType {
 
 const LaunchingCalenderList = () => {
     const [lanchingCalenderData, setLanchingCalenderData] = useState<ILaunchingCalenderListDataType[]>([])
-    console.log(lanchingCalenderData)
     const router = useRouter()
 
     const lanchingCalenderDataHandler = async () => {

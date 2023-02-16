@@ -29,7 +29,8 @@ export const ImgBox = styled.div`
 `
 
 export const LogoImg = styled.img`
-  width: 120px;
+  width: 130px;
+  height: 80px;
 
   &:hover {
     cursor: pointer;
@@ -143,9 +144,23 @@ export const UserInfoNav = styled.div`
   z-index: 2;
 `
 
+export const UserLoginBefore = styled.div`
+  position: relative;
+  top: 73px;
+  right: 17px;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  padding: 10px;
+  background-color: white;
+  z-index: 2;
+`
+
 export const UserInfoNavSpanBox = styled.div`
   position: relative;
-  top: 70px;
+  top: 72px;
   right: 17px;
   display: flex;
   flex-direction: column;

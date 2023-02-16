@@ -1,5 +1,6 @@
 import { Carousel } from 'antd';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 import { API_IP } from '../../../../common/utils/ApiIp';
 import { ILookBookDetailDataType, ILookBookDetailPropsType } from '../LookBook.type';
@@ -10,8 +11,9 @@ import * as S from './LookBookDetail.style'
 const LookBookDetail = (props: ILookBookDetailPropsType) => {
     const { cloesHandler, clickModal, lookbook } = props
 
+    const router = useRouter()
+
     const [lookBookDetailData, setLookBookDetailData] = useState<ILookBookDetailDataType[]>([])
-    console.log(lookBookDetailData)
     const [pointerState, setPointerState] = useState<number>()
 
     // data get 나중에 clickModal 로 받아온 id 값 전달하여 데이터 받아오기
@@ -95,6 +97,7 @@ const LookBookDetail = (props: ILookBookDetailPropsType) => {
                                                     &&
                                                     <S.Shadow
                                                         onPointerLeave={pointerLeave}
+                                                        onClick={async () => await router.push(`/productdetail/${item.productId}`)}
                                                     ></S.Shadow>
                                                 }
                                             </S.Box>

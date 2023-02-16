@@ -28,8 +28,13 @@ const CartItem = (props: ICartItemType) => {
             })
                 .then(res => {
                     const { data } = res
-                    if (data.message) {
-                        setWishMessage(data.message)
+                    if (data === 'SUCCESS') {
+                        setWishMessage(data)
+                        alert('해당 상품이 위시리스트로 이동되었습니다.')
+                    }
+                    if (data === 'DELETE') {
+                        setWishMessage(data)
+                        alert('해당 상품이 위시리스트에서 삭제 되었습니다.')
                     }
                 })
         } catch (error) {
@@ -65,9 +70,9 @@ const CartItem = (props: ICartItemType) => {
                                 <S.ItemInformationBox>
                                     <S.ItemInformation>{`${el.name} (${el.colorName})`}</S.ItemInformation>
                                     <S.ItemInformation>{`[옵션: (${el.quantity})/${el.size.name}]`}</S.ItemInformation>
-                                    <S.ItemInformationChange onClick={modalHandler}>옵션변경</S.ItemInformationChange>
+                                    <S.ItemInformationChange onClick={() => { modalHandler(el.optionId); }}>옵션변경</S.ItemInformationChange>
                                     {
-                                        optionModal
+                                        optionModal === el.optionId
                                         &&
                                         <CartOptionModal
                                             modalHandler={modalHandler}

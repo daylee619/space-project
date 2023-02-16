@@ -122,8 +122,15 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
                     'authorization': localStorage.getItem('access_token')
                 }
             })
+                .then(res => {
+                    const { data } = res
+                    if (data.message === 'success') {
+                        alert('상품이 정상적으로 장바구니에 담겼습니다.')
+                    }
+                })
         } catch (error) {
             console.log(error)
+            alert('상품을 장바구니에 담기에 실패하였습니다.')
         }
     }
 

@@ -88,8 +88,38 @@ const MypageItem = (props: IMypageItemPropsType) => {
                                 <S.ShipmentCompany>({item?.shippingCompany})</S.ShipmentCompany>
                             </S.OrderState>
                             <S.OrderChagne>
-                                <S.Button disabled={el?.orderStatus.includes("취소")}>취소</S.Button>
-                                <S.Button disabled={item?.shipment_status.includes('환불')}>환불</S.Button>
+                                <S.Button
+                                    disabled={
+                                        item.shipment_status === "구매취소"
+                                        ||
+                                        item.shipment_status === "구매확정"
+                                        ||
+                                        item.shipment_status === "환불요청"
+                                        ||
+                                        item.shipment_status === "환불완료"
+                                        ||
+                                        item.shipment_status === "배송중"
+                                        ||
+                                        item.shipment_status === "배송완료"
+                                    }
+                                >
+                                    취소
+                                </S.Button>
+                                <S.Button
+                                    disabled={
+                                        item.shipment_status === "구매취소"
+                                        ||
+                                        item.shipment_status === "구매확정"
+                                        ||
+                                        item.shipment_status === "환불요청"
+                                        ||
+                                        item.shipment_status === "환불완료"
+                                        ||
+                                        item.shipment_status === "배송준비중"
+                                    }
+                                >
+                                    환불
+                                </S.Button>
                             </S.OrderChagne>
                         </S.Contain>
                     )

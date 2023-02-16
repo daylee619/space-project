@@ -30,7 +30,7 @@ export default function MainTab(props) {
                 <LikeBtn
                   // value={el.id}
                   onClick={() => props.likeHartHandler(el.id, el.isLike)}
-                  // onClick={props.b}
+                // onClick={props.b}
                 >
                   <img
                     src={
@@ -77,10 +77,12 @@ export const WeeklyBestProduct = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
+  /* margin-left: 100px; */
   animation-duration: 1s;
   transition: all 0.3s;
 `
 export const WeeklyBestProductItem = styled.div`
+  width: 20%;
   margin: 10px;
   margin-top: 50px;
   position: relative;

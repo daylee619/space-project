@@ -7,6 +7,7 @@ export const Contain = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 100px;
 `
 
 export const Title = styled.h1`
@@ -78,13 +79,14 @@ export const ConfirmButton = styled.button`
   width: 150px;
   height: 40px;
   margin-right: 10px;
-  background-color: rgb(255, 255, 225);
-  color: black;
+  background-color: rgb(40, 40, 40);
+  color: white;
   border-radius: 5px;
   border: 1px solid lightgray;
 
   &:hover {
-    background-color: rgb(255, 250, 205);
+    background-color: rgb(20, 20, 20);
+    color: white;
     cursor: pointer;
   }
 `

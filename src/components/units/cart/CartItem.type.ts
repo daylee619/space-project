@@ -4,8 +4,8 @@ export interface ICartItemType {
   cartItem: ICartItemInType[]
   checkedHandler: (event: ChangeEvent<HTMLInputElement>, id: string) => void
   checkedState: string[]
-  modalHandler: () => void
-  optionModal: boolean
+  modalHandler: (optionId: number) => void
+  optionModal: number
   colorIdHandler: (e: ChangeEvent<HTMLSelectElement>) => void
   colorIdState: string
   SelectDeleteClick: (e: any) => void

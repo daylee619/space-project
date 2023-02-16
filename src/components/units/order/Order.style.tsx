@@ -12,6 +12,7 @@ export const ContainInContain = styled.div`
     width: 70%;
     background-color: white;
     border: 1px solid lightgray;
+    margin: 100px 0;
 `
 
 export const ItemContain = styled.div`
@@ -48,7 +49,14 @@ export const OrderPrecautions = styled.span`
     padding: 5px 0px;
 `
 
-export const ConfirmBox = styled.div`
+export const ConfirmContain = styled.div`
+width: 100%;
+    display: flex;
+
+`
+
+export const Cancel = styled.div`
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,6 +64,24 @@ export const ConfirmBox = styled.div`
     background-color: rgb(180, 49, 44);
     font-size: 25px;
     color: white;
+    border: 1px solid rgb(40,40,40);
+
+    &:hover {
+        cursor: pointer;
+    }
+`
+
+export const ConfirmBox = styled.div`
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: rgb(180, 49, 44);
+    font-size: 25px;
+    color: white;
+    border: 1px solid rgb(40,40,40);
+    border-left: none;
 
     &:hover {
         cursor: pointer;

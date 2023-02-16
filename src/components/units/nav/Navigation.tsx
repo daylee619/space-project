@@ -71,8 +71,8 @@ const Navigation = () => {
                 <S.InContain>
                     <S.ImgBox>
                         <S.LogoImg
-                            src='https://www.spao.com/morenvyimg/top_logo_pc.png'
-                            alt='https://www.spao.com/morenvyimg/top_logo_pc.png'
+                            src={'/images/spaceLogo.jpeg'}
+                            alt='space_logo'
                             onClick={async () => await router.push('/')}
                         />
                     </S.ImgBox>
@@ -125,7 +125,7 @@ const Navigation = () => {
                                 <S.UserInfoLogIn
                                     onClick={mypageMoveHandler}
                                 >
-                                    <S.UserInfoNavSpanBox
+                                    <S.UserLoginBefore
                                         onPointerLeave={userPointerHandler}
                                     >
                                         <S.UserInfoNavSpan
@@ -137,7 +137,7 @@ const Navigation = () => {
                                             onClick={async () => await router.push('/sign-in')}
                                         >
                                             ORDER</S.UserInfoNavSpanLast>
-                                    </S.UserInfoNavSpanBox>
+                                    </S.UserLoginBefore>
                                 </S.UserInfoLogIn>
                             }
                             {
