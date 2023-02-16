@@ -272,7 +272,7 @@ export default function ProductList() {
               좋아요
             </MenuCategoryList>
           </MenuCategoryBox>
-          <ItemNumber>{CountList?.count} Items</ItemNumber>
+          <ItemNumber>{data.length} Items</ItemNumber>
         </Category>
         <div
           style={{
@@ -331,7 +331,7 @@ export default function ProductList() {
 
       <Pagination
         defaultCurrent={1}
-        total={50}
+        total={CountList?.count}
         style={{
           marginBottom: "80px",
           display: "flex",

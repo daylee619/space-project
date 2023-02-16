@@ -315,7 +315,7 @@ const ProductDetail = () => {
   }
 
   return (
-    <div>
+    <Contain>
       <DetailWrapper>
         <DetailImg>
           <Thumbnail
@@ -610,11 +610,18 @@ const ProductDetail = () => {
           </ExplainButtonBox>
         </DetailInfoWrappeer>
       </DetailWrapper>
-    </div>
+    </Contain>
   )
 }
 
 export default ProductDetail
+
+export const Contain = styled.div`
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`
 
 export const DetailWrapper = styled.div`
   display: flex;

@@ -35,16 +35,17 @@ export const ItemBox = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 60px;
-
-  &:hover {
-    cursor: pointer;
-  }
 `
 
 export const CalenderImg = styled.img`
   display: flex;
   width: 400px;
+  height: 400px;
   margin-bottom: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Date = styled.div`

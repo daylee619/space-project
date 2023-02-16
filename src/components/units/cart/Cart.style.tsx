@@ -13,6 +13,7 @@ export const ContainIn = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 50px;
 `
 
 export const CartTitleBox = styled.div`

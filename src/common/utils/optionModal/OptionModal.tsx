@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { ChangeEvent, Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
+import { ChangeEvent, Dispatch, Fragment, SetStateAction, useState } from 'react'
 import { API_IP } from '../ApiIp'
 import * as S from './OptionModal.style'
 
 interface IOptionPropsType {
-    modalHandler: () => void
+    modalHandler: (optionId: number) => void
     colorProps: IColorType[]
     colorIdHandler: (e: ChangeEvent<HTMLSelectElement>) => void,
     colorIdState: string
@@ -50,7 +50,7 @@ const CartOptionModal = (props: IOptionPropsType) => {
                         setOptionChangeMessage(data.message)
                     }
                 })
-                .then(() => { modalHandler(); })
+                .then(() => { modalHandler(0); })
         } catch (error) {
             console.log(error)
         }
@@ -85,7 +85,7 @@ const CartOptionModal = (props: IOptionPropsType) => {
         <S.Contain>
             <S.HeaderBox>
                 <S.HeaderOptionText>옵션변경</S.HeaderOptionText>
-                <S.HeaderCloseText onClick={modalHandler}>x</S.HeaderCloseText>
+                <S.HeaderCloseText onClick={() => { modalHandler(0); }}>x</S.HeaderCloseText>
             </S.HeaderBox>
             <S.ModalContentContain>
                 <S.ModalContentBox>

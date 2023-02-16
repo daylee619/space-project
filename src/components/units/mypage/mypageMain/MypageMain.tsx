@@ -92,7 +92,7 @@ const MypageMain = (props: IMypageMainPropsType) => {
                                 </S.Count>)
                         }
                         <S.Desh> / </S.Desh>
-                        <S.Desh> 00 </S.Desh>
+                        <S.Desh> 0 </S.Desh>
                     </S.Box>
                 </S.TextBox>
             </S.OrderStateBox>

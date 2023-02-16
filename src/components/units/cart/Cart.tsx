@@ -15,7 +15,7 @@ const Cart = () => {
     // checked state
     const [checkedState, setCheckedState] = useState<string[]>([])
     // modal state
-    const [optionModal, setOptionModal] = useState(false)
+    const [optionModal, setOptionModal] = useState<number>(0)
     // option color ID state
     const [colorIdState, setColorState] = useState<string>('')
     // delete message rendaring
@@ -72,8 +72,8 @@ const Cart = () => {
     }
 
     // Modal Otion Function
-    const modalHandler = () => {
-        setOptionModal(!optionModal)
+    const modalHandler = (optionId: number) => {
+        setOptionModal(optionId)
     }
 
     // Option & Color ID Choose 
@@ -253,7 +253,12 @@ const Cart = () => {
                             />
                             <S.CartItemConfirmBox>
                                 <div>
-                                    <S.ItemButton onClick={SelectCheckDeleteClick}>선택상품 삭제</S.ItemButton>
+                                    <S.ItemButton
+                                        onClick={SelectCheckDeleteClick}
+                                        disabled={!checkedState.length}
+                                    >
+                                        선택상품 삭제
+                                    </S.ItemButton>
                                 </div>
                                 <div>
                                     <S.CartAllDelete onClick={AllItemDeleteClick}>장바구니비우기</S.CartAllDelete>
@@ -297,7 +302,11 @@ const Cart = () => {
                     >
                         선택상품주문
                     </S.ChoiseConfirm>
-                    <S.KeepGoingConfirm>쇼핑계속하기</S.KeepGoingConfirm>
+                    <S.KeepGoingConfirm
+                        onClick={async () => await router.push('/')}
+                    >
+                        쇼핑계속하기
+                    </S.KeepGoingConfirm>
                     <S.AllChoiseConfirm
                         onClick={allCartItemOrderHandler}
                     >

@@ -107,6 +107,8 @@ export const RecommendItem = styled.div`
 `
 export const RecommendItemImgBox = styled.div`
   position: relative;
+  border: 1px solid #e8e8ea;
+  border-bottom: none;
 `
 export const RecommendItemImg = styled.img`
   width: 230px;
@@ -155,6 +157,8 @@ export const ReviewContent = styled.div`
   color: #757577;
   font-size: 13px;
   line-height: 18px;
+  width: 150px;
+  height: 50px;
 `
 export const ReviewCount = styled.div`
   font-size: 13px;

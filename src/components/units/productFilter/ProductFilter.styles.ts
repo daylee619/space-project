@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 
 export const FilterWrapper = styled.div`
   padding: 62px;
+  margin-top: 50px;
 `
 export const Filter = styled.div`
   font-size: 20px;

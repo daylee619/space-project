@@ -7,6 +7,10 @@ export const Contain = styled.div`
   right: 50%;
   background-color: rgb(245, 245, 245);
   border: 1px solid darkgray;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `
 
 export const Header = styled.div`

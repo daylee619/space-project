@@ -107,6 +107,7 @@ const Img = styled.img`
   width: ${(props: ICssProps) => (props.imgWidth ? props.imgWidth : "400px")};
   height: ${(props: ICssProps) =>
     props.imgHeight ? props.imgHeight : "700px"};
+    object-fit: cover;
 `
 
 const Div = styled.div`

@@ -20,6 +20,11 @@ export const ModalTopTitle = styled.div`
   line-height: 1.5;
   font-weight: 400;
 `
+
+export const LogoImg = styled.img`
+  width: 150px;
+`
+
 export const ModalMiddle = styled.div`
   padding: 40px 35px;
   text-align: center;

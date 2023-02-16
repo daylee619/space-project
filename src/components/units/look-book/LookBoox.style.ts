@@ -27,7 +27,7 @@ export const ListBox = styled.div`
 
 export const ListItemBox = styled.div`
   position: relative;
-  width: 30%;
+  width: 35%;
   display: flex;
   justify-content: center;
 `
@@ -64,7 +64,7 @@ export const ListItemTitle = styled.div`
 `
 
 export const ListItemSubTitle = styled.div`
-  font-size: 30px;
+  font-size: 20px;
   color: white;
   font-weight: 700;
   margin-bottom: 15px;

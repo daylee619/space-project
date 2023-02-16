@@ -5,12 +5,6 @@ import * as S from './OrderPost.style'
 const OrderPost = (props: IOrderPostPropsType) => {
     return (
         <S.Contain>
-            {/* <S.RadioBox>
-                <S.RadioInput type='radio' name='select' id='default' checked />
-                <S.RadioLabel htmlFor='default'>주문자 정보와 동일</S.RadioLabel>
-                <S.RadioInput type='radio' name='select' id='new' />
-                <S.RadioLabel htmlFor='new'>새로운 배송지</S.RadioLabel>
-            </S.RadioBox> */}
             <div>
                 <Address
                     orderData={props.orderData}
@@ -30,9 +24,6 @@ const OrderPost = (props: IOrderPostPropsType) => {
                         <option value='택배함에 보관해 주세요'>택배함에 보관해 주세요.</option>
                         <option value='직접입력'>직접입력</option>
                     </S.PostMessageSelect>
-                    {/* {props.orderPostData.message_state === '직접입력' &&
-                        <S.SelfInput type='text' name='post_message' onChange={props.changeHandler} />
-                    } */}
                 </S.SelectContain>
             </div>
         </S.Contain>
