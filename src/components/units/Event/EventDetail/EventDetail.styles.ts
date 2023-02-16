@@ -13,7 +13,7 @@ export default function EventDetail() {
   }, [])
 
   return (
-    <div style={{ marginTop: "100px", marginBottom: '100px' }}>
+    <div style={{ marginTop: "100px", marginBottom: "100px" }}>
       <EventTitleWrapper>
         <EventMenuTitle>EVENT</EventMenuTitle>
       </EventTitleWrapper>

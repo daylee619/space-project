@@ -4,46 +4,45 @@ import axios from "axios"
 import { HeartOutlined, HeartFilled } from "@ant-design/icons"
 import React, { useEffect, useState } from "react"
 import ProductItem from "../../../common/libraries/productItem/ProductItem"
-import styled from "@emotion/styled"
+import * as S from "./ProductList.styles"
 import { Pagination } from "antd"
 import { useRouter } from "next/router"
-import { API_IP } from '../../../common/utils/ApiIp'
+import { API_IP } from "../../../common/utils/ApiIp"
 
 export default function ProductList() {
   const [data, setData] = useState([])
   // console.log('data : ', data)
   const [pagination, setPagination] = useState(1)
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState("")
   const [CountList, setCountList] = useState()
 
   // title State
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState("")
 
   const router = useRouter()
   console.log(router.query.url_query)
   const URL = router.query.url_query
-  const URL_HANDLER = URL?.split('&') ?? []
-  const MAIN_CATEGORY = URL_HANDLER[0]?.split('=') ?? ''
-  const COLOR = URL_HANDLER[1]?.split('=') ?? ''
-  const ITEM = URL_HANDLER[2]?.split('=') ?? ''
-  const SORT = URL_HANDLER[3]?.split('=') ?? ''
-  const SUB = URL_HANDLER[4]?.split('=') ?? ''
-  const SEARCH = URL_HANDLER[5]?.split('=') ?? ''
-
+  const URL_HANDLER = URL?.split("&") ?? []
+  const MAIN_CATEGORY = URL_HANDLER[0]?.split("=") ?? ""
+  const COLOR = URL_HANDLER[1]?.split("=") ?? ""
+  const ITEM = URL_HANDLER[2]?.split("=") ?? ""
+  const SORT = URL_HANDLER[3]?.split("=") ?? ""
+  const SUB = URL_HANDLER[4]?.split("=") ?? ""
+  const SEARCH = URL_HANDLER[5]?.split("=") ?? ""
 
   // title handler function
   const titleHandler = () => {
-    if (MAIN_CATEGORY[1] === '1') {
-      setTitle('ALL')
+    if (MAIN_CATEGORY[1] === "1") {
+      setTitle("ALL")
     }
-    if (MAIN_CATEGORY[1] === '2') {
-      setTitle('WOMEN')
+    if (MAIN_CATEGORY[1] === "2") {
+      setTitle("WOMEN")
     }
-    if (MAIN_CATEGORY[1] === '3') {
-      setTitle('MEN')
+    if (MAIN_CATEGORY[1] === "3") {
+      setTitle("MEN")
     }
-    if (MAIN_CATEGORY[1] === '4') {
-      setTitle('KIDS')
+    if (MAIN_CATEGORY[1] === "4") {
+      setTitle("KIDS")
     }
   }
 
@@ -51,22 +50,30 @@ export default function ProductList() {
 
   useEffect(() => {
     axios
-      .get(`http://${API_IP}:3000/product/list?offset=${pagination}&mainCategory=${MAIN_CATEGORY[1] ? MAIN_CATEGORY[1] : ''}&color=${COLOR[1] ? COLOR[1] : ''}&item=${ITEM[1] ? ITEM[1] : ''}&sort=${SORT[1] ? SORT[1] : null}&subCategory=${SUB[1] ? SUB[1] : ''}&name=${SEARCH[1] ? SEARCH[1] : ''}`, {
-        headers: {
-          'authorization': localStorage.getItem('access_token')
+      .get(
+        `http://${API_IP}:3000/product/list?offset=${pagination}&mainCategory=${
+          MAIN_CATEGORY[1] ? MAIN_CATEGORY[1] : ""
+        }&color=${COLOR[1] ? COLOR[1] : ""}&item=${
+          ITEM[1] ? ITEM[1] : ""
+        }&sort=${SORT[1] ? SORT[1] : null}&subCategory=${
+          SUB[1] ? SUB[1] : ""
+        }&name=${SEARCH[1] ? SEARCH[1] : ""}`,
+        {
+          headers: {
+            authorization: localStorage.getItem("access_token"),
+          },
         }
-      })
+      )
       .then((res) => {
-        console.log('response : ', res)
+        console.log("response : ", res)
         setData(res.data.result)
         setCountList(res.data.productsCountList)
       })
-      .catch((error) =>
+      .catch((error) => {
         console.log(error)
-      )
+      })
     titleHandler()
   }, [URL, pagination, message])
-
 
   // useEffect(() => {
   //   axios.get("/data/prolist.json").then((res) => {
@@ -94,7 +101,6 @@ export default function ProductList() {
   //     console.log(error)
   //   }
 
-
   // const [countIndex, setCountIndex] = useState()
   // const handleOnClick = (e, idx) => {
   //   setCountIndex(idx)
@@ -106,16 +112,21 @@ export default function ProductList() {
   const wishHandler = async (id, productId) => {
     try {
       if (!wish.includes(productId)) {
-        setMessage('')
+        setMessage("")
         setWish(wish.concat(productId))
-        await axios.post(`http://${API_IP}:3000/like`, {
-          productId: id,
-        }, {
-          headers: {
-            "authorization": `${localStorage.getItem('access_token')}`
-          }
-        })
-          .then(res => {
+        await axios
+          .post(
+            `http://${API_IP}:3000/like`,
+            {
+              productId: id,
+            },
+            {
+              headers: {
+                authorization: `${localStorage.getItem("access_token")}`,
+              },
+            }
+          )
+          .then((res) => {
             const { data } = res
             if (data) {
               setMessage(data)
@@ -123,16 +134,21 @@ export default function ProductList() {
           })
       }
       if (wish.includes(productId)) {
-        setMessage('')
+        setMessage("")
         setWish(wish.filter((el) => productId !== el))
-        await axios.post(`http://${API_IP}:3000/like`, {
-          productId: id,
-        }, {
-          headers: {
-            "authorization": `${localStorage.getItem('access_token')}`
-          }
-        })
-          .then(res => {
+        await axios
+          .post(
+            `http://${API_IP}:3000/like`,
+            {
+              productId: id,
+            },
+            {
+              headers: {
+                authorization: `${localStorage.getItem("access_token")}`,
+              },
+            }
+          )
+          .then((res) => {
             const { data } = res
             if (data.message) {
               console.log(data.message)
@@ -231,49 +247,105 @@ export default function ProductList() {
   // }
 
   return (
-    <ProductListWrapper>
-      <ProductListBox>
-        <MenuTitle>{title}</MenuTitle>
-        <Category>
-          <MenuCategoryBox>
-            <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`new`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
+    <S.ProductListWrapper>
+      <S.ProductListBox>
+        <S.MenuTitle>{title}</S.MenuTitle>
+        <S.Category>
+          <S.MenuCategoryBox>
+            <S.MenuCategoryList
+              onClick={async () =>
+                await router.push(
+                  `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${
+                    COLOR[1]
+                  }&item=${ITEM[1]}&sort=${`new`}&subCategory=${SUB[1]}&name=${
+                    SEARCH[1]
+                  }`
+                )
+              }
             >
               신상품
-            </MenuCategoryList>
-            <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`name`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
+            </S.MenuCategoryList>
+            <S.MenuCategoryList
+              onClick={async () =>
+                await router.push(
+                  `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${
+                    COLOR[1]
+                  }&item=${ITEM[1]}&sort=${`name`}&subCategory=${SUB[1]}&name=${
+                    SEARCH[1]
+                  }`
+                )
+              }
             >
               상품명
-            </MenuCategoryList>
-            <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`low`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
+            </S.MenuCategoryList>
+            <S.MenuCategoryList
+              onClick={async () =>
+                await router.push(
+                  `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${
+                    COLOR[1]
+                  }&item=${ITEM[1]}&sort=${`low`}&subCategory=${SUB[1]}&name=${
+                    SEARCH[1]
+                  }`
+                )
+              }
             >
               낮은가격
-            </MenuCategoryList>
-            <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`high`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
+            </S.MenuCategoryList>
+            <S.MenuCategoryList
+              onClick={async () =>
+                await router.push(
+                  `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${
+                    COLOR[1]
+                  }&item=${ITEM[1]}&sort=${`high`}&subCategory=${SUB[1]}&name=${
+                    SEARCH[1]
+                  }`
+                )
+              }
             >
               높은가격
-            </MenuCategoryList>
-            <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`best`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
+            </S.MenuCategoryList>
+            <S.MenuCategoryList
+              onClick={async () =>
+                await router.push(
+                  `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${
+                    COLOR[1]
+                  }&item=${ITEM[1]}&sort=${`best`}&subCategory=${SUB[1]}&name=${
+                    SEARCH[1]
+                  }`
+                )
+              }
             >
               인기상품
-            </MenuCategoryList>
-            <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`review`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
+            </S.MenuCategoryList>
+            <S.MenuCategoryList
+              onClick={async () =>
+                await router.push(
+                  `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${
+                    COLOR[1]
+                  }&item=${ITEM[1]}&sort=${`review`}&subCategory=${
+                    SUB[1]
+                  }&name=${SEARCH[1]}`
+                )
+              }
             >
               사용후기
-            </MenuCategoryList>
-            <MenuCategoryList
-              onClick={() => router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${ITEM[1]}&sort=${`like`}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)}
+            </S.MenuCategoryList>
+            <S.MenuCategoryList
+              onClick={async () =>
+                await router.push(
+                  `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${
+                    COLOR[1]
+                  }&item=${ITEM[1]}&sort=${`like`}&subCategory=${SUB[1]}&name=${
+                    SEARCH[1]
+                  }`
+                )
+              }
             >
               좋아요
-            </MenuCategoryList>
-          </MenuCategoryBox>
-          <ItemNumber>{data.length} Items</ItemNumber>
-        </Category>
+            </S.MenuCategoryList>
+          </S.MenuCategoryBox>
+          <S.ItemNumber>{data.length} Items</S.ItemNumber>
+        </S.Category>
         <div
           style={{
             display: "flex",
@@ -296,38 +368,42 @@ export default function ProductList() {
                 data={optionTotal}
                 productId={el.id}
               />
-              <ItemDescription>
-                <ItemTitle>
-                  <ItemName>{el.name}</ItemName>
-                  <HeartButton onClick={() => wishHandler(el.id, el.productId)}>
+              <S.ItemDescription>
+                <S.ItemTitle>
+                  <S.ItemName>{el.name}</S.ItemName>
+                  <S.HeartButton
+                    onClick={async () => {
+                      await wishHandler(el.id, el.productId)
+                    }}
+                  >
                     {el.likeId?.length > 0 ? (
                       <HeartFilled style={{ color: "red" }} />
                     ) : (
                       <HeartOutlined />
                     )}
-                  </HeartButton>
-                </ItemTitle>
+                  </S.HeartButton>
+                </S.ItemTitle>
 
-                <ItemPrice>{el.price}</ItemPrice>
-                <ColorDisplay>
+                <S.ItemPrice>{el.price}</S.ItemPrice>
+                <S.ColorDisplay>
                   {el.color?.map((el) => (
                     <Color
                       color={el.colorName}
                       key={el.id}
                     ></Color>
                   ))}
-                </ColorDisplay>
+                </S.ColorDisplay>
 
-                <Review key={el.id}>
+                <S.Review key={el.id}>
                   {el.reviewCount === null
                     ? "리뷰 0건"
                     : `리뷰 ${el.reviewCount}건`}
-                </Review>
-              </ItemDescription>
+                </S.Review>
+              </S.ItemDescription>
             </div>
           ))}
         </div>
-      </ProductListBox>
+      </S.ProductListBox>
 
       <Pagination
         defaultCurrent={1}
@@ -338,99 +414,10 @@ export default function ProductList() {
           justifyContent: "center",
           width: "100%",
         }}
-        onChange={(num) => setPagination(num)}
+        onChange={(num) => {
+          setPagination(num)
+        }}
       />
-    </ProductListWrapper>
+    </S.ProductListWrapper>
   )
 }
-export const ProductListWrapper = styled.div`
-  float: right;
-  font-family: "Poppins", "Noto Sans KR", Verdana, Dotum, AppleGothic,
-    sans-serif;
-  width: 100%;
-  margin-top: 100px;
-`
-export const ProductListBox = styled.div`
-  float: right;
-`
-export const MenuTitle = styled.div`
-  margin: 15px;
-  text-align: left;
-  font-size: 20px;
-  font-weight: 500;
-  color: #1a1a1a;
-`
-
-export const Category = styled.div`
-  display: flex;
-  justify-content: space-around;
-  border: 1px solid #e5e5e5;
-  width: 878px;
-  margin-left: 10px;
-  margin-bottom: 35px;
-`
-
-export const MenuCategoryBox = styled.ul`
-  display: flex;
-  width: 76%;
-  float: left;
-  padding: 10px;
-`
-export const MenuCategoryList = styled.li`
-  font-size: 12px;
-  font-weight: 400;
-  color: #707070;
-  margin-right: 20px;
-  cursor: pointer;
-`
-
-export const ItemNumber = styled.div`
-  /* width: 50%; */
-  font-size: 12px;
-  color: #707070;
-  border-left: 1px solid #e5e5e5;
-
-  margin-left: 35px;
-  padding: 10px;
-`
-
-export const Review = styled.div`
-  font-size: 10px;
-  color: #9a9a9a;
-  margin-top: 10px;
-`
-export const ItemDescription = styled.div`
-  padding: 20px 0;
-`
-export const ItemTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-export const ItemName = styled.div`
-  font-size: 12px;
-  color: #1a1a1a;
-  font-family: "Poppins", "Noto Sans KR", Verdana, Dotum, AppleGothic,
-    sans-serif;
-  cursor: pointer;
-`
-
-export const ItemPrice = styled.div`
-  font-size: 15px;
-  font-weight: 500;
-`
-export const ColorDisplay = styled.div`
-  display: flex;
-`
-export const Color = styled.div`
-  width: 10px;
-  height: 10px;
-  background-color: ${(props) => props.color};
-  margin: 12px 0 0;
-  margin-right: 3px;
-`
-
-export const HeartButton = styled.button`
-  border: none;
-  background-color: white;
-  cursor: pointer;
-`
