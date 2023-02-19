@@ -60,8 +60,15 @@ const CartOptionModal = (props: IOptionPropsType) => {
     const itemAddHandler = async () => {
         try {
             setOptionChangeMessage('')
+            const cartItem = []
+            cartItem.push(
+                {
+                    optionId: selectedState,
+                    quantity: 1
+                }
+            )
             await axios.post(`http://${API_IP}:3000/cart`, {
-                cartItem: selectedState
+                cartItem
             },
                 {
                     headers: {
@@ -73,6 +80,7 @@ const CartOptionModal = (props: IOptionPropsType) => {
                     const { data } = res
                     if (data) {
                         setOptionChangeMessage(data.message)
+                        modalHandler(0)
                     }
                 })
         } catch (error) {

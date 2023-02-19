@@ -128,6 +128,7 @@ export interface IOptionPropsType {
   idProps: number
   productId: number
   setOptionChangeMessage: Dispatch<SetStateAction<string>>
+  likeId: number
 }
 
 export interface IMypageUserModifyDefaultDataType {

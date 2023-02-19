@@ -44,7 +44,14 @@ const LaunchingCalenderList = () => {
                     lanchingCalenderData.map(el =>
                         <S.ItemBox
                             key={el.id}
-                            onClick={async () => await router.push(`/launchingCalendar/detail/${el.id}`)}
+                            onClick={async () => {
+                                localStorage.getItem('access_token')
+                                    ?
+                                    await router.push(`/launchingCalendar/detail/${el.id}`)
+                                    :
+                                    await router.push(`/sign-in`)
+                            }
+                            }
                         >
                             <S.CalenderImg src={el.thumbnail} alt={el.title} />
                             <S.Date>{el.created_at}</S.Date>

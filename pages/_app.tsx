@@ -7,9 +7,8 @@ import Footer from '../src/components/units/footer/Footer'
 
 export default function App({ Component, pageProps }: AppProps) {
 
-  setTimeout(function () {
-    console.log('Works!');
-  }, 30000);
+  const CLIENTID: string = process.env.REACT_APP_GOOGLE_CLIENT_ID ?? ''
+
 
 
   return (
@@ -17,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <>
         <Navigation
         />
-        <GoogleOAuthProvider clientId="565812112333-s6o4gfpnrig2i55gukb4098i35fqmke6.apps.googleusercontent.com" >
+        <GoogleOAuthProvider clientId={CLIENTID} >
           <Component {...pageProps} />
         </GoogleOAuthProvider>
         <Footer />

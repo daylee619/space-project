@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import { Fragment, useState } from 'react'
 import { IPlusOptionModalPropsType } from '../../../../components/units/mypage/Mypage.type'
 import { API_IP } from '../../ApiIp'
@@ -25,7 +26,8 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
     }
 
     const [itemCreate, setItemCreate] = useState<IItemCreateType[]>([])
-    console.log(itemCreate)
+
+    const router = useRouter()
 
     const [sumCount, setSumCount] = useState(0)
 
@@ -135,27 +137,14 @@ const PlusOptionModal = (props: IPlusOptionModalPropsType) => {
     }
 
     // wishList Item in order function
-    const wishItemInOrderHandler = async () => {
-        try {
-            const orderItem = []
-            for (let i = 0; i < itemCreate.length; i++) {
-                orderItem.push(
-                    {
-                        optionId: itemCreate[i].optionId,
-                        quantity: itemCreate[i].count
-                    }
-                )
-            }
-            await axios.post(`http://${API_IP}:3000/order`, {
-                orderItem
-            }, {
-                headers: {
-                    'authorization': localStorage.getItem('access_token')
-                }
-            })
-        } catch (error) {
-            console.log(error)
+    const wishItemInOrderHandler = () => {
+        const optionId = []
+        const quantity = []
+        for (let i = 0; i < itemCreate.length; i++) {
+            optionId.push(itemCreate[i].optionId)
+            quantity.push(itemCreate[i].count)
         }
+        router.push(`/order/optionId=${optionId}&quantity=${quantity}&cartItem=`)
     }
 
     return (

@@ -180,12 +180,26 @@ const Navigation = () => {
                         </S.SearchOutLinedBox>
                         <S.HeartOutLinedBox>
                             <S.HeartOutLined
-                                onClick={async () => await router.push('/mypage/wish-list')}
+                                onClick={async () => {
+                                    localStorage.getItem('access_token')
+                                        ?
+                                        await router.push('/mypage/wish-list')
+                                        :
+                                        await router.push('/sign-in')
+                                }
+                                }
                             />
                         </S.HeartOutLinedBox>
                         <S.ShoppingCartOutLinedBox>
                             <S.ShoppingCartOutLined
-                                onClick={async () => await router.push('/cart')}
+                                onClick={async () => {
+                                    localStorage.getItem('access_token')
+                                        ?
+                                        await router.push('/cart')
+                                        :
+                                        await router.push('/sign-in')
+                                }
+                                }
                             />
                         </S.ShoppingCartOutLinedBox>
                     </S.UserSignIconContain>
