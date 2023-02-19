@@ -18,13 +18,6 @@ export default function ReviewStarDropdown(props) {
 
   console.log(starCheck)
 
-  const b = props.data.scoreCount?.map((el) => el.star)
-  // console.log(b)
-
-  const onClickStar = (e) => {
-    starCheck.includes(e.target.value)
-  }
-
   const initFilter = () => {
     setStarCheck([])
   }

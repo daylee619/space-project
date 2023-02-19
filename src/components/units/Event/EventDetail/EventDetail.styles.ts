@@ -62,6 +62,11 @@ export const MenuList = styled.ul`
   text-align: center;
   cursor: pointer;
 `
+export const EventDetailImg = styled.div`
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+`
 export const Menu = styled.li`
   display: inline-block;
   width: auto;

@@ -6,11 +6,11 @@ import * as S from "./MainLookBookCarousel.styles"
 import ModalPortal from "../../../../Portal"
 
 import LookBookModal from "../../../../../lookbookmodal"
-
+import { IMainLookBook } from "./MainLookBookCarousel.types"
 // main page에 바로 보이는 lookbook carousel
 
 export default function FocusOnSelect() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IMainLookBook[]>([])
 
   // useEffect(() => {
   //   axios.get("/data/mainLookbook.json").then((res) => {
@@ -31,11 +31,8 @@ export default function FocusOnSelect() {
     slidesToScroll: 1,
     speed: 300,
   }
-  // const onClickLookBook = () => {
-  //   setIsOpen(true)
-  // }
 
-  const [modalOn, setModalOn] = useState(false)
+  // const [modalOn, setModalOn] = useState(false)
 
   const handleModal = () => {
     setModalOn(!modalOn)

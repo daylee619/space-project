@@ -9,8 +9,8 @@ export default function ReorderModal() {
           </button>
         </div>
         <div>
-          1. '구매하기' 버튼 클릭 2. 재입고 알림을 원하는 컬러/사이즈 선택 3.
-          하단의 '재입고 알림 요청' 버튼 클릭
+          1. &apos;구매하기&apos; 버튼 클릭 2. 재입고 알림을 원하는 컬러/사이즈
+          선택 3. 하단의 &apos;재입고 알림 요청&apos; 버튼 클릭
         </div>
       </div>
     </>

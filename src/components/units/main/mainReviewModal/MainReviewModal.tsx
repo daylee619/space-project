@@ -11,8 +11,8 @@ import {
 } from "@ant-design/icons"
 import { Rate } from "antd"
 import moment from "moment"
-import styled from "@emotion/styled"
-import { API_IP } from '../../../../common/utils/ApiIp'
+import * as S from "./MainReviewModal.styles"
+import { API_IP } from "../../../../common/utils/ApiIp"
 
 export default function MainReviewModal(props) {
   const [data, setData] = useState([])
@@ -46,34 +46,12 @@ export default function MainReviewModal(props) {
     dotsClass: "slick-dots slick-thumb",
     infinite: true,
     speed: 500,
-    // slidesToShow: 1,
-    // slidesToScroll: 1,
   }
   return (
-    <div
-      style={{
-        width: "100%",
-        position: "relative",
-        // top: "-120px",
-        // left: "-500px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          // backgroundColor: "rgba(20,22,26,0.8)",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            padding: "0 50px",
-          }}
-        >
-          <div style={{ width: "96px" }}>
+    <S.MainReviewModalWrapper>
+      <S.ReviewLeftModal>
+        <S.LeftWrapper>
+          <S.LeftIcon>
             <LeftOutlined
               style={{
                 cursor: "pointer",
@@ -83,90 +61,44 @@ export default function MainReviewModal(props) {
                 color: "#bcc2cc",
               }}
             />
-          </div>
+          </S.LeftIcon>
           <ProductReview {...settings}>
             {data.productInfo?.map((el) => (
-              <div
-                key={el.id}
-                style={{ marginLeft: "20px" }}
-              >
-                <img
-                  src={el.thumbnail}
-                  style={{
-                    width: "474px",
-                    // position: "relative",
-                    // margin: "80px 80px",
-                  }}
-                />
-              </div>
+              <S.ReviewImgWrapper key={el.id}>
+                <S.ReviewImg src={el.thumbnail} />
+              </S.ReviewImgWrapper>
             ))}
           </ProductReview>
-          <div style={{ width: "96px" }}>
+          <S.RightIcon>
             <RightOutlined
               style={{
                 cursor: "pointer",
-                // marginRight: "30px",
                 position: "absolute",
                 top: "50%",
                 color: "#bcc2cc",
                 right: "500px",
               }}
             />
-          </div>
-        </div>
+          </S.RightIcon>
+        </S.LeftWrapper>
 
-        <div
-          style={{
-            // width: "164px",
-            // position: "relative",
-            top: "-510px",
-            left: "310px",
-            backgroundColor: "#ffffff",
-          }}
-        >
+        <S.ProductInfoWrapper>
           {data.productInfo?.map((el) => (
-            <div
-              key={el.id}
-              style={{
-                display: "flex",
-                padding: "16px 0 16px 24px",
-              }}
-            >
+            <S.ProductInfoBox key={el.id}>
               <div key={el.id}>
-                <img
-                  src={el.thumbnail}
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    borderRadius: "15px",
-                    border: "1px solid #d8dde5",
-                  }}
-                ></img>
+                <S.ReviewThumbnail src={el.thumbnail}></S.ReviewThumbnail>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: "10px",
-                }}
-              >
-                <div
-                  key={el.id}
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: "bold",
-                    width: "200px",
-                  }}
-                >
+              <S.ProductInfoTop>
+                <S.Name key={el.id}>
                   {el.name}
                   <CloseOutlined
                     style={{ marginLeft: "20px", cursor: "pointer" }}
                     onClick={props.onClose}
                   />
-                </div>
-                {/* <CloseOutlined /> */}
+                </S.Name>
+
                 <div key={el.id}>
-                  <div style={{ display: "flex" }}>
+                  <S.StarContainer>
                     <div>
                       <StarFilled
                         style={{
@@ -177,129 +109,69 @@ export default function MainReviewModal(props) {
                       />
                     </div>
 
-                    <div style={{ display: "flex", marginRight: "10px" }}>
-                      <div
-                        key={el.id}
-                        style={{ fontSize: "10px", marginTop: "10px" }}
-                      >
+                    <S.StarWrapper>
+                      <S.StarAverage key={el.id}>
                         {Number(el.starAverage)}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "10px",
-                          marginLeft: "20px",
-                          marginTop: "10px",
-                        }}
-                      >
-                        리뷰 {el.reviewCount}
-                      </div>
-                    </div>
-                  </div>
+                      </S.StarAverage>
+                      <S.ReviewCount>리뷰 {el.reviewCount}</S.ReviewCount>
+                    </S.StarWrapper>
+                  </S.StarContainer>
                 </div>
-              </div>
-            </div>
+              </S.ProductInfoTop>
+            </S.ProductInfoBox>
           ))}
-          <div
-            style={{
-              width: "274px",
-              padding: "22px 20px",
-              borderTop: "1px solid #ebeff5",
-              borderBottom: "1px solid #ebeff5",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                marginBottom: "20px",
-                width: "224px",
-              }}
-            >
-              <div style={{ display: "flex" }}>
+          <S.ReviewContainer>
+            <S.ReviewBox>
+              <S.StarBox>
                 <Rate
                   value={3}
                   style={{ fontSize: "8px", marginRight: "8px" }}
                 />
 
-                <span
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: "bold",
-                    marginRight: "8px",
-                  }}
-                >
-                  아주 좋아요
-                </span>
-              </div>
-              <div style={{ fontSize: "10px", marginLeft: "30px" }}>
-                {/* {data.detailReview?.created_at} */}
-                {createdDate}
-              </div>
-            </div>
-            <div style={{ border: "1px solid #ebeff5" }}>
-              <div
-                style={{
-                  fontSize: "10px",
-                  padding: "6px",
-                  width: "250px",
-                }}
-              >
-                <span style={{ fontWeight: "bold" }}>
-                  {data.detailReview?.nickname}
-                </span>
+                <S.Good>아주 좋아요</S.Good>
+              </S.StarBox>
+              <S.CreatedDate>{createdDate}</S.CreatedDate>
+            </S.ReviewBox>
+            <S.ReviewWrapper>
+              <S.NicknameBox>
+                <S.Nickname>{data.detailReview?.nickname}</S.Nickname>
                 님의 리뷰입니다.
-              </div>
-              <div
-                style={{
-                  width: "250px",
-                  fontSize: "10px",
-                  lineHeight: "1.43",
-                  padding: "20px",
-                }}
-              >
+              </S.NicknameBox>
+              <S.DetailReviewContent>
                 {data.detailReview?.content}
-              </div>
-            </div>
+              </S.DetailReviewContent>
+            </S.ReviewWrapper>
 
-            <div style={{ cursor: "pointer", display: "flex" }}>
-              <div
-                style={{ padding: "16px 0", fontSize: "10px" }}
-                onClick={() => setLike(like + 1)}
+            <S.HelpfulContainer>
+              <S.HelpWrapper
+                onClick={() => {
+                  setLike(like + 1)
+                }}
               >
                 <LikeOutlined />
-                <span style={{ margin: "0 4px" }}>도움돼요</span>
-                <span style={{ fontWeight: "bold" }}>
-                  {data.detailReview?.helpful}
-                </span>
+                <S.Helpful>도움돼요</S.Helpful>
+                <S.HelpfulCount>{data.detailReview?.helpful}</S.HelpfulCount>
                 <span style={{ marginRight: "4px" }}>{like}</span>
-              </div>
-              <div
-                style={{ padding: "16px 0", fontSize: "10px" }}
-                onClick={() => setUnLike(unLike - 1)}
-              >
-                <DislikeOutlined />
-                <span style={{ margin: "0 4px" }}>도움안돼요</span>
-                <span style={{ fontWeight: "bold" }}>
-                  {data.detailReview?.unhelpful - unLike}
-                </span>
-              </div>
-            </div>
-            <div style={{ padding: "24px 20px" }}>
-              <span
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                  height: "20px",
-                  margin: "2px 0",
-                  lineHeight: "1.5",
+              </S.HelpWrapper>
+              <S.UnHelpfulWrapper
+                onClick={() => {
+                  setUnLike(unLike - 1)
                 }}
               >
-                이 상품의 다른 리뷰
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                <DislikeOutlined />
+                <S.Unhelpful>도움안돼요</S.Unhelpful>
+                <S.UnhelpfulCount>
+                  {data.detailReview?.unhelpful - unLike}
+                </S.UnhelpfulCount>
+              </S.UnHelpfulWrapper>
+            </S.HelpfulContainer>
+            <S.DifferentReviewWrapper>
+              <S.DifferentReview>이 상품의 다른 리뷰</S.DifferentReview>
+            </S.DifferentReviewWrapper>
+          </S.ReviewContainer>
+        </S.ProductInfoWrapper>
+      </S.ReviewLeftModal>
+    </S.MainReviewModalWrapper>
   )
 }
 

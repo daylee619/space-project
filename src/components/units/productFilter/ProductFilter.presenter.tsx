@@ -1,10 +1,8 @@
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router"
 import * as S from "./ProductFilter.styles"
 import { IProductFilterProps } from "./ProductFilter.types"
 
 export default function ProductFilterUI(props: IProductFilterProps) {
-  const router = useRouter()
-
   return (
     <>
       <S.FilterWrapper>

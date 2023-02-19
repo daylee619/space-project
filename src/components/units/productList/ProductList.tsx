@@ -164,10 +164,10 @@ export default function ProductList() {
   // menu option function[]
 
   const optionBox = []
-  const size = []
+  const size: number[] = []
   const optionTotal = []
   const optionFn = data?.forEach((el) =>
-    el.color.map((item) => {
+    el.color.map((item: { colorId: any; colorName: any; size: any[] }) => {
       optionBox.push(`(${item.colorId})${item.colorName} / Size : `)
       item?.size?.forEach((element) => size.push(element.sizeName))
     })

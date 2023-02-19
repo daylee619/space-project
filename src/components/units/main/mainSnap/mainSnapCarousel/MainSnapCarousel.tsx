@@ -3,6 +3,7 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import Slider from "react-slick"
 import { API_IP } from "../../../../../common/utils/ApiIp"
+import { IMainSnap } from "./MainSnapCarousel.types"
 
 export default function PauseOnHover() {
   const settings = {
@@ -15,7 +16,7 @@ export default function PauseOnHover() {
     pauseOnHover: true,
   }
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IMainSnap[]>([])
   // useEffect(() => {
   //   axios.get("/data/mainSnap.json").then((res) => {
   //     setData(res.data)

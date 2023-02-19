@@ -1,4 +1,7 @@
 import styled from "@emotion/styled"
+export const EventPageWrapper = styled.div`
+  margin-top: 100px;
+`
 export const EventTitleWrapper = styled.div`
   min-height: 30px;
   margin: 25px 0 25px;
@@ -33,11 +36,23 @@ export const ListSubMenu = styled.div`
   margin-top: 25px;
   text-align: center;
 `
+export const EventImgWrapper = styled.div`
+  padding: 0 5%;
+`
+export const EventImgBox = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`
 export const EventItem = styled.div`
   margin: 20px 0.5% 60px 0.5%;
   text-align: center;
   float: left;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 
   img {
     &:hover {
@@ -45,4 +60,9 @@ export const EventItem = styled.div`
       transition: all 0.3s;
     }
   }
+`
+export const EventImg = styled.img`
+  width: 550px;
+  height: 300px;
+  margin: 0 10px;
 `

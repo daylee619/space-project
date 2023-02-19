@@ -4,9 +4,9 @@ import { useEffect, useState } from "react"
 import { API_IP } from "../../../../common/utils/ApiIp"
 // import ProductItem from "src/common/libraries/productItem/ProductItem.tsx"
 import MainTab from "../../mainTab/MainTab"
-
+import { IWeeklyBest } from "./MainWeeklyBest.types"
 export default function MainWeeklyBest() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IWeeklyBest[]>([])
   const [like, setLike] = useState([])
   useEffect(() => {
     axios.get(`http://${API_IP}:3000/product/best`).then((res) => {
@@ -14,7 +14,7 @@ export default function MainWeeklyBest() {
     })
   }, [])
 
-  const likeHartHandler = async (id, isLike) => {
+  const likeHartHandler = async (id: number) => {
     try {
       if (!like.includes(id)) {
         setLike(like.concat(id))
@@ -60,7 +60,7 @@ export default function MainWeeklyBest() {
   // }, [])
 
   const optionBox = []
-  const size = []
+  const size: number[] = []
   const optionTotal = []
   const optionFn = data.weeklyBest?.forEach((el) =>
     el.stockCheck?.map((item) => {

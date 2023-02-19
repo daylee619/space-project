@@ -1,14 +1,11 @@
 import * as S from "./MainTab.styles"
-import ProductItem from "src/common/libraries/productItem/ProductItem.tsx/"
+import ProductItem from "../../../common/libraries/ProductItem"
 
 export default function MainTab(props) {
-  // const onClickLike = (e, id) => {
-  //   // setLike(!like)
-  // }
   return (
     <>
       <S.WeeklyBestProduct>
-        {props.data.weeklyBest?.map((el, idx) => (
+        {props.data.weeklyBest?.map((el, idx: number) => (
           <S.WeeklyBestProductItem key={el.id}>
             <ProductItem
               imgWidth="250px"
@@ -44,7 +41,7 @@ export default function MainTab(props) {
 
               <S.ItemPrice key={el.id}>{el.price}</S.ItemPrice>
               <S.ColorBox>
-                {el.productColor?.map((item, index) => (
+                {el.productColor?.map((item, index: number) => (
                   <S.Color
                     key={index}
                     color={item}

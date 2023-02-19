@@ -13,7 +13,7 @@ export default function EventDetail() {
   }, [])
 
   return (
-    <div style={{ marginTop: "100px" }}>
+    <S.EventDetailContainer>
       <S.EventTitleWrapper>
         <S.EventMenuTitle>EVENT</S.EventMenuTitle>
       </S.EventTitleWrapper>
@@ -25,20 +25,17 @@ export default function EventDetail() {
       </div>
       <div>
         {data.map((el) => (
-          <div
+          <S.EventDetailImg
             key={el.id}
             style={{
               backgroundImage: `url(${el.thumbnail})`,
-              backgroundSize: "cover",
-              width: "100%",
-              height: "100vh",
             }}
           >
             <S.EventTitle>{el.title}</S.EventTitle>
             <S.EventContent>{el.content}</S.EventContent>
-          </div>
+          </S.EventDetailImg>
         ))}
       </div>
-    </div>
+    </S.EventDetailContainer>
   )
 }

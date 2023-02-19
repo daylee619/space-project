@@ -20,7 +20,7 @@ export default function MainLookBookDetail(props) {
   }, [])
 
   return (
-    <>
+    <div>
       <S.MainLookBookDetailWrapper>
         <MainLookBookDetailCarousel
           data={data}
@@ -29,22 +29,8 @@ export default function MainLookBookDetail(props) {
         {data.map((el) => (
           <S.DetailWrapper key={el.id}>
             <S.DetailContent>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div
-                  key={el.id}
-                  style={{
-                    fontSize: "15px",
-                    color: "#909090",
-                    width: "90%",
-                  }}
-                >
-                  {el.subTitle}
-                </div>
+              <S.ContentWrapper>
+                <S.SubTitle key={el.id}>{el.subTitle}</S.SubTitle>
                 <div>
                   <CloseOutlined
                     style={{
@@ -54,75 +40,28 @@ export default function MainLookBookDetail(props) {
                     onClick={props.onClose}
                   />
                 </div>
-              </div>
+              </S.ContentWrapper>
 
-              <div
-                key={el.id}
-                style={{
-                  fontSize: "30px",
-                  fontWeight: "500",
-                  margin: "15px 0 35px",
-                  width: "90%",
-                }}
-              >
-                {el.title}
-              </div>
-              <div
-                key={el.id}
-                style={{ fontSize: "15px", color: "#909090", width: "100%" }}
-              >
-                {el.content}
-              </div>
+              <S.Title key={el.id}>{el.title}</S.Title>
+              <S.Content key={el.id}>{el.content}</S.Content>
             </S.DetailContent>
             <div style={{ width: "100%" }}>
               <div>연관상품</div>
-              <div
-                style={{
-                  display: "flex",
-                  width: "550px",
-                  // flexWrap: "nowrap",
-                  whiteSpace: "nowrap",
-                  overflow: "auto",
-                  paddingTop: "20px",
-                  paddingBottom: "10px",
-                }}
-              >
+              <S.ProductInfoContainer>
                 {el.productInfo.map((el) => (
                   <div key={el.productId}>
-                    <img
-                      src={el.thumbnail}
-                      style={{
-                        width: "150px",
-                        height: "230px",
-                        marginRight: "20px",
-                      }}
-                    />
-                    <div style={{ marginTop: "10px" }}>
-                      <div
-                        style={{
-                          fontSize: "13px",
-                          whiteSpace: "nowrap",
-                          fontWeight: "400",
-                        }}
-                      >
-                        {el.productName}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "15px",
-                          fontWeight: "500x",
-                        }}
-                      >
-                        {el.price}
-                      </div>
-                    </div>
+                    <S.ProductImage src={el.thumbnail} />
+                    <S.DetailBox>
+                      <S.ProductName>{el.productName}</S.ProductName>
+                      <S.Price>{el.price}</S.Price>
+                    </S.DetailBox>
                   </div>
                 ))}
-              </div>
+              </S.ProductInfoContainer>
             </div>
           </S.DetailWrapper>
         ))}
       </S.MainLookBookDetailWrapper>
-    </>
+    </div>
   )
 }

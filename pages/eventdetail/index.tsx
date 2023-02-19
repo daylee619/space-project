@@ -1,4 +1,4 @@
-import EventDetail from "../../src/components/units/Event/EventDetail"
+import EventDetail from "../../src/components/units/Event/EventDetail/EventDetail"
 
 export default function EventDetailPage() {
   return (

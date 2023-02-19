@@ -1,6 +1,6 @@
 import * as S from "./ShippingModal.styles"
-
-export default function ShippingModal(props) {
+import { IShippingModalProps } from "./ShippingModal.types"
+export default function ShippingModal(props: IShippingModalProps) {
   return (
     <>
       <S.ShippingWrapper>
@@ -9,7 +9,7 @@ export default function ShippingModal(props) {
             <S.ShippingTitleTop>
               <div>배송안내</div>
               <S.CloseButton onClick={props.close}>
-                <CloseImg src=" https://spao.com/morenvyimg/top_search_close.png" />
+                <S.CloseImg src=" https://spao.com/morenvyimg/top_search_close.png" />
               </S.CloseButton>
             </S.ShippingTitleTop>
 
@@ -52,7 +52,7 @@ export default function ShippingModal(props) {
                 <br /> 6. 매장픽업상품은 부분 반품(취소)는 불가능하며, 전체
                 반품(취소) 후 재결제가 필요합니다.
                 <br /> 7. 배송상태가 “포장완료”일 경우 결제취소가 불가능합니다.
-                ("상품준비중"에서 전체취소가능)
+                (&quot;상품준비중&quot;에서 전체취소가능)
                 <br /> 8. 결제일 기준 +4일까지 픽업하지 않은 주문건은, +5일에
                 자동 반품 처리됩니다. (예 : 월요일 결제 후 픽업하지 않으면
                 토요일 자동 반품)

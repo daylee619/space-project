@@ -1,5 +1,5 @@
 import * as S from "./MainSnap.styles"
-import PauseOnHover from "./MainSnapCarousel/MainSnapCarousel"
+import PauseOnHover from "./mainSnapCarousel/MainSnapCarousel"
 
 export default function MainSnap() {
   return (

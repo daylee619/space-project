@@ -4,15 +4,10 @@ import { Rate } from "antd"
 import moment from "moment"
 import axios from "axios"
 import { API_IP } from "../../../../common/utils/ApiIp"
-export default function ProductDetailReviewBox(props) {
-  const userNickName = props.reviewData?.map((el) => el.nickname)
-  // console.log(userNickName)
-  const content = props.reviewData?.map((el) => el.content)
-  // console.log(content)
-  const ReviewDateCreated = props.reviewData?.map((el) =>
-    moment(el.created_at).format("YYYY.MM.DD")
-  )
-
+import { IProductDetailReviewBoxProps } from "./ProductDetailReviewBox.types"
+export default function ProductDetailReviewBox(
+  props: IProductDetailReviewBoxProps
+) {
   const helpfulHandler = async (reviewId) => {
     try {
       await axios.post(

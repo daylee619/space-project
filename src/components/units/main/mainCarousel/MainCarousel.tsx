@@ -1,5 +1,5 @@
 import Carousel from "react-bootstrap/Carousel"
-
+import * as S from "./MainCarousel.styles"
 function CarouselFadeExample() {
   return (
     <Carousel
@@ -7,19 +7,11 @@ function CarouselFadeExample() {
       style={{ margin: "0px 30px" }}
     >
       <Carousel.Item style={{ height: "500px" }}>
-        <img
+        <S.FirstImg
           className="d-block w-100"
           src="https://cdn.pixabay.com/photo/2022/12/17/06/33/new-years-day-7661095_1280.jpg
           "
           alt="First slide"
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            minHeight: "500px",
-            objectFit: "cover",
-            height: "200px",
-          }}
         />
         <Carousel.Caption>
           <div style={{ padding: "10px", display: "flex" }}>
@@ -30,16 +22,10 @@ function CarouselFadeExample() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item style={{ height: "500px" }}>
-        <img
+        <S.SecondImg
           className="d-block w-100"
           src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
           alt="Second slide"
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            minHeight: "500px",
-          }}
         />
 
         <Carousel.Caption>
@@ -59,17 +45,11 @@ function CarouselFadeExample() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item style={{ height: "500px" }}>
-        <img
+        <S.ThirdImg
           className="d-block w-100"
           src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80
           "
           alt="Third slide"
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            minHeight: "500px",
-          }}
         />
 
         <Carousel.Caption>
@@ -78,16 +58,10 @@ function CarouselFadeExample() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item style={{ height: "500px" }}>
-        <img
+        <S.ThirdImg
           className="d-block w-100"
           src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
           alt="Third slide"
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            minHeight: "500px",
-          }}
         />
 
         <Carousel.Caption>
@@ -98,17 +72,11 @@ function CarouselFadeExample() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item style={{ height: "500px" }}>
-        <img
+        <S.ThirdImg
           className="d-block w-100"
           src="https://images.unsplash.com/photo-1524601500432-1e1a4c71d692?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80
           "
           alt="Third slide"
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            minHeight: "500px",
-          }}
         />
 
         <Carousel.Caption>
@@ -125,17 +93,11 @@ function CarouselFadeExample() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item style={{ height: "500px" }}>
-        <img
+        <S.ThirdImg
           className="d-block w-100"
           src="https://cdn.pixabay.com/photo/2021/10/03/04/21/woman-6676901_1280.jpg
           "
           alt="Third slide"
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            minHeight: "500px",
-          }}
         />
 
         <Carousel.Caption>
@@ -151,17 +113,11 @@ function CarouselFadeExample() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item style={{ height: "500px" }}>
-        <img
+        <S.ThirdImg
           className="d-block w-100"
           src="https://cdn.pixabay.com/photo/2017/11/23/03/17/christmas-2971961_1280.jpg
           "
           alt="Third slide"
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            minHeight: "500px",
-          }}
         />
 
         <Carousel.Caption>

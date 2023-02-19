@@ -1,8 +1,8 @@
 import { CloseOutlined } from "@ant-design/icons"
 import * as S from "./WishModal.styles"
 import { useRouter } from "next/router"
-
-export default function WishModal(props) {
+import { IWishModalProps } from "./WishModal.types"
+export default function WishModal(props: IWishModalProps) {
   const router = useRouter()
 
   return (
