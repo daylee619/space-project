@@ -37,7 +37,13 @@ const LaunchingCalenderDetail = () => {
     const CountUp = async () => {
         try {
             setMessage('')
-            await axios.post(`http://${API_IP}:3000/like/calendar/${calendarId}`)
+            await axios.post(`http://${API_IP}:3000/like/calendar/${calendarId}`, {
+
+            }, {
+                headers: {
+                    'authorization': localStorage.getItem('access_token')
+                }
+            })
                 .then(res => {
                     const { data } = res
                     setMessage(data.message)

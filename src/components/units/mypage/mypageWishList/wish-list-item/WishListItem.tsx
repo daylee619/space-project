@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import { Fragment, useState } from 'react';
 import { API_IP } from '../../../../../common/utils/ApiIp';
 import CartCompleteModal from '../../../../../common/utils/optionModal/wishListOptionModal/CartCompleteModal';
@@ -11,6 +12,7 @@ const WishListItem = (props: IWishListItemPropsType) => {
     const { wishListData, selectStateHandler, selectState, setWishItemDeleteMessage, setOptionChangeMessage, setAlreadyOptionMessage, alreadyOptionMessage } = props
     const [optionModal, setOptionModal] = useState<number[]>([])
 
+    const router = useRouter()
 
     const modalHandler = (id: number) => {
         if (!optionModal.includes(id)) {
@@ -87,7 +89,11 @@ const WishListItem = (props: IWishListItemPropsType) => {
 
     // already option in wishItem -> In Order
     const alreadyOptionWishItemInOrder = (optionId: number) => {
-
+        if (optionId !== null) {
+            const optionIdurl = [optionId]
+            const quantityurl = [1]
+            router.push(`/order/optionId=${optionIdurl}&quantity=${quantityurl}&cartItem=`)
+        }
     }
 
     return (
@@ -131,6 +137,7 @@ const WishListItem = (props: IWishListItemPropsType) => {
                                         idProps={el.id}
                                         productId={el.productId}
                                         setOptionChangeMessage={setOptionChangeMessage}
+                                        likeId={el.id}
                                     />
                                 }
                             </S.ItemInformationBox>

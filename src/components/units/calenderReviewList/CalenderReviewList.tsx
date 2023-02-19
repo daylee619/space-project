@@ -44,7 +44,7 @@ const CalenderReviewList = (props: ICalendarReviewListPropsType) => {
 
     useEffect(() => {
         commentDataHandler()
-    }, [message])
+    }, [message, router])
 
 
     return (

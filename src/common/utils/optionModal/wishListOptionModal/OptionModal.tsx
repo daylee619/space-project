@@ -6,7 +6,7 @@ import * as S from './OptionModal.style'
 
 
 const WishListOptionModal = (props: IOptionPropsType) => {
-    const { modalHandler, colorProps, selectStateHandler, selectState, nameProps, idProps, productId, setOptionChangeMessage } = props
+    const { modalHandler, colorProps, selectStateHandler, selectState, nameProps, idProps, productId, setOptionChangeMessage, likeId } = props
     const [optionId, setOptionId] = useState<number>()
 
     // wishList Item Option Change
@@ -15,7 +15,8 @@ const WishListOptionModal = (props: IOptionPropsType) => {
             setOptionChangeMessage('')
             await axios.patch(`http://${API_IP}:3000/like`, {
                 productId,
-                optionId
+                optionId,
+                likeId
             }, {
                 headers: {
                     "authorization": localStorage.getItem('access_token')
