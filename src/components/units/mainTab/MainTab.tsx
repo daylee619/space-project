@@ -1,11 +1,11 @@
 import * as S from "./MainTab.styles"
 import ProductItem from "../../../common/libraries/ProductItem"
-
-export default function MainTab(props) {
+import { IMainTabProps } from "./MainTab.types"
+export default function MainTab(props: IMainTabProps) {
   return (
     <>
       <S.WeeklyBestProduct>
-        {props.data.weeklyBest?.map((el, idx: number) => (
+        {props.data?.weeklyBest?.map((el, idx: number) => (
           <S.WeeklyBestProductItem key={el.id}>
             <ProductItem
               imgWidth="250px"
@@ -24,11 +24,7 @@ export default function MainTab(props) {
             <S.ItemDescription>
               <S.DescriptionTop>
                 <S.ItemName>{el.name}</S.ItemName>
-                <S.LikeBtn
-                  // value={el.id}
-                  onClick={() => props.likeHartHandler(el.id, el.isLike)}
-                  // onClick={props.b}
-                >
+                <S.LikeBtn onClick={() => props.likeHartHandler(el.id)}>
                   <img
                     src={
                       props.like.includes(el.id) || el.isLike !== null

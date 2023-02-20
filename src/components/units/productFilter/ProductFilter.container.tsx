@@ -2,7 +2,7 @@ import ProductFilterUI from "./ProductFilter.presenter"
 import { ChangeEvent, useState, useEffect } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
-import { API_IP } from '../../../common/utils/ApiIp'
+import { API_IP } from "../../../common/utils/ApiIp"
 
 // 리팩토링 다시
 
@@ -11,7 +11,7 @@ export default function ProductFilter() {
 
   const [data, setData] = useState<number[] | string[]>([])
   const [colorView, setColorView] = useState<boolean>(true)
-  const [itemView, setItemView] = useState<boolean>(true)
+  const [itemView] = useState<boolean>(true)
   const [searchView, setSearchView] = useState<boolean>(true)
   const [genderView, setgenderView] = useState<boolean>(true)
 
@@ -58,29 +58,32 @@ export default function ProductFilter() {
     setSearchView((prev) => !prev)
   }
 
-
   const URL = router.query.url_query?.toString()
-  const URL_HANDLER = URL?.split('&') ?? []
-  const MAIN_CATEGORY = URL_HANDLER[0]?.split('=') ?? ''
-  const COLOR = URL_HANDLER[1]?.split('=') ?? ''
-  const ITEM = URL_HANDLER[2]?.split('=') ?? ''
-  const SORT = URL_HANDLER[3]?.split('=') ?? ''
-  const SUB = URL_HANDLER[4]?.split('=') ?? ''
-  const SEARCH = URL_HANDLER[5]?.split('=') ?? ''
+  const URL_HANDLER = URL?.split("&") ?? []
+  const MAIN_CATEGORY = URL_HANDLER[0]?.split("=") ?? ""
+  const COLOR = URL_HANDLER[1]?.split("=") ?? ""
+  const ITEM = URL_HANDLER[2]?.split("=") ?? ""
+  const SORT = URL_HANDLER[3]?.split("=") ?? ""
+  const SUB = URL_HANDLER[4]?.split("=") ?? ""
+  const SEARCH = URL_HANDLER[5]?.split("=") ?? ""
 
   // 색깔 버튼 선택
-  const colorSelecteHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const colorSelecteHandler = (e) => {
     if (!colorSelect.includes(e.target.value)) {
       const ddd = colorSelect.concat(e.target.value)
       setColorSelect(ddd)
-      router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${ddd}&item=${ITEM[1]}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)
+      router.push(
+        `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${ddd}&item=${ITEM[1]}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`
+      )
     }
 
     if (colorSelect.includes(e.target.value)) {
       const aaa = colorSelect
-      const bbb = aaa.filter(el => e.target.value !== el)
+      const bbb = aaa.filter((el) => e.target.value !== el)
       setColorSelect(bbb)
-      router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${bbb}&item=${ITEM[1]}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)
+      router.push(
+        `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${bbb}&item=${ITEM[1]}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`
+      )
     }
   }
   // 아이템 버튼 선택
@@ -88,12 +91,16 @@ export default function ProductFilter() {
     if (!itemSelect.includes(e.target.value)) {
       const eee = itemSelect.concat(e.target.value)
       setItemSelect(eee)
-      router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${eee}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)
+      router.push(
+        `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${eee}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`
+      )
     }
     if (itemSelect.includes(e.target.value)) {
-      const fff = itemSelect.filter(el => e.target.value !== el)
+      const fff = itemSelect.filter((el) => e.target.value !== el)
       setItemSelect(fff)
-      router.push(`/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${fff}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`)
+      router.push(
+        `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${fff}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`
+      )
     }
   }
 

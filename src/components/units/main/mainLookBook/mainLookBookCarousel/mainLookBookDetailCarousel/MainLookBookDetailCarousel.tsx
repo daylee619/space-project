@@ -20,11 +20,11 @@ export default function MainLookBookDetailCarousel(
             />
           </div>
           {el.images.map((image, idx: number) => (
-            <div key={image.idx}>
+            <div key={idx}>
               <img
                 src={image}
                 style={{ width: "100%", height: "600px" }}
-                key={image.idx}
+                key={idx}
               />
             </div>
           ))}

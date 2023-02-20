@@ -4,7 +4,7 @@ import React from "react"
 import styled from "@emotion/styled"
 import MainReviewModal from "./mainReviewModal/MainReviewModal"
 
-const ReviewModal = ({ onClose }) => {
+const ReviewModal = (onClose: any) => {
   return (
     <Background>
       <Content>

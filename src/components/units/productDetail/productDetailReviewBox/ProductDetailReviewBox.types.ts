@@ -1,6 +1,5 @@
 export interface IProductDetailReviewBoxProps {
   reviewData: IReviewDataType[]
-  data: IDataType[]
 }
 
 interface IReviewDataType {
@@ -13,17 +12,4 @@ interface IReviewDataType {
   nickname: string
   unhelpful: string
   helpful: string | null
-}
-
-interface IDataType {
-  scoreCount: IScoreCountType[]
-  scoreAvg: IScoreAvg[]
-}
-
-interface IScoreCountType {
-  count: string
-  star: number
-}
-interface IScoreAvg {
-  starAVG: string
 }

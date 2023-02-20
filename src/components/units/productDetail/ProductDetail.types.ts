@@ -7,6 +7,7 @@ export interface IProDetail {
   productImages: IProductImagesType[]
   options: IOptionsType[]
   description: string
+  productId: number
 }
 
 interface IProductImagesType {
@@ -23,4 +24,13 @@ interface ISizeOptions {
   size: string
   stock: number
   sizeId: number
+  optionId: number
+}
+export interface IItemObject {
+  size_id: number
+  size_name: string
+  color_id: number
+  color_name: string
+  count: number
+  optionId: number
 }

@@ -11,19 +11,17 @@ import ShareModal from "../Modal/sharemodal/ShareModal"
 import ShippingModal from "../Modal/shippingmodal/ShippingModal"
 import RefundModal from "../Modal/refundmodal/RefundModal"
 import WishModal from "../Modal/wishmodal/WishModal"
-import CartModal from "../Modal/CartModal/CartModal"
+import CartModal from "../Modal/cartmodal/CartModal"
 import { API_IP } from "../../../common/utils/ApiIp"
 import { useRouter } from "next/router"
-import { IProDetail } from "./ProductDetail.types"
+import { IProDetail, IItemObject } from "./ProductDetail.types"
 const ProductDetail = () => {
-  const [data, setData] = useState<IProDetail>([])
-  console.log("detail : ", data)
+  const [data, setData] = useState<IProDetail>()
   const [isShareModal, setIsShareModal] = useState(false)
   const [isShippingModal, setIsShippingModal] = useState(false)
   const [isRefundModal, setIsRefundModal] = useState(false)
   const [isMoreView, setIsMoreView] = useState(false)
   const [isWishModal, setIsWishModal] = useState(false)
-  // const [option, setOption] = useState([])
   const [isCartModal, setIsCartModal] = useState(false)
 
   // product detail wish
@@ -57,7 +55,7 @@ const ProductDetail = () => {
   // }, [])
 
   // Item Create State
-  const [itemObject, setItemObject] = useState([])
+  const [itemObject, setItemObject] = useState<IItemObject[]>([])
 
   const [sumConut, setSumCount] = useState(0)
 
@@ -66,7 +64,11 @@ const ProductDetail = () => {
 
   const [sizeCheck, setSizeCheck] = useState<number[]>([])
 
-  const changeHandler = (checked, colorId: number, colorName: string) => {
+  const changeHandler = (
+    checked: boolean,
+    colorId: number,
+    colorName: string
+  ) => {
     if (!checked) {
       setColorCheck((prv) => [...prv, colorId])
       setColorIdState(colorId)
@@ -82,7 +84,12 @@ const ProductDetail = () => {
   const [colorIdState, setColorIdState] = useState(0)
   const [sizeNameState, setSizeNameState] = useState("")
 
-  const sizeHandler = (checked, sizeId, sizeName, optionId) => {
+  const sizeHandler = (
+    checked: boolean,
+    sizeId: number,
+    sizeName: string,
+    optionId: number
+  ) => {
     if (!checked) {
       setSizeCheck((prev) => [...prev, sizeId])
       setSizeNameState(sizeName)
@@ -195,7 +202,7 @@ const ProductDetail = () => {
   //   }
   // }
 
-  const wishHandler = async (productId) => {
+  const wishHandler = async (productId: number) => {
     try {
       setWishCheckMessage("")
       await axios
@@ -317,18 +324,18 @@ const ProductDetail = () => {
       <S.DetailWrapper>
         <S.DetailImg>
           <S.Thumbnail
-            src={data.thumbnail}
-            alt={data.thumbnail}
+            src={data?.thumbnail}
+            alt={data?.thumbnail}
           />
           <S.ProductImgDetailBox>
-            <S.ProductImgDetailName>{data.name}</S.ProductImgDetailName>
+            <S.ProductImgDetailName>{data?.name}</S.ProductImgDetailName>
             <S.DetailThumbnail
-              src={data.thumbnail}
-              alt={data.thumbnail}
+              src={data?.thumbnail}
+              alt={data?.thumbnail}
             />
 
             <S.ImgWrapper isMoreView={isMoreView}>
-              {data.productImages?.map((el) => (
+              {data?.productImages?.map((el) => (
                 <S.ProductImgDetail
                   src={el.image}
                   alt={el.image}
@@ -350,16 +357,16 @@ const ProductDetail = () => {
             <S.SizeInfoImg src="/images/sizeinfo.jpg" />
             <S.DescritionWrapper>
               <S.DescriptionTitle>Description</S.DescriptionTitle>
-              <S.Description>{data.description}</S.Description>
+              <S.Description>{data?.description}</S.Description>
             </S.DescritionWrapper>
           </S.SizeWrapper>
         </S.DetailImg>
 
         <S.DetailInfoWrappeer>
           <div>
-            <S.ProductName>{data.name}</S.ProductName>
+            <S.ProductName>{data?.name}</S.ProductName>
             <S.PriceBox>
-              {data.price}
+              {data?.price}
               <S.Share onClick={openShareModal}>
                 <ShareAltOutlined />
               </S.Share>
@@ -383,10 +390,10 @@ const ProductDetail = () => {
           <div>
             <S.ColorTitle>Color</S.ColorTitle>
             <S.ColorButtonBox>
-              {data.options?.map((el) => (
+              {data?.options?.map((el) => (
                 <Fragment key={el.colorId}>
                   <S.ColorLabel
-                    htmlFor={el.colorId}
+                    htmlFor={el.colorId.toString()}
                     colorCheck={colorCheck}
                     cssId={el.colorId}
                   >
@@ -395,7 +402,7 @@ const ProductDetail = () => {
                   </S.ColorLabel>
                   <S.ColorButton
                     type="checkbox"
-                    id={el.colorId}
+                    id={el.colorId.toString()}
                     value={el.colorId}
                     disabled={
                       colorCheck.length === 1 &&
@@ -413,7 +420,7 @@ const ProductDetail = () => {
               {colorCheck.length === 0 ? (
                 <span>옵션을 선택해주세요</span>
               ) : (
-                data.options.map(
+                data?.options.map(
                   (el) =>
                     colorCheck.includes(el.colorId) && (
                       <span
@@ -427,13 +434,13 @@ const ProductDetail = () => {
           <S.SizeBox>
             <S.SizeTitle>Size</S.SizeTitle>
             <div style={{ paddingTop: "10px" }}>
-              {data.options?.map(
+              {data?.options?.map(
                 (el) =>
                   colorCheck.includes(el.colorId) &&
                   el.options?.map((item, i) => (
                     <Fragment key={i}>
                       <S.SizeLabel
-                        htmlFor={item.sizeId}
+                        htmlFor={item.sizeId.toString()}
                         sizeCheck={sizeCheck}
                         cssId={item.sizeId}
                       >
@@ -441,8 +448,8 @@ const ProductDetail = () => {
                       </S.SizeLabel>
                       <S.SizeButton
                         type="checkbox"
-                        id={item.sizeId}
-                        key={item.i}
+                        id={item.sizeId.toString()}
+                        key={i}
                         value={item.size}
                         onChange={(e) => {
                           sizeHandler(
@@ -462,6 +469,7 @@ const ProductDetail = () => {
                   ))
               )}
             </div>
+
             <S.OptionNotice>
               <p>[필수]</p>
               {sizeNameState ? (
@@ -469,37 +477,15 @@ const ProductDetail = () => {
               ) : (
                 <span>옵션을 선택해주세요.</span>
               )}
-
-              {/* {sizeCheck.length === 0 ? (
-                <span>옵션을 선택해주세요.</span>
-              ) : (
-                data.options.map((el) =>
-                  el.options?.map(
-                    (element, i) =>
-                      sizeCheck.includes(element.sizeId) && (
-                        <div key={element.i}>{element.size}</div>
-                      )
-                  )
-                )
-              )} */}
             </S.OptionNotice>
 
             <S.SizeRecommendBtn>사이즈를 추천합니다.</S.SizeRecommendBtn>
           </S.SizeBox>
-          {/* {itemObject.map((a) => (
-            <div key={a.id}>
-              <div key={a.id}>{a.size_id}</div>
-              <div key={a.id}>
-                {a.color_id}/{a.size_name}
-              </div>
-            </div>
-          ))
-          } */}
 
           {itemObject.map((el, index) => (
             <S.OrderBoxWrapper key={index}>
               <S.OptionOrderBox>
-                <S.OrderName>{data.name}</S.OrderName>
+                <S.OrderName>{data?.name}</S.OrderName>
                 <S.OrderColoSize>
                   <span>{el.color_name}/</span>
                   <span>{el.size_name}</span>
@@ -555,10 +541,10 @@ const ProductDetail = () => {
                 await wishHandler(data.id)
               }}
             >
-              {(wishCheckMessage === "SUCCESS" || data.likeId) && (
+              {(wishCheckMessage === "SUCCESS" || data?.likeId) && (
                 <HeartFilled style={{ color: "red", fontSize: "18px" }} />
               )}
-              {(wishCheckMessage === "DELETE" || !data.likeId) && (
+              {(wishCheckMessage === "DELETE" || !data?.likeId) && (
                 <HeartOutlined style={{ fontSize: "18px" }} />
               )}
             </S.LikeBtn>
@@ -611,8 +597,6 @@ const ProductDetail = () => {
             {isRefundModal && (
               <RefundModal
                 isRefundModal={isRefundModal}
-                setIsRefundModal={setIsRefundModal}
-                open={openRefundModal}
                 close={closeRefundModal}
               />
             )}

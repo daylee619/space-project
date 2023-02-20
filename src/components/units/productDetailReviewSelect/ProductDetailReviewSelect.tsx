@@ -5,18 +5,16 @@ import { useState } from "react"
 import axios from "axios"
 import { API_IP } from "../../../common/utils/ApiIp"
 
-export default function ReviewStarDropdown(props) {
-  const [starCheck, setStarCheck] = useState([])
+export default function ReviewStarDropdown() {
+  const [starCheck, setStarCheck] = useState<number[]>([])
 
-  const onChangeStar = (checked, value) => {
+  const onChangeStar = (checked: boolean, value: number) => {
     if (checked) {
       setStarCheck((prv) => [...prv, value])
     } else {
       setStarCheck(starCheck.filter((el) => el !== value))
     }
   }
-
-  // console.log(starCheck)
 
   const initFilter = () => {
     setStarCheck([])
@@ -62,16 +60,15 @@ export default function ReviewStarDropdown(props) {
                     />
                   </label>
                 </S.StarLabelBox>
-
                 <input
                   type="checkbox"
                   style={{ cursor: "pointer" }}
-                  id={5}
+                  id={"star_five"}
                   value={5}
                   onChange={(e) => {
-                    onChangeStar(e.target.checked, e.target.value)
+                    onChangeStar(e.target.checked, Number(e.target.value))
                   }}
-                  checked={!!starCheck.includes("5")}
+                  checked={!!starCheck.includes(5)}
                 />
               </S.StarList>
               <S.StarList>
@@ -91,9 +88,9 @@ export default function ReviewStarDropdown(props) {
                   id="star_four"
                   value={4}
                   onChange={(e) => {
-                    onChangeStar(e.target.checked, e.target.value)
+                    onChangeStar(e.target.checked, Number(e.target.value))
                   }}
-                  checked={!!starCheck.includes("4")}
+                  checked={!!starCheck.includes(4)}
                 />
               </S.StarList>
               <S.StarList>
@@ -113,9 +110,9 @@ export default function ReviewStarDropdown(props) {
                   id="star_three"
                   value={3}
                   onChange={(e) => {
-                    onChangeStar(e.target.checked, e.target.value)
+                    onChangeStar(e.target.checked, Number(e.target.value))
                   }}
-                  checked={!!starCheck.includes("3")}
+                  checked={!!starCheck.includes(3)}
                 />
               </S.StarList>
               <S.StarList>
@@ -135,9 +132,9 @@ export default function ReviewStarDropdown(props) {
                   id="star_two"
                   value={2}
                   onChange={(e) => {
-                    onChangeStar(e.target.checked, e.target.value)
+                    onChangeStar(e.target.checked, Number(e.target.value))
                   }}
-                  checked={!!starCheck.includes("2")}
+                  checked={!!starCheck.includes(2)}
                 />
               </S.StarList>
               <S.StarList>
@@ -157,9 +154,9 @@ export default function ReviewStarDropdown(props) {
                   id="star_one"
                   value={1}
                   onChange={(e) => {
-                    onChangeStar(e.target.checked, e.target.value)
+                    onChangeStar(e.target.checked, Number(e.target.value))
                   }}
-                  checked={!!starCheck.includes("1")}
+                  checked={!!starCheck.includes(1)}
                 />
               </S.StarList>
             </S.StarOptionList>

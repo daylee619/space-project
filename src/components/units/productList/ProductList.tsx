@@ -2,25 +2,25 @@
 /* eslint-disable array-callback-return */
 import axios from "axios"
 import { HeartOutlined, HeartFilled } from "@ant-design/icons"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import ProductItem from "../../../common/libraries/productItem/ProductItem"
 import * as S from "./ProductList.styles"
 import { Pagination } from "antd"
 import { useRouter } from "next/router"
 import { API_IP } from "../../../common/utils/ApiIp"
-import { IResultType, IColorType } from "./ProductList.types"
+import { IResultType, IColorType, ICount } from "./ProductList.types"
 export default function ProductList() {
   const [data, setData] = useState<IResultType[]>([])
   const [pagination, setPagination] = useState(1)
   const [message, setMessage] = useState("")
-  const [CountList, setCountList] = useState()
+  const [CountList, setCountList] = useState<ICount>()
 
   // title State
   const [title, setTitle] = useState("")
 
   const router = useRouter()
   console.log(router.query.url_query)
-  const URL = router.query.url_query
+  const URL = router.query.url_query?.toString()
   const URL_HANDLER = URL?.split("&") ?? []
   const MAIN_CATEGORY = URL_HANDLER[0]?.split("=") ?? ""
   const COLOR = URL_HANDLER[1]?.split("=") ?? ""
@@ -103,7 +103,7 @@ export default function ProductList() {
   //   setCountIndex(idx)
   // }
 
-  // const [wish, setWish] = useState([])
+  const [wish, setWish] = useState<number[]>([])
 
   const wishHandler = async (id: number, productId: number) => {
     try {
@@ -159,16 +159,18 @@ export default function ProductList() {
 
   // menu option function[]
 
-  const optionBox = []
+  const optionBox: any[] = []
   const size: number[] = []
-  const optionTotal = []
+  const optionTotal: any[] | undefined = []
+  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
   const optionFn = data?.forEach((el) =>
-    el.color.map((item: { colorId: any; colorName: any; size: any[] }) => {
+    el.color.map((item) => {
       optionBox.push(`(${item.colorId})${item.colorName} / Size : `)
-      item?.size?.forEach((element) => size.push(element.sizeName))
+      item?.size?.forEach((element) => size.push(Number(element.sizeName)))
     })
   )
   for (let i = 0; i < optionBox.length; i++) {
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     optionTotal.push(optionBox[i] + size[i])
   }
 

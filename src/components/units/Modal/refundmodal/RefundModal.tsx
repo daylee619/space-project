@@ -1,5 +1,6 @@
 import * as S from "./RefundModal.styles"
-export default function RefundModal(props) {
+import { IRefundModalProps } from "./RefundModal.types"
+export default function RefundModal(props: IRefundModalProps) {
   return (
     <div>
       <S.RefundWrapper>

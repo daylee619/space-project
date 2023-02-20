@@ -1,4 +1,3 @@
-import { useRouter } from "next/router"
 import * as S from "./ProductFilter.styles"
 import { IProductFilterProps } from "./ProductFilter.types"
 

@@ -30,7 +30,7 @@ export default function MainPhotoReview() {
       <S.PhotoReviewTitle>Photo Review +</S.PhotoReviewTitle>
       <S.PhotoBoxWrapper onClick={handleModal}>
         {data.map((el) => (
-          <div key={el.id}>
+          <div key={el.productId}>
             <S.PhotoBox key={el.productId}>
               <S.Photo src={el.thumbnail} />
             </S.PhotoBox>

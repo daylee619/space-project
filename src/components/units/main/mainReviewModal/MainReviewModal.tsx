@@ -14,9 +14,12 @@ import { Rate } from "antd"
 import moment from "moment"
 import * as S from "./MainReviewModal.styles"
 import { API_IP } from "../../../../common/utils/ApiIp"
-
-export default function MainReviewModal(props) {
-  const [data, setData] = useState([])
+import {
+  IMainReviewModal,
+  IMainReviewModalProps,
+} from "./MainReviewModal.types"
+export default function MainReviewModal(props: IMainReviewModalProps) {
+  const [data, setData] = useState<IMainReviewModal>()
   useEffect(() => {
     axios.get(`http://${API_IP}:3000/review/main/${reviewId}`).then((res) => {
       setData(res.data)
@@ -24,24 +27,22 @@ export default function MainReviewModal(props) {
     })
   }, [])
 
-  const createDate = data.detailReview?.created_at
+  const createDate = data?.detailReview?.created_at
   const createdDate = moment(createDate).format("YYYY.MM.DD")
 
-  const a = data.productInfo?.map((el) => Number(el.starAverage)).join()
+  const a = data?.productInfo?.map((el) => Number(el.starAverage)).join()
   console.log(a)
 
   const [like, setLike] = useState(0)
   const [unLike, setUnLike] = useState(0)
 
   const settings = {
-    customPaging: function (i) {
-      return data.map((el) => {
-        el.productInfo.map((el) => (
-          <a key={el.id}>
-            <img src={el.thumbnail} />
-          </a>
-        ))
-      })
+    customPaging: function (i: number) {
+      return data?.productInfo.map((el) => (
+        <a key={el.id}>
+          <img src={el.thumbnail} />
+        </a>
+      ))
     },
     dots: true,
     dotsClass: "slick-dots slick-thumb",
@@ -64,7 +65,7 @@ export default function MainReviewModal(props) {
             />
           </S.LeftIcon>
           <ProductReview {...settings}>
-            {data.productInfo?.map((el) => (
+            {data?.productInfo?.map((el) => (
               <S.ReviewImgWrapper key={el.id}>
                 <S.ReviewImg src={el.thumbnail} />
               </S.ReviewImgWrapper>
@@ -84,7 +85,7 @@ export default function MainReviewModal(props) {
         </S.LeftWrapper>
 
         <S.ProductInfoWrapper>
-          {data.productInfo?.map((el) => (
+          {data?.productInfo?.map((el) => (
             <S.ProductInfoBox key={el.id}>
               <div key={el.id}>
                 <S.ReviewThumbnail src={el.thumbnail}></S.ReviewThumbnail>
@@ -135,11 +136,11 @@ export default function MainReviewModal(props) {
             </S.ReviewBox>
             <S.ReviewWrapper>
               <S.NicknameBox>
-                <S.Nickname>{data.detailReview?.nickname}</S.Nickname>
+                <S.Nickname>{data?.detailReview?.nickname}</S.Nickname>
                 님의 리뷰입니다.
               </S.NicknameBox>
               <S.DetailReviewContent>
-                {data.detailReview?.content}
+                {data?.detailReview?.content}
               </S.DetailReviewContent>
             </S.ReviewWrapper>
 
@@ -151,7 +152,7 @@ export default function MainReviewModal(props) {
               >
                 <LikeOutlined />
                 <S.Helpful>도움돼요</S.Helpful>
-                <S.HelpfulCount>{data.detailReview?.helpful}</S.HelpfulCount>
+                <S.HelpfulCount>{data?.detailReview?.helpful}</S.HelpfulCount>
                 <span style={{ marginRight: "4px" }}>{like}</span>
               </S.HelpWrapper>
               <S.UnHelpfulWrapper
@@ -162,7 +163,7 @@ export default function MainReviewModal(props) {
                 <DislikeOutlined />
                 <S.Unhelpful>도움안돼요</S.Unhelpful>
                 <S.UnhelpfulCount>
-                  {data.detailReview?.unhelpful - unLike}
+                  {data?.detailReview?.unhelpful}
                 </S.UnhelpfulCount>
               </S.UnHelpfulWrapper>
             </S.HelpfulContainer>

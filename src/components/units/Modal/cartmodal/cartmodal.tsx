@@ -1,7 +1,8 @@
-import * as S from "./cartmodal.styles"
+import * as S from "../cartmodal/CartModal.styles"
 import { CloseOutlined } from "@ant-design/icons"
 import { useRouter } from "next/router"
-export default function CartModal(props) {
+import { ICartModalProps } from "../cartmodal/CartModal.types"
+export default function CartModal(props: ICartModalProps) {
   const router = useRouter()
 
   return (
@@ -14,7 +15,7 @@ export default function CartModal(props) {
       </S.ModalTop>
       <S.ModalMiddle>
         <S.LogoImg src={"/images/spaceLogo.jpeg"} />
-        {/* <S.SpaceTitle>SPACE</S.SpaceTitle> */}
+
         <S.ModalMiddleContent>
           장바구니에 상품이 정상적으로 담겼습니다.
         </S.ModalMiddleContent>

@@ -8,6 +8,7 @@ import { IProductDetailReviewBoxProps } from "./ProductDetailReviewBox.types"
 export default function ProductDetailReviewBox(
   props: IProductDetailReviewBoxProps
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const helpfulHandler = async (reviewId: number) => {
     try {
       await axios.post(
@@ -27,6 +28,7 @@ export default function ProductDetailReviewBox(
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const unhelpfulHandler = async (reviewId: number) => {
     try {
       await axios.post(

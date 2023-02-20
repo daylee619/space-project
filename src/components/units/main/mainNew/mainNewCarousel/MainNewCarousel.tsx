@@ -79,7 +79,7 @@ export default function PauseOnHover() {
               <S.ColorBox>
                 {el.productColor?.map((el, idx) => (
                   <S.Color
-                    key={el.idx}
+                    key={idx}
                     color={el}
                   ></S.Color>
                 ))}

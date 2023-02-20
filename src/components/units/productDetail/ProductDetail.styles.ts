@@ -198,11 +198,14 @@ export const ColorButton = styled.input`
 export const SizeButton = styled.input`
   display: none;
 `
-
+interface IColorCheck {
+  colorCheck: number[]
+  cssId: number
+}
 export const ColorLabel = styled.label`
   font-size: 10px;
   /* border: 1px solid #d5d5d5; */
-  border: ${(props) =>
+  border: ${(props: IColorCheck) =>
     props.colorCheck?.includes(props.cssId)
       ? "1px solid black"
       : "1px solid #d5d5d5"};
