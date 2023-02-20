@@ -8,7 +8,7 @@ import { IProductDetailReviewBoxProps } from "./ProductDetailReviewBox.types"
 export default function ProductDetailReviewBox(
   props: IProductDetailReviewBoxProps
 ) {
-  const helpfulHandler = async (reviewId) => {
+  const helpfulHandler = async (reviewId: number) => {
     try {
       await axios.post(
         `http://${API_IP}:3000`,
@@ -27,7 +27,7 @@ export default function ProductDetailReviewBox(
     }
   }
 
-  const unhelpfulHandler = async (reviewId) => {
+  const unhelpfulHandler = async (reviewId: number) => {
     try {
       await axios.post(
         `http://${API_IP}:3000`,

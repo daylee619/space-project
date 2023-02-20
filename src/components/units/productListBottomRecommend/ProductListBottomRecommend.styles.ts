@@ -38,13 +38,16 @@ export const RecommendItemImg = styled.img`
   height: 350px;
   object-fit: cover;
 `
+interface IStar {
+  star: string
+}
 export const Star = styled.div`
   font-size: 12px;
   font-weight: normal;
   color: #ffffff;
   line-height: 16px;
   letter-spacing: -0.5px;
-  background-color: ${(props) =>
+  background-color: ${(props: IStar) =>
     props.star === null ? "white" : "rgba(0, 0, 0, 0.8)"};
   border-radius: 4px;
   position: absolute;

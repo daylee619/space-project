@@ -4,9 +4,9 @@ import { API_IP } from "../../../common/utils/ApiIp"
 import { useEffect, useState } from "react"
 import { RightOutlined } from "@ant-design/icons"
 import { useRouter } from "next/router"
-
+import { IReviewRecommend } from "./ProductListBottomRecommend.types"
 export default function ProductListRecommend() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IReviewRecommend[]>([])
   const router = useRouter()
   // useEffect(() => {
   //   axios.get("/data/reviewrecommend.json").then((res) => {
@@ -46,12 +46,6 @@ export default function ProductListRecommend() {
               <S.RecommendItemPrice key={el.id}>
                 {el.price}
               </S.RecommendItemPrice>
-              {/* <div>
-                <img
-                  src={el.reviewInform.image}
-                  style={{ width: "30px" }}
-                />
-              </div> */}
 
               <S.InfoBottomWrapper>
                 <S.ReviewContent key={el.id}>

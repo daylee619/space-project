@@ -2,9 +2,9 @@ import * as S from "./Event.styles"
 import axios from "axios"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-
+import { IEventList } from "./Event.types"
 export default function Event() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IEventList[]>([])
   const router = useRouter()
   useEffect(() => {
     axios.get("/data/eventList.json").then((res) => {

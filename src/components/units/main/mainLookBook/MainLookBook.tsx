@@ -1,14 +1,12 @@
 import * as S from "./MainLookBook.styles"
 
 import FocusOnSelect from "./mainLookBookCarousel/MainLookBookCarousel"
-// import MainLookBookDetail from "./mainLookBookCarousel/mainLookBookDetail"
 
 export default function MainLookBook() {
   return (
-    <>
+    <div>
       <S.LookBookTitle>LookBook</S.LookBookTitle>
       <FocusOnSelect />
-      {/* <MainLookBookDetail /> */}
-    </>
+    </div>
   )
 }

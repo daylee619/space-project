@@ -2,9 +2,9 @@ import * as S from "./EventDetail.styles"
 import axios from "axios"
 
 import { useEffect, useState } from "react"
-
+import { IEventDetail } from "./EventDetail.types"
 export default function EventDetail() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IEventDetail[]>([])
   useEffect(() => {
     axios.get("/data/eventDetail.json").then((res) => {
       setData(res.data)
@@ -13,7 +13,7 @@ export default function EventDetail() {
   }, [])
 
   return (
-    <S.EventDetailContainer>
+    <div>
       <S.EventTitleWrapper>
         <S.EventMenuTitle>EVENT</S.EventMenuTitle>
       </S.EventTitleWrapper>
@@ -36,6 +36,6 @@ export default function EventDetail() {
           </S.EventDetailImg>
         ))}
       </div>
-    </S.EventDetailContainer>
+    </div>
   )
 }

@@ -1,6 +1,7 @@
 import axios from "axios"
 import React, { useEffect, useState } from "react"
 import Slider from "react-slick"
+import styled from "@emotion/styled"
 import {
   StarFilled,
   LikeOutlined,

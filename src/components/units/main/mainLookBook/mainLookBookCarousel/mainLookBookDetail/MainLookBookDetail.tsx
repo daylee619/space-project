@@ -5,11 +5,11 @@ import { CloseOutlined } from "@ant-design/icons"
 
 import MainLookBookDetailCarousel from "../mainLookBookDetailCarousel/MainLookBookDetailCarousel"
 import { API_IP } from "../../../../../../common/utils/ApiIp"
-
+import { IMainLookBookDetail, ILookBookProps } from "./MainLookBookDetail.types"
 // carousel을 클릭해서 들어가 볼 수 있는 portal창
 
-export default function MainLookBookDetail(props) {
-  const [data, setData] = useState([])
+export default function MainLookBookDetail(props: ILookBookProps) {
+  const [data, setData] = useState<IMainLookBookDetail[]>([])
 
   useEffect(() => {
     axios
@@ -27,10 +27,10 @@ export default function MainLookBookDetail(props) {
           style={{ display: "flex", float: "left", width: "50%" }}
         />
         {data.map((el) => (
-          <S.DetailWrapper key={el.id}>
+          <S.DetailWrapper key={el.lookbookId}>
             <S.DetailContent>
               <S.ContentWrapper>
-                <S.SubTitle key={el.id}>{el.subTitle}</S.SubTitle>
+                <S.SubTitle key={el.lookbookId}>{el.subTitle}</S.SubTitle>
                 <div>
                   <CloseOutlined
                     style={{
@@ -42,8 +42,8 @@ export default function MainLookBookDetail(props) {
                 </div>
               </S.ContentWrapper>
 
-              <S.Title key={el.id}>{el.title}</S.Title>
-              <S.Content key={el.id}>{el.content}</S.Content>
+              <S.Title key={el.lookbookId}>{el.title}</S.Title>
+              <S.Content key={el.lookbookId}>{el.content}</S.Content>
             </S.DetailContent>
             <div style={{ width: "100%" }}>
               <div>연관상품</div>

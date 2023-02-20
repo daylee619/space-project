@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import axios from "axios"
 import * as S from "./MainNewCarousel.styles"
-import ProductItem from "../../../../../common/libraries/ProductItem"
 import { API_IP } from "../../../../../common/utils/ApiIp"
+import { IMainNewProduct } from "./MainNewCarousel.types"
 export default function PauseOnHover() {
   const settings = {
     dots: false,
@@ -33,7 +33,7 @@ export default function PauseOnHover() {
     ),
   }
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IMainNewProduct[]>([])
 
   // useEffect(() => {
   //   axios.get("/data/mainNewProduct.json").then((res) => {
@@ -71,19 +71,10 @@ export default function PauseOnHover() {
               alt={el.thumbnail}
               style={{ width: "200px", height: "300px" }}
             />
-            {/* <ProductItem
-              imgWidth="250px"
-              imgHeight="400px"
-              menuWidth="200px"
-              bottom="403px"
-              imgUrl={el.thumbnail}
-              data={optionTotal}
-            /> */}
             <S.DescriptionWrapper>
               <S.TitleTop>
                 <S.ItemName>{el.name}</S.ItemName>
               </S.TitleTop>
-
               <S.Price>{el.price}</S.Price>
               <S.ColorBox>
                 {el.productColor?.map((el, idx) => (

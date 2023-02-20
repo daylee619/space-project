@@ -3,11 +3,11 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { API_IP } from "../../../../common/utils/ApiIp"
 import ModalPortal from "../../../Portal"
-import MainReviewModal from "../mainReviewModal/MainReviewModal"
 import ReviewModal from "../reviewmodal"
+import { IMainPhotoReview } from "./MainPhotoReview.types"
 
 export default function MainPhotoReview() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IMainPhotoReview[]>([])
   // useEffect(() => {
   //   axios.get("/data/mainReviewPhoto.json").then((res) => {
   //     setData(res.data)

@@ -4,18 +4,6 @@ export const StarOptionContainer = styled.div`
   width: 200px;
   height: 40px;
 `
-// export const StarOptionBtn = styled.button`
-//   border-color: #14161a;
-//   border-radius: 4px;
-//   border: solid 1px #ebeff5;
-//   background-color: #ffffff;
-//   cursor: pointer;
-//   /* padding: 8px 12px; */
-// `
-
-// export const StarOptionClick = styled.div`
-//   padding: 8px 12px;
-// `
 export const StarContainer = styled.div`
   /* width: 320px; */
   height: 350px;

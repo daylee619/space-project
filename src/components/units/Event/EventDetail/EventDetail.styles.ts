@@ -1,48 +1,4 @@
 import styled from "@emotion/styled"
-import axios from "axios"
-
-import { useEffect, useState } from "react"
-
-export default function EventDetail() {
-  const [data, setData] = useState([])
-  useEffect(() => {
-    axios.get("/data/eventDetail.json").then((res) => {
-      setData(res.data)
-      //   console.log(data)
-    })
-  }, [])
-
-  return (
-    <div style={{ marginTop: "100px", marginBottom: "100px" }}>
-      <EventTitleWrapper>
-        <EventMenuTitle>EVENT</EventMenuTitle>
-      </EventTitleWrapper>
-      <div>
-        <MenuList>
-          <Menu>진행 이벤트</Menu>
-          <Menu>종료 이벤트</Menu>
-        </MenuList>
-      </div>
-      <div>
-        {data.map((el) => (
-          <div
-            key={el.id}
-            style={{
-              backgroundImage: `url(${el.thumbnail})`,
-              backgroundSize: "cover",
-              width: "100%",
-              height: "100vh",
-            }}
-          >
-            <EventTitle>{el.title}</EventTitle>
-            <EventContent>{el.content}</EventContent>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export const EventTitleWrapper = styled.div`
   min-height: 30px;
   margin: 25px 0 25px;

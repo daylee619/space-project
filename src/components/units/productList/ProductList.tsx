@@ -8,10 +8,9 @@ import * as S from "./ProductList.styles"
 import { Pagination } from "antd"
 import { useRouter } from "next/router"
 import { API_IP } from "../../../common/utils/ApiIp"
-
+import { IResultType, IColorType } from "./ProductList.types"
 export default function ProductList() {
-  const [data, setData] = useState([])
-  // console.log('data : ', data)
+  const [data, setData] = useState<IResultType[]>([])
   const [pagination, setPagination] = useState(1)
   const [message, setMessage] = useState("")
   const [CountList, setCountList] = useState()
@@ -45,8 +44,6 @@ export default function ProductList() {
       setTitle("KIDS")
     }
   }
-
-  // const router = useRouter()
 
   useEffect(() => {
     axios
@@ -106,10 +103,9 @@ export default function ProductList() {
   //   setCountIndex(idx)
   // }
 
-  const [wish, setWish] = useState([])
-  // console.log(wish)
+  // const [wish, setWish] = useState([])
 
-  const wishHandler = async (id, productId) => {
+  const wishHandler = async (id: number, productId: number) => {
     try {
       if (!wish.includes(productId)) {
         setMessage("")
@@ -175,76 +171,6 @@ export default function ProductList() {
   for (let i = 0; i < optionBox.length; i++) {
     optionTotal.push(optionBox[i] + size[i])
   }
-
-  // const onClickBest = (e) => {}
-  // 상품명 정렬
-  // const nameSort = () => {
-  //   const nameSorting = [...data]
-  //   const nameCompare = (key) => (a, b) => {
-  //     return a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0
-  //   }
-  //   nameSorting.sort(nameCompare("name"))
-  //   setData(nameSorting)
-  // }
-
-  // 낮은 가격순 정렬
-  // const lowPriceSort = () => {
-  //   const priceSorting = [...data]
-  //   const priceCompare = (key) => (a, b) => {
-  //     return a[key] - b[key]
-  //   }
-  //   priceSorting.sort(priceCompare("price"))
-  //   setData(priceSorting)
-  // }
-  // 높은 가격순 정렬
-  // const highPriceSort = () => {
-  //   const priceSorting = [...data]
-  //   const priceCompare = (key) => (a, b) => {
-  //     return b[key] - a[key]
-  //   }
-  //   priceSorting.sort(priceCompare("price"))
-  //   setData(priceSorting)
-  // }
-
-  // 신상품 정렬
-  // const newItemSort = () => {
-  //   const newItemSorting = [...data]
-  //   const newItemCompare = (key) => (a, b) => {
-  //     return b[key] - a[key]
-  //   }
-  //   newItemSorting.sort(newItemCompare("id"))
-  //   setData(newItemSorting)
-  // }
-
-  // 좋아요 정렬
-  // const likeSort = () => {
-  //   const likeSorting = [...data]
-  //   const likeCompare = (key) => (a, b) => {
-  //     return b[key] - a[key]
-  //   }
-  //   likeSorting.sort(likeCompare("likeCount"))
-  //   setData(likeSorting)
-  // }
-
-  // 사용후기 정렬
-  // const reviewSort = () => {
-  //   const reviewSorting = [...data]
-  //   const reviewCompare = (key) => (a, b) => {
-  //     return b[key] - a[key]
-  //   }
-  //   reviewSorting.sort(reviewCompare("reviewCount"))
-  //   setData(reviewSorting)
-  // }
-
-  // 인기순 정렬
-  // const orderSorting = () => {
-  //   const orderSorting = [...data]
-  //   const orderCompare = (key) => (a, b) => {
-  //     return b[key] - a[key]
-  //   }
-  //   orderSorting.sort(orderCompare("orderCount"))
-  //   setData(orderSorting)
-  // }
 
   return (
     <S.ProductListWrapper>
@@ -386,11 +312,11 @@ export default function ProductList() {
 
                 <S.ItemPrice>{el.price}</S.ItemPrice>
                 <S.ColorDisplay>
-                  {el.color?.map((el) => (
-                    <Color
+                  {el.color?.map((el: IColorType) => (
+                    <S.Color
                       color={el.colorName}
-                      key={el.id}
-                    ></Color>
+                      key={el.colorId}
+                    ></S.Color>
                   ))}
                 </S.ColorDisplay>
 

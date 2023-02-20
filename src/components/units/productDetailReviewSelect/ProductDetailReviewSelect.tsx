@@ -16,7 +16,7 @@ export default function ReviewStarDropdown(props) {
     }
   }
 
-  console.log(starCheck)
+  // console.log(starCheck)
 
   const initFilter = () => {
     setStarCheck([])
@@ -42,12 +42,6 @@ export default function ReviewStarDropdown(props) {
   return (
     <>
       <S.StarOptionContaineriner>
-        {/* <StarOptionBtn>
-          <StarOptionClick >
-            별점
-            <DownOutlined style={{ fontSize: "10px", marginLeft: "10px" }} />
-          </StarOptionClick>
-        </StarOptionBtn> */}
         <S.StarContainer>
           <div>
             <S.StarOptionList>

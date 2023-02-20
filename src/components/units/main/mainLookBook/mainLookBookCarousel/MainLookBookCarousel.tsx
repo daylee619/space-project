@@ -32,7 +32,7 @@ export default function FocusOnSelect() {
     speed: 300,
   }
 
-  // const [modalOn, setModalOn] = useState(false)
+  const [modalOn, setModalOn] = useState(false)
 
   const handleModal = () => {
     setModalOn(!modalOn)

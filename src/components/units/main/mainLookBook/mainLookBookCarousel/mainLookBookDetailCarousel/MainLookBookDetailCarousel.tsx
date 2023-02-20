@@ -1,10 +1,10 @@
 import { Carousel } from "antd"
-
+import { IMainLookBookDetailProps } from "./MainLookBookDetailCarousel.types"
 // portal 창에 있는 carousel
 
-export default function MainLookBookDetailCarousel(props) {
-  //   console.log(data)
-
+export default function MainLookBookDetailCarousel(
+  props: IMainLookBookDetailProps
+) {
   return (
     <div style={{ width: "40%", padding: "20px" }}>
       {props.data?.map((el, index) => (
@@ -19,7 +19,7 @@ export default function MainLookBookDetailCarousel(props) {
               style={{ width: "100%", height: "600px" }}
             />
           </div>
-          {el.images.map((image, idx) => (
+          {el.images.map((image, idx: number) => (
             <div key={image.idx}>
               <img
                 src={image}

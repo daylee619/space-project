@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import * as S from "./ProductDetail.styles"
 import axios from "axios"
 import { Fragment, useEffect, useState } from "react"
 import {
@@ -7,16 +7,16 @@ import {
   HeartFilled,
   CloseOutlined,
 } from "@ant-design/icons"
-import ShareModal from "../Modal/sharemodal"
-import ShippingModal from "../Modal/shippingmodal"
-import RefundModal from "../Modal/refundmodal"
-import WishModal from "../Modal/wishmodal"
-import CartModal from "../Modal/cartmodal/cartmodal.tsx"
+import ShareModal from "../Modal/sharemodal/ShareModal"
+import ShippingModal from "../Modal/shippingmodal/ShippingModal"
+import RefundModal from "../Modal/refundmodal/RefundModal"
+import WishModal from "../Modal/wishmodal/WishModal"
+import CartModal from "../Modal/CartModal/CartModal"
 import { API_IP } from "../../../common/utils/ApiIp"
 import { useRouter } from "next/router"
-
+import { IProDetail } from "./ProductDetail.types"
 const ProductDetail = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IProDetail>([])
   console.log("detail : ", data)
   const [isShareModal, setIsShareModal] = useState(false)
   const [isShippingModal, setIsShippingModal] = useState(false)
@@ -62,11 +62,11 @@ const ProductDetail = () => {
   const [sumConut, setSumCount] = useState(0)
 
   //
-  const [colorCheck, setColorCheck] = useState([])
+  const [colorCheck, setColorCheck] = useState<number[]>([])
 
-  const [sizeCheck, setSizeCheck] = useState([])
+  const [sizeCheck, setSizeCheck] = useState<number[]>([])
 
-  const changeHandler = (checked, colorId, colorName) => {
+  const changeHandler = (checked, colorId: number, colorName: string) => {
     if (!checked) {
       setColorCheck((prv) => [...prv, colorId])
       setColorIdState(colorId)
@@ -119,7 +119,7 @@ const ProductDetail = () => {
     }
   }
 
-  const soloCountHandler = (colorId, sizeId) => {
+  const soloCountHandler = (colorId: number, sizeId: number) => {
     setSumCount((prv) => prv + 1)
     for (let i = 0; i < itemObject.length; i++) {
       if (
@@ -130,7 +130,7 @@ const ProductDetail = () => {
       }
     }
   }
-  const soloMinusCountHandler = (colorId, sizeId) => {
+  const soloMinusCountHandler = (colorId: number, sizeId: number) => {
     for (let i = 0; i < itemObject.length; i++) {
       if (
         itemObject[i].size_id === sizeId &&
@@ -144,7 +144,7 @@ const ProductDetail = () => {
     }
   }
 
-  const deleteItem = (index, sizeId, colorId) => {
+  const deleteItem = (index: number, sizeId: number, colorId: number) => {
     setItemObject(itemObject.filter((_, id) => id !== index))
     for (let i = 0; i < itemObject.length; i++) {
       if (
@@ -167,8 +167,6 @@ const ProductDetail = () => {
   //     }
   //   }
   // }
-
-  const [wish, setWish] = useState([])
 
   // const wishHandler = async (id, likeid) => {
   //   try {
@@ -315,56 +313,56 @@ const ProductDetail = () => {
   }
 
   return (
-    <Contain>
-      <DetailWrapper>
-        <DetailImg>
-          <Thumbnail
+    <S.Contain>
+      <S.DetailWrapper>
+        <S.DetailImg>
+          <S.Thumbnail
             src={data.thumbnail}
             alt={data.thumbnail}
           />
-          <ProductImgDetailBox>
-            <ProductImgDetailName>{data.name}</ProductImgDetailName>
-            <DetailThumbnail
+          <S.ProductImgDetailBox>
+            <S.ProductImgDetailName>{data.name}</S.ProductImgDetailName>
+            <S.DetailThumbnail
               src={data.thumbnail}
               alt={data.thumbnail}
             />
 
-            <ImgWrapper isMoreView={isMoreView}>
+            <S.ImgWrapper isMoreView={isMoreView}>
               {data.productImages?.map((el) => (
-                <ProductImgDetail
+                <S.ProductImgDetail
                   src={el.image}
                   alt={el.image}
                   key={el.imageId}
                 />
               ))}
-              <ProductInfoWrite src="/images/productinfo.jpg" />
-              <WashCareWrite src="/images/washandcare.jpg" />
-            </ImgWrapper>
-            <MoreViewBtnWrapper isMoreView={isMoreView}>
-              <MoreViewBtn onClick={onClickImgMoreViewBtn}>
+              <S.ProductInfoWrite src="/images/productinfo.jpg" />
+              <S.WashCareWrite src="/images/washandcare.jpg" />
+            </S.ImgWrapper>
+            <S.MoreViewBtnWrapper isMoreView={isMoreView}>
+              <S.MoreViewBtn onClick={onClickImgMoreViewBtn}>
                 {isMoreView ? "상품정보 접기" : "상품정보 더보기"}
-              </MoreViewBtn>
-            </MoreViewBtnWrapper>
-          </ProductImgDetailBox>
-          <SizeWrapper>
-            <MyFitSizeTitle>MY FIT SIZE</MyFitSizeTitle>
-            <SizeExplain src="/images/sizeexplain.jpg" />
-            <SizeInfoImg src="/images/sizeinfo.jpg" />
-            <DescritionWrapper>
-              <DescriptionTitle>Description</DescriptionTitle>
-              <Description>{data.description}</Description>
-            </DescritionWrapper>
-          </SizeWrapper>
-        </DetailImg>
+              </S.MoreViewBtn>
+            </S.MoreViewBtnWrapper>
+          </S.ProductImgDetailBox>
+          <S.SizeWrapper>
+            <S.MyFitSizeTitle>MY FIT SIZE</S.MyFitSizeTitle>
+            <S.SizeExplain src="/images/sizeexplain.jpg" />
+            <S.SizeInfoImg src="/images/sizeinfo.jpg" />
+            <S.DescritionWrapper>
+              <S.DescriptionTitle>Description</S.DescriptionTitle>
+              <S.Description>{data.description}</S.Description>
+            </S.DescritionWrapper>
+          </S.SizeWrapper>
+        </S.DetailImg>
 
-        <DetailInfoWrappeer>
+        <S.DetailInfoWrappeer>
           <div>
-            <ProductName>{data.name}</ProductName>
-            <PriceBox>
+            <S.ProductName>{data.name}</S.ProductName>
+            <S.PriceBox>
               {data.price}
-              <Share onClick={openShareModal}>
+              <S.Share onClick={openShareModal}>
                 <ShareAltOutlined />
-              </Share>
+              </S.Share>
               {isShareModal && (
                 <ShareModal
                   isModal={isShareModal}
@@ -373,28 +371,29 @@ const ProductDetail = () => {
                   close={closeShareModal}
                 />
               )}
-            </PriceBox>
-            <ReorderButtonBox>
-              <ReorderButton>재입고 알림</ReorderButton>
-            </ReorderButtonBox>
+            </S.PriceBox>
+            <S.ReorderButtonBox>
+              <S.ReorderButton>재입고 알림</S.ReorderButton>
+            </S.ReorderButtonBox>
           </div>
-          <CouponBox>
-            <Coupon>신규가입 혜택</Coupon>
-            <Coupon>신규 가입 시 웰컴 쿠폰백 즉시 지급</Coupon>
-          </CouponBox>
+          <S.CouponBox>
+            <S.Coupon>신규가입 혜택</S.Coupon>
+            <S.Coupon>신규 가입 시 웰컴 쿠폰백 즉시 지급</S.Coupon>
+          </S.CouponBox>
           <div>
-            <ColorTitle>Color</ColorTitle>
-            <ColorButtonBox>
+            <S.ColorTitle>Color</S.ColorTitle>
+            <S.ColorButtonBox>
               {data.options?.map((el) => (
                 <Fragment key={el.colorId}>
-                  <ColorLabel
+                  <S.ColorLabel
                     htmlFor={el.colorId}
                     colorCheck={colorCheck}
                     cssId={el.colorId}
                   >
-                    {"(" + el.colorId + ")" + el.colorName}
-                  </ColorLabel>
-                  <ColorButton
+                    `(${el.colorId})`${el.colorName}
+                    {/* {"(" + el.colorId + ")" + el.colorName} */}
+                  </S.ColorLabel>
+                  <S.ColorButton
                     type="checkbox"
                     id={el.colorId}
                     value={el.colorId}
@@ -408,8 +407,8 @@ const ProductDetail = () => {
                   />
                 </Fragment>
               ))}
-            </ColorButtonBox>
-            <OptionNotice>
+            </S.ColorButtonBox>
+            <S.OptionNotice>
               <p>[필수]</p>
               {colorCheck.length === 0 ? (
                 <span>옵션을 선택해주세요</span>
@@ -423,24 +422,24 @@ const ProductDetail = () => {
                     )
                 )
               )}
-            </OptionNotice>
+            </S.OptionNotice>
           </div>
-          <SizeBox>
-            <SizeTitle>Size</SizeTitle>
+          <S.SizeBox>
+            <S.SizeTitle>Size</S.SizeTitle>
             <div style={{ paddingTop: "10px" }}>
               {data.options?.map(
                 (el) =>
                   colorCheck.includes(el.colorId) &&
                   el.options?.map((item, i) => (
                     <Fragment key={i}>
-                      <SizeLabel
+                      <S.SizeLabel
                         htmlFor={item.sizeId}
                         sizeCheck={sizeCheck}
                         cssId={item.sizeId}
                       >
                         {item.size}
-                      </SizeLabel>
-                      <SizeButton
+                      </S.SizeLabel>
+                      <S.SizeButton
                         type="checkbox"
                         id={item.sizeId}
                         key={item.i}
@@ -463,7 +462,7 @@ const ProductDetail = () => {
                   ))
               )}
             </div>
-            <OptionNotice>
+            <S.OptionNotice>
               <p>[필수]</p>
               {sizeNameState ? (
                 <span>{sizeNameState}</span>
@@ -483,10 +482,10 @@ const ProductDetail = () => {
                   )
                 )
               )} */}
-            </OptionNotice>
+            </S.OptionNotice>
 
-            <SizeRecommendBtn>사이즈를 추천합니다.</SizeRecommendBtn>
-          </SizeBox>
+            <S.SizeRecommendBtn>사이즈를 추천합니다.</S.SizeRecommendBtn>
+          </S.SizeBox>
           {/* {itemObject.map((a) => (
             <div key={a.id}>
               <div key={a.id}>{a.size_id}</div>
@@ -498,37 +497,37 @@ const ProductDetail = () => {
           } */}
 
           {itemObject.map((el, index) => (
-            <OrderBoxWrapper key={index}>
-              <OptionOrderBox>
-                <OrderName>{data.name}</OrderName>
-                <OrderColoSize>
+            <S.OrderBoxWrapper key={index}>
+              <S.OptionOrderBox>
+                <S.OrderName>{data.name}</S.OrderName>
+                <S.OrderColoSize>
                   <span>{el.color_name}/</span>
                   <span>{el.size_name}</span>
-                </OrderColoSize>
-              </OptionOrderBox>
+                </S.OrderColoSize>
+              </S.OptionOrderBox>
 
               <div>
-                <MinusBtn
+                <S.MinusBtn
                   onClick={() => {
                     soloMinusCountHandler(el.color_id, el.size_id)
                   }}
                 >
                   -
-                </MinusBtn>
-                <InputNumber
+                </S.MinusBtn>
+                <S.InputNumber
                   type="number"
                   value={el.count}
                 />
-                <PlusBtn
+                <S.PlusBtn
                   onClick={() => {
                     soloCountHandler(el.color_id, el.size_id)
                   }}
                 >
                   +
-                </PlusBtn>
+                </S.PlusBtn>
               </div>
 
-              <CloseBtn
+              <S.CloseBtn
                 onClick={() => {
                   deleteItem(index, el.size_id, el.color_id)
                 }}
@@ -540,18 +539,18 @@ const ProductDetail = () => {
                     paddingBottom: "0px",
                   }}
                 />
-              </CloseBtn>
-            </OrderBoxWrapper>
+              </S.CloseBtn>
+            </S.OrderBoxWrapper>
           ))}
 
-          <PriceTotal>
-            <PriceTotalTitle>총 상품금액</PriceTotalTitle>
-            <PriceTotalNumber>
+          <S.PriceTotal>
+            <S.PriceTotalTitle>총 상품금액</S.PriceTotalTitle>
+            <S.PriceTotalNumber>
               {sumConut * data.price} ({sumConut}개)
-            </PriceTotalNumber>
-          </PriceTotal>
-          <BuyBtnBox>
-            <LikeBtn
+            </S.PriceTotalNumber>
+          </S.PriceTotal>
+          <S.BuyBtnBox>
+            <S.LikeBtn
               onClick={async () => {
                 await wishHandler(data.id)
               }}
@@ -562,41 +561,41 @@ const ProductDetail = () => {
               {(wishCheckMessage === "DELETE" || !data.likeId) && (
                 <HeartOutlined style={{ fontSize: "18px" }} />
               )}
-            </LikeBtn>
+            </S.LikeBtn>
             {isWishModal && (
               <WishModal
                 isWishModal={isWishModal}
                 close={closeWishModal}
               />
             )}
-            <CartBtn
+            <S.CartBtn
               onClick={() => {
                 cartHandler()
               }}
             >
               장바구니
-            </CartBtn>
+            </S.CartBtn>
             {isCartModal && (
               <CartModal
                 isCartModal={isCartModal}
                 close={closeCartModal}
               />
             )}
-            <BuyBtn onClick={orederHandler}>구매하기</BuyBtn>
-          </BuyBtnBox>
-          <ReviewButton>
+            <S.BuyBtn onClick={orederHandler}>구매하기</S.BuyBtn>
+          </S.BuyBtnBox>
+          <S.ReviewButton>
             REVIEW EVENT <div>리뷰 작성 시 최대 10,000원 적립</div>
-          </ReviewButton>
-          <ExplainButtonBox>
-            <SizeInfo>
+          </S.ReviewButton>
+          <S.ExplainButtonBox>
+            <S.SizeInfo>
               사이즈정보 * 상품정보 제공공시
               <img src="https://spao.com/morenvyimg/detail_arrow.png" />
-            </SizeInfo>
+            </S.SizeInfo>
 
-            <ShippingeInfo onClick={openShippingModal}>
+            <S.ShippingeInfo onClick={openShippingModal}>
               배송안내
               <img src="https://spao.com/morenvyimg/detail_arrow.png" />
-            </ShippingeInfo>
+            </S.ShippingeInfo>
             {isShippingModal && (
               <ShippingModal
                 isShippingModal={isShippingModal}
@@ -605,10 +604,10 @@ const ProductDetail = () => {
                 close={closeShippingModal}
               />
             )}
-            <CancelInfo onClick={openRefundModal}>
+            <S.CancelInfo onClick={openRefundModal}>
               취소/반품/교환/환불 안내
               <img src="https://spao.com/morenvyimg/detail_arrow.png" />
-            </CancelInfo>
+            </S.CancelInfo>
             {isRefundModal && (
               <RefundModal
                 isRefundModal={isRefundModal}
@@ -617,445 +616,11 @@ const ProductDetail = () => {
                 close={closeRefundModal}
               />
             )}
-          </ExplainButtonBox>
-        </DetailInfoWrappeer>
-      </DetailWrapper>
-    </Contain>
+          </S.ExplainButtonBox>
+        </S.DetailInfoWrappeer>
+      </S.DetailWrapper>
+    </S.Contain>
   )
 }
 
 export default ProductDetail
-
-export const Contain = styled.div`
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-`
-
-export const DetailWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-  width: 80%;
-  padding: 70px;
-  /* position: absolute; */
-`
-
-export const DetailImg = styled.div`
-  width: 870px;
-  max-width: 1005px;
-  min-width: 870px;
-  width: 80%;
-  /* float: left; */
-  flex-wrap: wrap;
-  margin-left: 250px;
-`
-export const Thumbnail = styled.img`
-  display: flex;
-  width: 320px;
-  margin: 20px;
-  margin-left: 80px;
-`
-
-export const ProductImgDetailBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-`
-export const DetailThumbnail = styled.img`
-  width: 300px;
-  margin-bottom: 30px;
-`
-
-export const ProductImgDetailName = styled.div`
-  font-size: 22px;
-  margin-top: 50px;
-  margin-bottom: 30px;
-`
-export const ProductImgDetail = styled.img`
-  display: flex;
-  flex-direction: column;
-  width: 380px;
-  margin: 20px;
-`
-export const ProductInfoWrite = styled.img`
-  display: flex;
-  justify-content: center;
-  width: 80%;
-  margin-top: 100px;
-  /* margin-left: 170px; */
-`
-export const WashCareWrite = styled.img`
-  display: flex;
-  justify-content: center;
-  width: 80%;
-  /* margin-right: 120px; */
-`
-
-export const ImgWrapper = styled.div`
-  max-height: ${(props) => (props.isMoreView ? "" : "10px")};
-  overflow: hidden;
-  margin-left: 300px;
-`
-export const MoreViewBtnWrapper = styled.div`
-  position: relative;
-
-  &::before {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 100%;
-    height: ${(props) => (props.isMoreView ? "" : "50px")};
-    /* background: linear-gradient(
-      rgba(255, 255, 255, 0) 0%,
-      rgb(255, 255, 255),
-      90%
-    ); */
-    content: "";
-  }
-`
-export const MoreViewBtn = styled.button`
-  width: 250px;
-  background-color: #fff;
-  border: 1px solid #000;
-  padding: 10px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-`
-export const SizeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-export const DescritionWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-export const DescriptionTitle = styled.div`
-  font-size: 15px;
-
-  color: #666666;
-`
-
-export const Description = styled.div`
-  width: 100%;
-  height: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin: 10px;
-
-  color: #666666;
-`
-export const MyFitSizeTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: 17px;
-  margin-top: 30px;
-`
-export const SizeExplain = styled.img`
-  display: flex;
-  margin-top: 20px;
-  margin-left: 200px;
-  width: 55%;
-`
-export const SizeInfoImg = styled.img`
-  display: flex;
-  margin-left: 200px;
-  width: 60%;
-`
-export const DetailInfoWrappeer = styled.div`
-  display: flex;
-  flex-direction: column;
-  float: right;
-  width: 270px;
-  margin-right: 100px;
-`
-export const ProductName = styled.div`
-  font-size: 18px;
-  color: #1a1a1a;
-  margin-bottom: 10px;
-  padding-bottom: 20px;
-  font-weight: 500;
-  line-height: 30px;
-`
-export const Share = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-`
-export const PriceBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-export const ReorderButtonBox = styled.div`
-  display: flex;
-  padding: 15px 0;
-`
-export const CouponBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 0;
-  border-top: 1px solid #d5d5d5;
-  border-bottom: 1px solid #d5d5d5;
-`
-export const Coupon = styled.div`
-  font-size: 10px;
-  color: #333;
-`
-export const ColorTitle = styled.div`
-  font-size: 12px;
-  padding-top: 24px;
-`
-export const ColorButtonBox = styled.div`
-  display: flex;
-  padding-top: 10px;
-`
-export const ColorButton = styled.input`
-  display: none;
-`
-export const SizeButton = styled.input`
-  display: none;
-`
-
-export const ColorLabel = styled.label`
-  font-size: 10px;
-  /* border: 1px solid #d5d5d5; */
-  border: ${(props) =>
-    props.colorCheck?.includes(props.cssId)
-      ? "1px solid black"
-      : "1px solid #d5d5d5"};
-  background-color: transparent;
-  padding: 6px 5px;
-  margin-right: 10px;
-  cursor: pointer;
-
-  &:hover {
-    border: 1px solid #000;
-  }
-
-  &:focus-within {
-    border: 1px solid black;
-  }
-`
-export const SizeLabel = styled.label`
-  font-size: 10px;
-  border: 1px solid #d5d5d5;
-  background-color: transparent;
-  padding: 6px 5px;
-  margin-right: 10px;
-  cursor: pointer;
-  border: ${(props) =>
-    props.sizeCheck?.includes(props.cssId)
-      ? "1px solid black"
-      : "1px solid #d5d5d5"};
-  &:hover {
-    border: 1px solid #000;
-  }
-
-  &:focus {
-    border: 1px solid #000;
-  }
-`
-export const OptionNotice = styled.div`
-  display: flex;
-  color: #909090;
-  font-size: 10px;
-  margin-top: 20px;
-`
-export const ReorderButton = styled.button`
-  font-size: 10px;
-  border: 1px solid #d5d5d5;
-  background-color: transparent;
-  cursor: pointer;
-`
-export const SizeBox = styled.div`
-  border-bottom: 1px solid #e5e5e5;
-`
-export const OrderBoxWrapper = styled.div`
-  border-top: 1px solid #9a9ba0;
-  padding: 22px 0px;
-  display: flex;
-  position: relative;
-
-  /* justify-content: space-around; */
-`
-export const OptionOrderBox = styled.div`
-  padding: 0 10px 0 0;
-`
-export const MinusBtn = styled.button`
-  background-color: transparent;
-  border: 0;
-  border-top: 1px solid #d4d8d9;
-  border-left: 1px solid #d4d8d9;
-  border-bottom: 1px solid #d4d8d9;
-  cursor: pointer;
-`
-export const PlusBtn = styled.button`
-  background-color: transparent;
-  border: 0;
-  border-top: 1px solid #d4d8d9;
-  border-right: 1px solid #d4d8d9;
-  border-bottom: 1px solid #d4d8d9;
-  cursor: pointer;
-`
-export const CloseBtn = styled.div`
-  position: absolute;
-  top: 0;
-  right: 3px;
-  cursor: pointer;
-`
-
-export const InputNumber = styled.input`
-  ::-webkit-outer-spin-button,
-  ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-  width: 30px;
-  border: 0;
-  text-align: center;
-  border-top: 1px solid #d4d8d9;
-  border-bottom: 1px solid #d4d8d9;
-  &:focus {
-    outline: none;
-  }
-`
-export const OrderName = styled.div`
-  font-size: 12px;
-  font-weight: 400;
-`
-export const OrderColoSize = styled.div`
-  span {
-    font-size: 12px;
-    color: #909090;
-  }
-`
-export const SizeTitle = styled.div`
-  font-size: 12px;
-  padding-top: 14px;
-`
-export const SizeRecommendBtn = styled.button`
-  width: 270px;
-  font-size: 11px;
-  margin: 24px 0;
-  padding: 8px 24px;
-  background-color: transparent;
-  border: 1px solid #e8e8e8;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #dedede;
-  }
-`
-
-export const PriceTotal = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 30px 0 10px;
-`
-export const PriceTotalTitle = styled.div`
-  font-size: 15px;
-`
-export const PriceTotalNumber = styled.div`
-  font-size: 12px;
-`
-export const BuyBtnBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-`
-export const LikeBtn = styled.button`
-  border: 1px solid #c9c9c9;
-  background-color: #fff;
-  width: 48px;
-  height: 48px;
-  cursor: pointer;
-  &:hover {
-    border: 1px solid black;
-  }
-`
-export const CartBtn = styled.button`
-  border: 1px solid #c9c9c9;
-  background-color: #fff;
-  width: 39.2%;
-  height: 48px;
-  cursor: pointer;
-  &:hover {
-    border: 1px solid black;
-  }
-`
-export const BuyBtn = styled.button`
-  border: 1px solid #c9c9c9;
-  color: #fff;
-  background-color: #000;
-  width: 39.2%;
-  height: 48px;
-  cursor: pointer;
-  &:hover {
-    background-color: #fff;
-    color: #000;
-  }
-`
-export const ReviewButton = styled.button`
-  background-color: transparent;
-  cursor: pointer;
-  width: 270px;
-  height: 145px;
-  border: 1px solid #e5e5e5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-`
-
-export const ExplainButtonBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 270px;
-  margin-top: 30px;
-  border-top: 1px solid #e5e5e5;
-`
-export const SizeInfo = styled.button`
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #e5e5e5;
-  &:hover {
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
-    /* transition: all 0.3s linear; */
-  }
-`
-
-export const ShippingeInfo = styled.button`
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #e5e5e5;
-  &:hover {
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
-  }
-`
-export const CancelInfo = styled.button`
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #e5e5e5;
-  &:hover {
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
-  }
-`
