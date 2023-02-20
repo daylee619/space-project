@@ -52,13 +52,6 @@ export default function MainWeeklyBest() {
   const [currTab, setCurrTab] = useState(0)
   const [tab, setTab] = useState<number>()
 
-  // useEffect(() => {
-  //   axios.get("/data/getPopularProductForMain.json").then((res) => {
-  //     setData(res.data)
-  //     // console.log(data)
-  //   })
-  // }, [])
-
   const optionBox: string[] = []
   const size: string[] = []
   const optionTotal = []

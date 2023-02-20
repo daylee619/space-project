@@ -8,12 +8,7 @@ import { IReviewRecommend } from "./ProductListBottomRecommend.types"
 export default function ProductListRecommend() {
   const [data, setData] = useState<IReviewRecommend[]>([])
   const router = useRouter()
-  // useEffect(() => {
-  //   axios.get("/data/reviewrecommend.json").then((res) => {
-  //     setData(res.data)
-  //     console.log(data)
-  //   })
-  // }, [])
+
   useEffect(() => {
     axios
       .get(`http://${API_IP}:3000/product/recommend?offset=1`)

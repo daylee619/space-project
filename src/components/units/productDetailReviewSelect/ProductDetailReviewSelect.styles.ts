@@ -1,15 +1,11 @@
 import styled from "@emotion/styled"
 export const StarOptionContainer = styled.div`
-  /* position: relative; */
   width: 200px;
   height: 40px;
 `
 export const StarContainer = styled.div`
-  /* width: 320px; */
   height: 350px;
-  /* top: 788.336px; */
   top: 748px;
-  /* left: 33.4922px; */
   left: 110px;
   position: absolute;
   z-index: 1;
@@ -21,7 +17,6 @@ export const StarContainer = styled.div`
 `
 export const StarOptionList = styled.ul`
   position: relative;
-  /* top: 100px; */
   background-color: #ffffff;
   padding: 8px 16px;
 `
@@ -48,9 +43,7 @@ export const StarList = styled.li`
   border-bottom: 1px solid #ebeff5;
   width: 200px;
 `
-// export const StarLabel = styled.label`
-//   cursor: pointer;
-// `
+
 export const StarLabelBox = styled.div`
   cursor: pointer;
 `

@@ -35,31 +35,11 @@ export default function PauseOnHover() {
 
   const [data, setData] = useState<IMainNewProduct[]>([])
 
-  // useEffect(() => {
-  //   axios.get("/data/mainNewProduct.json").then((res) => {
-  //     setData(res.data)
-  //   })
-  // }, [])
-  // console.log(data)
-
   useEffect(() => {
     axios.get(`http://${API_IP}:3000/product/new`).then((res) => {
       setData(res.data)
     })
   }, [])
-
-  // const optionBox = []
-  // const size = []
-  // const optionTotal = []
-  // const optionFn = data?.forEach((el) =>
-  //   el.stockCheck?.map((item) => {
-  //     optionBox.push(`(${item.colorId})${item.colorName} / Size : `)
-  //     item?.opt?.forEach((element) => size.push(element.sizeName))
-  //   })
-  // )
-  // for (let i = 0; i < optionBox.length; i++) {
-  //   optionTotal.push(optionBox[i] + size[i])
-  // }
 
   return (
     <S.Container>

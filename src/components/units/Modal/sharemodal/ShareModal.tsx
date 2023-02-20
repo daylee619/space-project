@@ -1,7 +1,6 @@
 import * as S from "./ShareModal.styles"
 import { IShareModalProps } from "./ShareModal.types"
 export default function ShareModal(props: IShareModalProps) {
-  // const { isModal, setIsModal, ModalHandler } = props
   return (
     <>
       <div>

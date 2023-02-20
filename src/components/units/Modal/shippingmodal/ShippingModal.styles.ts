@@ -27,7 +27,6 @@ export const CloseButton = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  /* margin-left: 200px; */
 `
 export const CloseImg = styled.img`
   width: 10px;

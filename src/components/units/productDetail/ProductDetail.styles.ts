@@ -11,7 +11,6 @@ export const DetailWrapper = styled.div`
   justify-content: space-around;
   width: 80%;
   padding: 70px;
-  /* position: absolute; */
 `
 
 export const DetailImg = styled.div`
@@ -19,7 +18,7 @@ export const DetailImg = styled.div`
   max-width: 1005px;
   min-width: 870px;
   width: 80%;
-  /* float: left; */
+
   flex-wrap: wrap;
   margin-left: 250px;
 `
@@ -63,7 +62,6 @@ export const WashCareWrite = styled.img`
   display: flex;
   justify-content: center;
   width: 80%;
-  /* margin-right: 120px; */
 `
 
 interface IImgWrapperPropsType {
@@ -265,8 +263,6 @@ export const OrderBoxWrapper = styled.div`
   padding: 22px 0px;
   display: flex;
   position: relative;
-
-  /* justify-content: space-around; */
 `
 export const OptionOrderBox = styled.div`
   padding: 0 10px 0 0;
@@ -415,7 +411,6 @@ export const SizeInfo = styled.button`
   &:hover {
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
-    /* transition: all 0.3s linear; */
   }
 `
 

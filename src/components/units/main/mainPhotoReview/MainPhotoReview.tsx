@@ -8,11 +8,6 @@ import { IMainPhotoReview } from "./MainPhotoReview.types"
 
 export default function MainPhotoReview() {
   const [data, setData] = useState<IMainPhotoReview[]>([])
-  // useEffect(() => {
-  //   axios.get("/data/mainReviewPhoto.json").then((res) => {
-  //     setData(res.data)
-  //   })
-  // }, [])
 
   useEffect(() => {
     axios.get(`http://${API_IP}:3000/review/main`).then((res) => {
@@ -20,7 +15,6 @@ export default function MainPhotoReview() {
     })
   }, [])
 
-  // console.log(data)
   const [modalOn, setModalOn] = useState(false)
   const handleModal = () => {
     setModalOn(!modalOn)

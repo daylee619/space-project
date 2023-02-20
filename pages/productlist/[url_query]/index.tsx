@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 
 export default function ProductListPage() {
   const router = useRouter()
-  const URL = router.query.url_query
+  const URL = router.query.url_query?.toString()
   const URL_HANDLER = URL?.split("&") ?? []
   const SEARCH = URL_HANDLER[5]?.split("=") ?? ""
 

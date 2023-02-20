@@ -17,11 +17,6 @@ export default function PauseOnHover() {
   }
 
   const [data, setData] = useState<IMainSnap[]>([])
-  // useEffect(() => {
-  //   axios.get("/data/mainSnap.json").then((res) => {
-  //     setData(res.data)
-  //   })
-  // }, [])
 
   useEffect(() => {
     axios.get(`http://${API_IP}:3000/snap/main`).then((res) => {

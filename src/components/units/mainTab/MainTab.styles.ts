@@ -15,7 +15,6 @@ export const WeeklyBestProduct = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  /* margin-left: 100px; */
   animation-duration: 1s;
   transition: all 0.3s;
 `

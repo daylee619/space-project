@@ -5,7 +5,6 @@ import MainNew from "../../src/components/units/main/mainNew/MainNew"
 import MainPhotoReview from "../../src/components/units/main/mainPhotoReview/MainPhotoReview"
 import MainLookBook from "../../src/components/units/main/mainLookBook/MainLookBook"
 import MainSnap from "../../src/components/units/main/mainSnap/MainSnap"
-import MainLookBookDetailCarousel from "../../src/components/units/main/mainLookBook/mainLookBookCarousel/mainLookBookDetailCarousel/MainLookBookDetailCarousel"
 
 export default function MainPage() {
   return (
@@ -16,7 +15,6 @@ export default function MainPage() {
       <MainPhotoReview />
       <MainLookBook />
       <MainSnap />
-      <MainLookBookDetailCarousel />
     </>
   )
 }

@@ -98,11 +98,6 @@ export default function ProductList() {
   //     console.log(error)
   //   }
 
-  // const [countIndex, setCountIndex] = useState()
-  // const handleOnClick = (e, idx) => {
-  //   setCountIndex(idx)
-  // }
-
   const [wish, setWish] = useState<number[]>([])
 
   const wishHandler = async (id: number, productId: number) => {

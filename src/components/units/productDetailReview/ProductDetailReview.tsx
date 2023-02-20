@@ -11,6 +11,7 @@ import ProductDetailReviewBox from "../productDetail/productDetailReviewBox/Prod
 import ReviewStarDropdown from "../productDetailReviewSelect/ProductDetailReviewSelect"
 import { API_IP } from "../../../common/utils/ApiIp"
 import { IReviewScore, IReviewByProduct } from "./ProductDetailReview.types"
+
 export default function ReviewByProduct() {
   const [data, setData] = useState<IReviewScore>()
   const [reviewData, setReviewData] = useState<IReviewByProduct[]>([])

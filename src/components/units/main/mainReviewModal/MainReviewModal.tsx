@@ -23,7 +23,6 @@ export default function MainReviewModal(props: IMainReviewModalProps) {
   useEffect(() => {
     axios.get(`http://${API_IP}:3000/review/main/${reviewId}`).then((res) => {
       setData(res.data)
-      //   console.log(data)
     })
   }, [])
 

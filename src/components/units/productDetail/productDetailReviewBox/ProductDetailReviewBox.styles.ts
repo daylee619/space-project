@@ -58,7 +58,6 @@ export const HelpBox = styled.div`
 
 export const Helpful = styled.div`
   margin-right: 10px;
-  /* margin-right: 4px; */
   color: #707680;
   font-size: 12px;
   &:hover {

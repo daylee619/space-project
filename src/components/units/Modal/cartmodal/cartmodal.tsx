@@ -1,4 +1,4 @@
-import * as S from "../cartmodal/CartModal.styles"
+import * as S from "../cartmodal/cartmodal.styles"
 import { CloseOutlined } from "@ant-design/icons"
 import { useRouter } from "next/router"
 import { ICartModalProps } from "../cartmodal/CartModal.types"

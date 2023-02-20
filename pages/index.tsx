@@ -7,11 +7,11 @@ import MainNew from "../src/components/units/main/mainNew/MainNew"
 import MainPhotoReview from "../src/components/units/main/mainPhotoReview/MainPhotoReview"
 import MainLookBook from "../src/components/units/main/mainLookBook/MainLookBook"
 import MainSnap from "../src/components/units/main/mainSnap/MainSnap"
-import MainLookBookDetailCarousel from "../src/components/units/main/mainLookBook/mainLookBookCarousel/mainLookBookDetailCarousel/MainLookBookDetailCarousel"
+
 export default function Home() {
   return (
     <>
-      <Head></Head>
+      <Head>{}</Head>
       <>
         <CarouselFadeExample />
         <MainWeeklyBest />
@@ -19,9 +19,8 @@ export default function Home() {
         <MainPhotoReview />
         <MainLookBook />
         <MainSnap />
-        <MainLookBookDetailCarousel />
       </>
-      <Portal>{/* <MyComponent /> */}</Portal>
+      <Portal>{}</Portal>
     </>
   )
 }

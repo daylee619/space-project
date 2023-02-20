@@ -4,7 +4,7 @@ import React from "react"
 import styled from "@emotion/styled"
 import MainLookBookDetail from "./components/units/main/mainLookBook/mainLookBookCarousel/mainLookBookDetail/MainLookBookDetail"
 
-const LookBookModal = ({ onClose }) => {
+const LookBookModal = (onClose) => {
   return (
     <Background>
       <Content>

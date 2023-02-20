@@ -3,15 +3,13 @@ import { ChangeEvent, useState, useEffect } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
 import { API_IP } from "../../../common/utils/ApiIp"
-
-// 리팩토링 다시
-
+import { IFilterData } from "./ProductFilter.types"
 export default function ProductFilter() {
   const router = useRouter()
 
-  const [data, setData] = useState<number[] | string[]>([])
+  const [data, setData] = useState<IFilterData>()
   const [colorView, setColorView] = useState<boolean>(true)
-  const [itemView] = useState<boolean>(true)
+  const [itemView, setItemView] = useState<boolean>(true)
   const [searchView, setSearchView] = useState<boolean>(true)
   const [genderView, setgenderView] = useState<boolean>(true)
 
@@ -28,13 +26,8 @@ export default function ProductFilter() {
       })
     } catch (error) {
       console.log(error)
-      //   console.error(error)
     }
   }
-
-  // console.log(colorSelect)
-  // console.log(itemSelect)
-  // console.log(categorySelect)
 
   // const getCheckData = async () => {
   //   try {
@@ -123,7 +116,6 @@ export default function ProductFilter() {
     setText("")
     console.log(text)
   }
-  // onClick={() => router.push(`/productlist/${router.query.categoryId}/${}`)}
 
   useEffect(() => {
     getData()
@@ -137,6 +129,7 @@ export default function ProductFilter() {
         setColorView={setColorView}
         setgenderView={setgenderView}
         itemView={itemView}
+        setItemView={setItemView}
         searchView={searchView}
         genderView={genderView}
         onClickSearchButton={onClickSearchButton}

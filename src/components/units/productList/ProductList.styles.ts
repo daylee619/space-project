@@ -41,7 +41,6 @@ export const MenuCategoryList = styled.li`
 `
 
 export const ItemNumber = styled.div`
-  /* width: 50%; */
   font-size: 12px;
   color: #707070;
   border-left: 1px solid #e5e5e5;

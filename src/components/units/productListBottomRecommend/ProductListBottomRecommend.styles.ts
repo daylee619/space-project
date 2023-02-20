@@ -2,7 +2,6 @@ import styled from "@emotion/styled"
 export const ReviewRecommendContainer = styled.div`
   width: 100%;
   padding: 100px 0;
-  /* margin-left: 100px; */
 `
 export const RecommendReviewTitleWrapper = styled.div`
   text-align: center;
@@ -12,10 +11,6 @@ export const RecommendReviewTitle = styled.div`
   font-size: 32px;
   margin-bottom: 30px;
   font-weight: bold;
-
-  /* text-align: center; */
-  /* width: 100vw;
-  display: table-cell; */
 `
 export const RecommendItemWrapper = styled.div`
   display: flex;
@@ -24,7 +19,6 @@ export const RecommendItemWrapper = styled.div`
   line-height: 1.3;
 `
 export const RecommendItem = styled.div`
-  /* margin: 0 10px; */
   margin-right: 16px;
   cursor: pointer;
 `
@@ -56,14 +50,11 @@ export const Star = styled.div`
   top: 10px;
 `
 export const RecommendItemName = styled.div`
-  /* white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; */
   font-size: 13px;
   font-weight: normal;
   color: #0d0d0d;
   line-height: 1.3;
-  /* letter-spacing: -0.5px; */
+
   margin-top: 12px;
   margin-bottom: 5px;
 `

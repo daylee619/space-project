@@ -12,12 +12,6 @@ import { IMainLookBook } from "./MainLookBookCarousel.types"
 export default function FocusOnSelect() {
   const [data, setData] = useState<IMainLookBook[]>([])
 
-  // useEffect(() => {
-  //   axios.get("/data/mainLookbook.json").then((res) => {
-  //     setData(res.data)
-  //   })
-  // }, [])
-  // console.log(data)
   useEffect(() => {
     axios.get("http://172.16.101.103:3000/lookbook/main").then((res) => {
       setData(res.data)

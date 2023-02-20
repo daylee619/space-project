@@ -34,7 +34,7 @@ export default function MainLookBookDetailCarousel(
   )
 }
 
-const contentStyle = {
+export const contentStyle = {
   width: "50%",
   height: "500px",
   color: "#fff",

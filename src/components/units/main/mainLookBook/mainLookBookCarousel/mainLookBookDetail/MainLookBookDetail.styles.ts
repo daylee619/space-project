@@ -5,7 +5,7 @@ export const MainLookBookDetailWrapper = styled.div`
 `
 export const DetailWrapper = styled.div`
   float: right;
-  /* padding: 70px 0 0 5%; */
+
   margin: 23px;
   width: 45%;
   text-align: left;
