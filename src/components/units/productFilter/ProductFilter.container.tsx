@@ -15,9 +15,9 @@ export default function ProductFilter() {
   const [searchView, setSearchView] = useState<boolean>(true)
   const [genderView, setgenderView] = useState<boolean>(true)
 
-  const [colorSelect, setColorSelect] = useState([])
-  const [itemSelect, setItemSelect] = useState([])
-  const [categorySelect, setCategorySelect] = useState([])
+  const [colorSelect, setColorSelect] = useState<number[]>([])
+  const [itemSelect, setItemSelect] = useState<number[]>([])
+  const [categorySelect, setCategorySelect] = useState<number[]>([])
 
   const [text, setText] = useState("")
 
@@ -68,18 +68,18 @@ export default function ProductFilter() {
   const SEARCH = URL_HANDLER[5]?.split("=") ?? ""
 
   // 색깔 버튼 선택
-  const colorSelecteHandler = (e) => {
-    if (!colorSelect.includes(e.target.value)) {
-      const ddd = colorSelect.concat(e.target.value)
+  const colorSelecteHandler = (colorId: number) => {
+    if (!colorSelect.includes(colorId)) {
+      const ddd = colorSelect.concat(colorId)
       setColorSelect(ddd)
       router.push(
         `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${ddd}&item=${ITEM[1]}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`
       )
     }
 
-    if (colorSelect.includes(e.target.value)) {
+    if (colorSelect.includes(colorId)) {
       const aaa = colorSelect
-      const bbb = aaa.filter((el) => e.target.value !== el)
+      const bbb = aaa.filter((el) => colorId !== el)
       setColorSelect(bbb)
       router.push(
         `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${bbb}&item=${ITEM[1]}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`
@@ -87,16 +87,16 @@ export default function ProductFilter() {
     }
   }
   // 아이템 버튼 선택
-  const itemSelecteHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!itemSelect.includes(e.target.value)) {
-      const eee = itemSelect.concat(e.target.value)
+  const itemSelecteHandler = (itemId: number) => {
+    if (!itemSelect.includes(itemId)) {
+      const eee = itemSelect.concat(itemId)
       setItemSelect(eee)
       router.push(
         `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${eee}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`
       )
     }
-    if (itemSelect.includes(e.target.value)) {
-      const fff = itemSelect.filter((el) => e.target.value !== el)
+    if (itemSelect.includes(itemId)) {
+      const fff = itemSelect.filter((el) => itemId !== el)
       setItemSelect(fff)
       router.push(
         `/productlist/mainCategory=${MAIN_CATEGORY[1]}&color=${COLOR[1]}&item=${fff}&sort=${SORT[1]}&subCategory=${SUB[1]}&name=${SEARCH[1]}`
@@ -105,12 +105,12 @@ export default function ProductFilter() {
   }
 
   // 버튼 선택
-  const categorySelecteHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!categorySelect.includes(e.target.value)) {
-      setCategorySelect(categorySelect.concat(e.target.value))
+  const categorySelecteHandler = (genderId: number) => {
+    if (!categorySelect.includes(genderId)) {
+      setCategorySelect(categorySelect.concat(genderId))
     }
-    if (categorySelect.includes(e.target.value)) {
-      setCategorySelect(categorySelect.filter((el) => e.target.value !== el))
+    if (categorySelect.includes(genderId)) {
+      setCategorySelect(categorySelect.filter((el) => genderId !== el))
     }
   }
 
