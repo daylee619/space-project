@@ -109,78 +109,84 @@
 </br>
 </br>
 
-# 내가 구현한 기능 (상세)
+# 내가 구현한 기능 
 
-## [ Sign-In ]
+## [ Main page ]
 
 </br>
 
-### > Normal Login
+### > Carousel
 
-- 일반 로그인 폼 구현 및 회원가입 기능 구현
+- bootstrap, react-slick library 사용하여 carousel 기능 구현
 
-### > Kakao Login
+### > Like
 
-- Kakao API 를 통해 리다이렉트 코드를 받아와 카카오 토큰을 받고, 백엔드 와의 통
-  신을 통해서 카카오 토큰을 전달해 주고 구현한 플랫폼의 토큰을 받아오도록 Kakao
-  Login 구현
+- post, delete로 백앤드에 likeid를 보내 통신.
+- heart image 색상이 click에 따라 변화하도록 함.
 
-### > Google Login
+### > Portal
 
-- Google Auth API 를 통해 구글 토큰을 받고 받아온 토큰을 백엔드 개발자에게 전달
-  후 플랫폼 토큰을 받아오도록 Google Login 구현
+- background css가 영향받지 않도록 detail 창을 portal로 구현. 
 
 </br>
 </br>
 
-## [ Sign-Up ]
+## [ Product List page]
 
-- 소셜 로그인의 경우 처음 로그인을 하였을때 자동적으로 회원가입이 되도록 구성 되
-  어있으며, 일반적인 로그인시에는 회원가입을 통해서 가입하도록 회원가입 폼을 구
-  현 하였으며, 프로필 이미지 등록이 가능하도록 구성 및 구현
+</br>
+
+### > Filter
+
+- color, item, gender select에 따라 product list에 보여지는 item들이 변화하도록 구현.
+- router.push 사용
+  
+### > Category Ordering
+
+- 신상품, 상품명, 낮은가격, 높은가격, 인기상품, 좋아요 수, 사용후기 에 따라 product list에 보여지는 item들이 변화하도록 구현.
+- router.push 사용
+
+### > Pagination
+
+- page에 따른 item 변화 기능 구현.
+
+### > Like
+
+- post를 사용하여 productid를 백앤드에 보내 통신.
+- click에 따른 heart 색상 변화
 
 </br>
 </br>
 
-## [ Mypage ]
+## [ Product Detail page ]
 
 </br>
 
-- 사용자가 구매한 상품들의 현재 상태들을 볼수 있으며, 사용자의 회원가입시 작성하
-  였던 정보 수정을 할 수 있고, 상품의 좋아요 버튼 클릭시 위시리스트로 등록 되는
-  페이지들이 모여있는 페이지 구현
+- 상품더보기/접기 button 구현하여 상품 관심 유무에 맞게 고객에게 편리함을 제공.
+- color, size button select 에 따라 금액이 변화하고 장바구니에 추가되는 기능 구현.
 
-- Mypage에서의 현재 상태는 URL을 통해서 볼 수 있도록 하였으며, 변경된 URL 의 값
-  에 따라서 각각의 알맞는 값이 쿼리스트링으로 전달되어 받아오는 데이터가 변경되
-  도록 구현하였으며, 위시리스트의 상품은 사용자가 사이즈와 컬러 등을 선택하지 않
-  고 장바구니 및 구매하기 버튼 클릭시 상세 부품들을 선택 할 수 있도록 구현
+### > Like
 
-</br>
-</br>
+- heart button을 클릭하면 wishlist에 추가되도록 함.
 
-## [Cart]
+### > Modal
 
-</br>
+- 상세 정보는 modal창으로 구현하여 깔끔한 UI를 만드려고함.
 
-- Cart 부분 사용자가 장바구니에 등록한 상품들이 생성되도록 Rest API로 데이터를받
-  아 화면에 받아오며, 선택한 상품 또는 전체 상품 구매버튼 을 통해서 구매하기
-  (order) 페이지로 이동되는 모션 구현
+### > REVIEW 
+- checkbox를 이용하여 별점순 filtering 기능구현.
+- dropdown 사용
+
 
 </br>
 </br>
 
-## [Order]
+## [Event page]
 
 </br>
 
-- Order 페이지로 넘어온 상품에 대해서 포인트로 구매할 수 있도록 구현
+- List와 Detail page로 구성됨.
+- router 사용.
 
 </br>
 </br>
 
-## [LaunchingCalendar]
-
-</br>
-
-- List 와 Detail로 구성된 런칭켈린더 페이지 이며, Detail페이지에는 댓글창과 런칭
-  켈린더에 대한 디테일 요소들을 구현
