@@ -2,19 +2,19 @@
 
 import React from "react"
 import styled from "@emotion/styled"
-import MainLookBookDetail from "./components/units/main/mainLookBook/mainLookBookCarousel/mainLookBookDetail/MainLookBookDetail"
+import MainReviewModal from "./mainReviewModal/MainReviewModal"
 
-const LookBookModal = (onClose) => {
+const ReviewModal = (onClose: any) => {
   return (
     <Background>
       <Content>
-        <MainLookBookDetail onClose={onClose} />
+        <MainReviewModal onClose={onClose} />
       </Content>
     </Background>
   )
 }
 
-export default LookBookModal
+export default ReviewModal
 
 const Background = styled.div`
   height: 100%;
@@ -25,15 +25,12 @@ const Background = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  text-align: center;
-  background-color: gray;
 `
 
 const Content = styled.div`
-  height: 100%;
-  width: 950px;
-  margin-top: 70px;
+  width: 90%;
+  margin-top: 30px;
   position: relative;
   overflow: scroll;
-  background: white;
+  background: gray;
 `

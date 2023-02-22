@@ -1,10 +1,7 @@
-import { useRouter } from 'next/router'
 import * as S from "./ProductFilter.styles"
-import { IProductFilterProps } from "./ProductFilter.types"
+import { IProductFilter } from "./ProductFilter.types"
 
-export default function ProductFilterUI(props: IProductFilterProps) {
-  const router = useRouter()
-
+export default function ProductFilterUI(props: IProductFilter) {
   return (
     <>
       <S.FilterWrapper>
@@ -23,7 +20,7 @@ export default function ProductFilterUI(props: IProductFilterProps) {
           </S.ColorTitle>
           <S.Color>
             {props.colorView &&
-              props.data.color?.map((el: any) => (
+              props.data?.color?.map((el: any) => (
                 <S.ColorButtonWrapper
                   cssColor={el.name}
                   key={el.id}
@@ -31,7 +28,9 @@ export default function ProductFilterUI(props: IProductFilterProps) {
                 >
                   <button
                     value={el.id}
-                    onClick={props.colorSelecteHandler}
+                    onClick={() => {
+                      props.colorSelecteHandler(el.id)
+                    }}
                   ></button>
                 </S.ColorButtonWrapper>
               ))}
@@ -52,10 +51,12 @@ export default function ProductFilterUI(props: IProductFilterProps) {
           </S.ItemTitle>
           <S.Item>
             {props.itemView &&
-              props.data.item?.map((el: any) => (
+              props.data?.item?.map((el: any) => (
                 <S.ItemButtonWrapper key={el.id}>
                   <button
-                    onClick={props.itemSelecteHandler}
+                    onClick={() => {
+                      props.itemSelecteHandler(el.id)
+                    }}
                     value={el.id}
                   >
                     {el.name}
@@ -87,7 +88,7 @@ export default function ProductFilterUI(props: IProductFilterProps) {
             )}
           </div>
         </S.SearchWrapper>
-        {props.data.gender && (
+        {props.data?.gender && (
           <S.GenderWrapper>
             <S.GenderTitle
               onClick={() => {
@@ -105,7 +106,9 @@ export default function ProductFilterUI(props: IProductFilterProps) {
                 props.data.gender?.map((el: any) => (
                   <S.GenderButtonWrapper key={el.id}>
                     <button
-                      onClick={props.categorySelecteHandler}
+                      onClick={() => {
+                        props.categorySelecteHandler(el.id)
+                      }}
                       value={el.id}
                     >
                       {el.name}
