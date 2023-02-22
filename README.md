@@ -29,11 +29,6 @@
 - [ERD](https://dbdiagram.io/d/639a8daa99cb1f3b55a17f34)
 - [Jira](https://spa-project.atlassian.net/jira/software/projects/SPAC/boards/1)
 
-## 프로젝트 선정 이유
-
-- 다양한 레이아웃과 여러가지 기능을 구현하면서 학습하기에 적합한 사이트라고 생각
-  되어 선정하게 되었습니다. 바꿔야함
-
 </br>
 
 ---
